@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package message;
+
+// 消息节点基础结构
+message MsgNode
+{
+    // 消息元数据
+    MessageMeta meta = 1;
+
+    // 消息内容 (根据类型不同可以是文本、图片等)
+    oneof content {
+        string text = 2;
+        bytes image = 3;
+        bytes audio = 4;
+        bytes video = 5;
+        bytes file = 6;
+        string rich = 7;
+        uint32 command = 8;
+    }
+}
+
+// 消息元数据
+message MessageMeta {
+    string message_id = 1;        // 消息唯一ID
+    string conversation_id = 2;    // 会话ID
+    string sender_id = 3;          // 发送者ID
+    int64 timestamp = 4;           // 消息时间戳(毫秒)
+    MessageType type = 5;          // 消息类型
+    int32 sequence = 6;            // 消息序列号
+    string client_id = 7;          // 客户端生成ID (用于去重)
+}
+
+// 消息类型枚举
+enum MessageType {
+    UNKNOWN = 0;
+    TEXT = 1;
+    IMAGE = 2;
+    AUDIO = 3;
+    VIDEO = 4;
+    FILE = 5;
+    RICH = 6;
+    COMMAND = 7;
+}
