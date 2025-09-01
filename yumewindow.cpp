@@ -1,5 +1,7 @@
 #include "yumewindow.h"
 
+#include <QStackedWidget>
+
 #include "ui/Widgets/toolwidget.h"
 
 YumeWindow::YumeWindow(QWidget *parent)
@@ -35,9 +37,24 @@ YumeWindow::YumeWindow(QWidget *parent)
     _titlebar->setIconEffect(1.0,0.2,Qt::black);
     _titlebar->setFixedHeight(40);
 
-    _toolwidget=new ToolWidget(central_widget);
-    _mainlayout->addWidget(_toolwidget);
+    _h_layout=new QHBoxLayout;
+    _h_layout->setAlignment(Qt::AlignLeft);
+    _mainlayout->addLayout(_h_layout);
 
+    _toolwidget=new ToolWidget(central_widget);
+    _h_layout->addWidget(_toolwidget);
+
+    _list=new MessageList(this);
+
+    stacked_widget.addWidget(_list);
+
+
+
+    _h_layout->addWidget(&stacked_widget);
+    stacked_widget.setCurrentIndex(0);
+
+    connect(_toolwidget->message(),&QAbstractButton::clicked,this,&YumeWindow::SlotMessage,Qt::QueuedConnection);
+    connect(_toolwidget->friends(),&QAbstractButton::clicked,this,&YumeWindow::SlotFriends,Qt::QueuedConnection);
     connect(_titlebar->_x,&YumeLabel::clicked,this,&YumeWindow::SlotClose);
 }
 
@@ -49,4 +66,15 @@ YumeWindow::~YumeWindow()
 void YumeWindow::SlotClose()
 {
     this->close();
+}
+
+void YumeWindow::SlotMessage()
+{
+    stacked_widget.show();
+    stacked_widget.setCurrentIndex(0);
+}
+
+void YumeWindow::SlotFriends()
+{
+    stacked_widget.hide();
 }

@@ -4,6 +4,7 @@
 
 #ifndef YUMEBUTTON_H
 #define YUMEBUTTON_H
+#include <qabstractbutton.h>
 #include <QGraphicsColorizeEffect>
 #include <QLabel>
 
@@ -15,7 +16,7 @@
 
 #include "YumeLabel.h"
 
-class YumeButton:public QWidget
+class YumeButton:public QAbstractButton
 {
 public:
     [[nodiscard]] QHBoxLayout * main_layout() const
@@ -86,22 +87,22 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
-
-
-private:
-    QHBoxLayout* _main_layout=nullptr;
-    YumeLabel* _label=nullptr;
-    QGraphicsColorizeEffect *effect;
     QColor hoverColor=QColor::fromString("#008DEB");
     QColor normalColor=QColor::fromString("#0099FF");
     QString _is_selected_icon;
     QString _no_selected_icon;
     float effect_rate=0.0;
     bool isHovered=false;
-
     bool isSelected=false;
-    signals:
-    void clicked();
+private:
+    QHBoxLayout* _main_layout=nullptr;
+    YumeLabel* _label=nullptr;
+    QGraphicsColorizeEffect *effect;
+
+
+
+private:
+
 };
 
 

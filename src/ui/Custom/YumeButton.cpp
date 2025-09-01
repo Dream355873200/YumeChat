@@ -5,16 +5,19 @@
 #include "YumeButton.h"
 
 YumeButton::YumeButton(QWidget *parent)
-    : QWidget(parent), _label(new YumeLabel(this))
+    : QAbstractButton(parent), _label(new YumeLabel(this))
 {
+
+    setCheckable(true); // 让按钮可以被选中
+
     //避免事件过滤器冲突
     _label->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     _main_layout = new QHBoxLayout(this);
     _main_layout->setAlignment(Qt::AlignCenter);
-    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     this->setFixedHeight(35);
-    this->setFixedWidth(200);
+
     _main_layout->setContentsMargins(0, 0, 0, 0);
 
     QPalette pale;
@@ -69,6 +72,7 @@ void YumeButton::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
+
     painter.setPen(Qt::NoPen);
     if (isHovered)
     {
@@ -77,46 +81,36 @@ void YumeButton::paintEvent(QPaintEvent *event)
     {
         painter.setBrush(normalColor);
     }
-    painter.drawRoundedRect(this->rect(), 10, 10);
+
+    painter.drawRoundedRect(this->rect(), 8, 8);
 }
 
-bool YumeButton::eventFilter(QObject *watched, QEvent *event)
-{
-    if (watched == this)
-    {
-        if (event->type() == QEvent::Enter)
-        {
+bool YumeButton::eventFilter(QObject *watched, QEvent *event) {
+    if (watched == this) {
+        if (event->type() == QEvent::Enter) {
             isHovered = true;
-            this->update();
-            return true;
+            update();
+            return true; // 悬停事件可拦截
         }
-        if (event->type() == QEvent::Leave)
-        {
+        if (event->type() == QEvent::Leave) {
             isHovered = false;
-            this->update();
-            return true;
+            update();
+            return true; // 悬停事件可拦截
         }
-        if (event->type() == QEvent::MouseButtonPress)
-        {
-            // 转换为鼠标事件并检查左键
-            QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-            if (mouseEvent->button() == Qt::LeftButton)
-            {
+        if (event->type() == QEvent::MouseButtonPress) {
+            QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+            if (mouseEvent->button() == Qt::LeftButton) {
                 effect->setStrength(effect_rate);
-                this->update();
-                return true; // 左键已处理
+                update();
+                return false; // 关键：允许事件继续传递
             }
         }
-        if (event->type() == QEvent::MouseButtonRelease)
-        {
-            // 转换为鼠标事件并检查左键
-            emit clicked();
-            QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-            if (mouseEvent->button() == Qt::LeftButton)
-            {
+        if (event->type() == QEvent::MouseButtonRelease) {
+            QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+            if (mouseEvent->button() == Qt::LeftButton) {
                 effect->setStrength(0.0);
-                this->update();
-                return true; // 左键已处理
+                update();
+                return false; // 关键：允许事件继续传递
             }
         }
     }

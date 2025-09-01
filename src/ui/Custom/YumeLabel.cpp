@@ -39,6 +39,11 @@ void YumeLabel::set_icon(const QString& path)
     this->setPixmap(setPixmapDpi(this->size(),_icon));
 }
 
+void YumeLabel::set_font_color(const QColor &color)
+{
+    this->setStyleSheet(QString("color: %1;").arg(color.name()));
+}
+
 
 bool YumeLabel::eventFilter(QObject *watched, QEvent *event)
 {

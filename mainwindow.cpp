@@ -3,12 +3,11 @@
 #include <QVBoxLayout>
 
 
-#include "./ui_mainwindow.h"
+
 #include "ui/Custom/YumeTitleBar.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : FramelessMainWindow(parent)
-    , ui(new Ui::MainWindow)
 {
 
 

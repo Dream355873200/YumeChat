@@ -5,7 +5,7 @@
 // You may need to build the project (run Qt uic code generator) to get "ui_RegisterDialog.h" resolved
 
 #include "registerdialog.h"
-#include "ui_RegisterDialog.h"
+#include "yume_ui_reg.h"
 
 
 RegisterDialog::RegisterDialog(QWidget *parent) : QDialog(parent), ui(new Ui::RegisterDialog)

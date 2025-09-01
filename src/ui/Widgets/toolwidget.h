@@ -15,6 +15,18 @@
 
 class ToolWidget : public QWidget
 {
+public:
+    [[nodiscard]] YumeButton * message() const
+    {
+        return _message;
+    }
+
+    [[nodiscard]] YumeButton * friends() const
+    {
+        return _friends;
+    }
+
+private:
     Q_OBJECT
 
 public:
@@ -23,8 +35,7 @@ public:
     ~ToolWidget() override;
 
     void update_icon_status();
-
-    void on_label_clicked(YumeButton *on_clicked_button);
+    void on_button_clicked(YumeButton *on_clicked_button);
 
 protected:
     void paintEvent(QPaintEvent *event) override

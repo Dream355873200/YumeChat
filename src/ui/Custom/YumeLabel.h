@@ -21,6 +21,7 @@ public:
     void set_text(const QString& text);
     void set_font_size(int size);
     void set_icon(const QString& path);
+    void set_font_color(const QColor& color);
 
 protected:
 

@@ -6,8 +6,11 @@
 #define YUMEWINDOW_H
 
 
+#include <QStackedWidget>
+
 #include "framelessmainwindow.h"
 #include "ui/Custom/YumeTitleBar.h"
+#include "ui/Widgets/messagelist.h"
 #include "ui/Widgets/toolwidget.h"
 
 
@@ -39,10 +42,15 @@ protected:
 private:
     YumeTitleBar *_titlebar=nullptr;
     QVBoxLayout *_mainlayout=nullptr;
+    QHBoxLayout* _h_layout=nullptr;
     ToolWidget *_toolwidget=nullptr;
+    MessageList* _list;
+    QStackedWidget stacked_widget;
 
 private slots:
     void SlotClose();
+    void SlotMessage();
+    void SlotFriends();
 };
 
 

@@ -36,12 +36,12 @@ ToolWidget::ToolWidget(QWidget *parent) : QWidget(parent)
     update_icon_status();
     connect(_message,&YumeButton::clicked,[this]()
     {
-        on_label_clicked(_message);
+        on_button_clicked(_message);
         update_icon_status();
     });
     connect(_friends,&YumeButton::clicked,[this]()
     {
-        on_label_clicked(_friends);
+        on_button_clicked(_friends);
         update_icon_status();
     });
     _main_layout->addWidget(_message);
@@ -69,7 +69,7 @@ void ToolWidget::update_icon_status()
     }
 }
 
-void ToolWidget::on_label_clicked(YumeButton *on_clicked_button)
+void ToolWidget::on_button_clicked(YumeButton *on_clicked_button)
 {
     for(YumeButton* button:_buttons)
     {

@@ -55,8 +55,8 @@ qt_add_resources(YumeChat_RESOURCES
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp mainwindow.h
-        src/ui/login/login_dialog.cpp src/ui/login/login_dialog.h src/ui/login/login_dialog.ui
-        src/ui/Register/registerdialog.cpp src/ui/Register/registerdialog.h src/ui/Register/registerdialog.ui
+        src/ui/login/login_dialog.cpp src/ui/login/login_dialog.h
+        src/ui/Register/registerdialog.cpp src/ui/Register/registerdialog.h
         temple/Singleton/Singleton.cpp temple/Singleton/Singleton.h
         src/logic/HttpMgr/HttpMgr.cpp src/logic/HttpMgr/HttpMgr.h
         src/logic/Global/global.h
@@ -88,6 +88,15 @@ set(PROJECT_SOURCES
         src/ui/Widgets/messagewidget.cpp
         src/ui/Widgets/messagelist.cpp
         src/ui/Widgets/messagelist.h
+        src/ui/Custom/SmoothListWidget.cpp
+        src/ui/Custom/SmoothListWidget.h
+        src/ui/Custom/SmoothScrollBar.cpp
+        src/ui/Custom/SmoothScrollBar.h
+        src/ui/Register/yume_ui_reg.h
+        src/ui/Register/yume_ui_reg.h
+        src/ui/Custom/CircleAvatar.cpp
+        src/ui/Custom/CircleAvatar.h
+        src/ui/Custom/CircleAvatar.h
 )
 # 创建目标（确保包含资源）
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
