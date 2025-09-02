@@ -4,18 +4,26 @@
 
 #include "CircleAvatar.h"
 
+#include <QWindow>
 
 
 CircleAvatar::CircleAvatar(QWidget *parent)
 : QLabel(parent)
 {
+    setAttribute(Qt::WA_TranslucentBackground);
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
     setFixedSize(40, 40);
 }
 
 void CircleAvatar::set_icon(const QString &path)
 {
     _avatar.load(path);
-    this->setPixmap(setPixmapDpi(this->size(),_avatar));
+    if (!_avatar.isNull())
+    {
+        _avatar = setPixmapDpi(size(),_avatar);
+    }
+
 }
 
 

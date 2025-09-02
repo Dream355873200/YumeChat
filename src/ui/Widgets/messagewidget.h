@@ -51,7 +51,6 @@ protected:
 
         if (_message_num->text() != lastText) {
             lastText = _message_num->text();
-
             // 计算文本尺寸和位置（仅在文本变化时执行）
             QFontMetrics fm(_message_num->font());
             QSize textSize = fm.size(Qt::TextSingleLine, lastText);

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>Resource/ico/yume.jpg</file>
         <file>Resource/font/Lato-Bold.ttf</file>
         <file>Resource/font/PICOSC Harmony Manrope-VF.ttf</file>
         <file>Resource/ico/IconamoonClose.png</file>

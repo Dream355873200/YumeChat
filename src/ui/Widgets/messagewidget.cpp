@@ -49,7 +49,7 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
         main_layout()->replaceWidget(oldWidget, _avatar);
         oldWidget->deleteLater(); // 删除旧widget
     }
-    _avatar->set_icon(":/Resource/ico/MajesticonsLock.png");
+    _avatar->set_icon(":Resource/ico/yume.jpg");
 
     _v_layout1->setAlignment(Qt::AlignLeft);
     _v_layout2->setAlignment(Qt::AlignRight);

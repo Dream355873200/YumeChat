@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     : FramelessMainWindow(parent)
 {
 
-
+    Global_ScaleDpi=window()->windowHandle()->devicePixelRatio();
 
 
     setMenuBar(nullptr);

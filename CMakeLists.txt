@@ -97,6 +97,8 @@ set(PROJECT_SOURCES
         src/ui/Custom/CircleAvatar.cpp
         src/ui/Custom/CircleAvatar.h
         src/ui/Custom/CircleAvatar.h
+        src/ui/Custom/YumeBubble.cpp
+        src/ui/Custom/YumeBubble.h
 )
 # 创建目标（确保包含资源）
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
