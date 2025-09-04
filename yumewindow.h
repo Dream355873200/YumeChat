@@ -10,9 +10,12 @@
 
 #include "framelessmainwindow.h"
 #include "ui/Custom/YumeTitleBar.h"
+#include "ui/Widgets/ChatArea.h"
 #include "ui/Widgets/messagelist.h"
 #include "ui/Widgets/toolwidget.h"
 
+
+class MessagePage;
 
 class YumeWindow : public FramelessMainWindow
 {
@@ -44,9 +47,9 @@ private:
     QVBoxLayout *_mainlayout=nullptr;
     QHBoxLayout* _h_layout=nullptr;
     ToolWidget *_toolwidget=nullptr;
-    MessageList* _list;
-    QStackedWidget stacked_widget;
-
+    QStackedWidget* stacked_widget;
+    ChatArea* _chat_area;
+    MessagePage* _message_page;
 private slots:
     void SlotClose();
     void SlotMessage();

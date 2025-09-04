@@ -2,6 +2,7 @@
 
 #include <QStackedWidget>
 
+#include "ui/Widgets/MessagePage.h"
 #include "ui/Widgets/toolwidget.h"
 
 YumeWindow::YumeWindow(QWidget *parent)
@@ -38,20 +39,30 @@ YumeWindow::YumeWindow(QWidget *parent)
     _titlebar->setFixedHeight(40);
 
     _h_layout=new QHBoxLayout;
+    _h_layout->setContentsMargins(0,0,0,0);
     _h_layout->setAlignment(Qt::AlignLeft);
     _mainlayout->addLayout(_h_layout);
 
     _toolwidget=new ToolWidget(central_widget);
     _h_layout->addWidget(_toolwidget);
 
-    _list=new MessageList(this);
-
-    stacked_widget.addWidget(_list);
+    _chat_area=new ChatArea(this);
 
 
 
-    _h_layout->addWidget(&stacked_widget);
-    stacked_widget.setCurrentIndex(0);
+
+    _message_page=new MessagePage(this);
+    stacked_widget=new QStackedWidget(this);
+    stacked_widget->addWidget(_message_page);
+    stacked_widget->setContentsMargins(0,0,0,0);
+
+
+
+
+
+
+    _h_layout->addWidget(stacked_widget);
+    stacked_widget->setCurrentIndex(0);
 
     connect(_toolwidget->message(),&QAbstractButton::clicked,this,&YumeWindow::SlotMessage,Qt::QueuedConnection);
     connect(_toolwidget->friends(),&QAbstractButton::clicked,this,&YumeWindow::SlotFriends,Qt::QueuedConnection);
@@ -60,7 +71,7 @@ YumeWindow::YumeWindow(QWidget *parent)
 
 YumeWindow::~YumeWindow()
 {
-    // 清理资源
+
 }
 
 void YumeWindow::SlotClose()
@@ -70,11 +81,11 @@ void YumeWindow::SlotClose()
 
 void YumeWindow::SlotMessage()
 {
-    stacked_widget.show();
-    stacked_widget.setCurrentIndex(0);
+    stacked_widget->show();
+    stacked_widget->setCurrentIndex(0);
 }
 
 void YumeWindow::SlotFriends()
 {
-    stacked_widget.hide();
+    stacked_widget->hide();
 }

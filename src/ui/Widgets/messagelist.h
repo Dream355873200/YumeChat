@@ -21,14 +21,20 @@ public:
     explicit MessageList(QWidget *parent = nullptr);
 
     ~MessageList() override;
+    void add_message_widget();
 protected:
+void paintEvent(QPaintEvent *event) override
+{
 
+};
 private:
     QVBoxLayout* _main_layout;
     YumeLabel* _label;
     SmoothListWidget *_list;
     QButtonGroup *buttonGroup ;
     messagewidget* _messagewidget;
+    int button_num=0;
+    int width=220;
 };
 
 

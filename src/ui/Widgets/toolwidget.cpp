@@ -9,6 +9,7 @@
 
 ToolWidget::ToolWidget(QWidget *parent) : QWidget(parent)
 {
+    this->setContentsMargins(0,0,0,0);
     _main_layout=new QVBoxLayout;
     _main_layout->setAlignment(Qt::AlignTop|Qt::AlignCenter);
     this->setLayout(_main_layout);

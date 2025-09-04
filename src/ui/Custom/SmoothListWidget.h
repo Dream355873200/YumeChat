@@ -21,6 +21,7 @@ class SmoothListWidget : public QListWidget
 public:
     SmoothListWidget(QWidget *parent = nullptr) : QListWidget(parent)
     {
+        this->setContentsMargins(0,0,0,0);
         setUniformItemSizes(true);
         setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
         //QScroller::grabGesture(this, QScroller::LeftMouseButtonGesture); // 启用惯性滚动 (这个是鼠标拖拽)
@@ -75,7 +76,7 @@ protected:
     void wheelEvent(QWheelEvent *event) override
     {
         int currentPos = verticalScrollBar()->value();
-        int step = event->angleDelta().y() / 1; // 调整除数控制步长
+        int step = event->angleDelta().y() / speed; // 调整除数控制步长
 
         // 使用动画平滑滚动
         QPropertyAnimation *animation = new QPropertyAnimation(verticalScrollBar(), "value");
@@ -87,9 +88,10 @@ protected:
 
         event->accept();
     }
-
+    float speed=0.8;
 private:
     void scrollbar_beauty();
+
 };
 
 

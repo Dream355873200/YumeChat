@@ -99,6 +99,15 @@ set(PROJECT_SOURCES
         src/ui/Custom/CircleAvatar.h
         src/ui/Custom/YumeBubble.cpp
         src/ui/Custom/YumeBubble.h
+        src/ui/Widgets/MessageItem.cpp
+        src/ui/Widgets/MessageItem.h
+        src/ui/Widgets/ChatArea.cpp
+        src/ui/Widgets/ChatArea.h
+        src/ui/Widgets/MessagePage.cpp
+        src/ui/Widgets/MessagePage.h
+        src/ui/Widgets/MessagePage.h
+        src/ui/Custom/UnScrollTextEdit.cpp
+        src/ui/Custom/UnScrollTextEdit.h
 )
 # 创建目标（确保包含资源）
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

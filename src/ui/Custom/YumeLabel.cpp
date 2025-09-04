@@ -19,7 +19,10 @@ YumeLabel::YumeLabel(QWidget *parent)
 
     this->installEventFilter(this);
 }
-
+void YumeLabel::setElideMode(Qt::TextElideMode mode) {
+    m_elideMode = mode;
+    update();  // 触发重绘
+}
 void YumeLabel::set_text(const QString &text)
 {
     this->setText(text);

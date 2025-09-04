@@ -23,26 +23,28 @@ messagewidget::messagewidget(QWidget *parent) : YumeButton(parent)
 messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&last_message,const QString& time)
     : YumeButton(parent)
 {
-
+    
     this->setNormalColor(Qt::transparent);
     this->setHoverColor(QColor::fromString("#F2F3FA"));
     this->setFixedHeight(60);
     this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-
     this->main_layout()->setAlignment(Qt::AlignLeft);
     this->main_layout()->setContentsMargins(10, 5, 10, 5);
 
     this->setText("aaa");
     _v_layout1 = new QVBoxLayout;
     _v_layout2 = new QVBoxLayout;
+    _v_layout1->setContentsMargins(5, 0, 0, 0);
+    _v_layout2->setContentsMargins(0, 0, 0, 0);
     main_layout()->addLayout(_v_layout1);
     main_layout()->addLayout(_v_layout2);
-    main_layout()->setStretch(0, 3);
-    main_layout()->setStretch(1, 6);
+    main_layout()->setStretch(0, 1);
+    main_layout()->setStretch(1, 3);
     main_layout()->setStretch(2, 1);
 
 
     _avatar=new CircleAvatar(this);
+
     if (main_layout()->count() > 0)
         {
         QWidget *oldWidget = main_layout()->itemAt(0)->widget();
@@ -73,11 +75,9 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
     _last_message->set_text(last_message);
     _name->set_font_size(15);
     _name->set_font_color(QColor::fromString("#0C0C0E"));
+    _name->setElideMode(Qt::ElideRight);
     _last_message->set_font_color(Qt::gray);
-
-
-
-
+    _last_message->setElideMode(Qt::ElideRight);
 
 
     _time->set_text(time);
@@ -101,6 +101,7 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
            if (unread_num > 0) {
                unread_num = 0;
                _message_num->set_text("");
+               _last_message->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
            }
         update();
        });

@@ -26,5 +26,10 @@ void CircleAvatar::set_icon(const QString &path)
 
 }
 
+void CircleAvatar::set_icon(const QPixmap &avatar)
+{
+    _avatar = setPixmapDpi(size(),avatar);
+}
+
 
 

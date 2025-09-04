@@ -9,12 +9,20 @@
 #include<QPainter>
 #include<QTextEdit>
 #include<QAbstractTextDocumentLayout>
+
+#include "UnScrollTextEdit.h"
+
 class YumeBubble :public QWidget
 {
     Q_OBJECT
 public:
     YumeBubble(QWidget* parent=nullptr);
     void set_text(const QString& text);
+    QSize sizeHint() const {
+        int idealWidth = _text->document()->idealWidth() + 16;  // 加上边距
+        int idealHeight = _text->document()->size().height() + 6;
+        return QSize(idealWidth, idealHeight);
+    }
 protected:
 
 
@@ -35,10 +43,10 @@ void paintEvent(QPaintEvent *event) override
 
     // 计算背景矩形（基于文本控件的位置）
     QRectF bgRect(
-        _text->pos().x()+5,          // x
-        _text->pos().y()+5,          // y
-        idealWidth + 10,           // width (+左右边距)
-        docHeight + 10             // height (+上下边距)
+        _text->pos().x()-3,          // x
+        _text->pos().y()-3 ,         // y
+        idealWidth+5  ,           // width (+左右边距)
+        docHeight +5             // height (+上下边距)
     );
 
     // 绘制圆角矩形背景
@@ -46,7 +54,7 @@ void paintEvent(QPaintEvent *event) override
 }
 private:
 
-    QTextEdit *_text;
+    UnScrollTextEdit *_text;
 };
 
 

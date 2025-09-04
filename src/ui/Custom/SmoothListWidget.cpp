@@ -17,7 +17,7 @@ void SmoothListWidget::scrollbar_beauty()
         margin: 0px 0px 0px 0px;
     }
     QScrollBar::handle:vertical {
-        background: #ADADAD;
+         background: rgba(217, 217, 217, 150);
         min-height: 150px;
         border-radius: 4px;
     }

@@ -9,7 +9,8 @@
 
 MessageList::MessageList(QWidget *parent) : QWidget(parent)
 {
-    this->setFixedWidth(220);
+    this->setFixedWidth(width);
+
     _main_layout=new QVBoxLayout;
     _main_layout->setAlignment(Qt::AlignCenter);
     this->setLayout(_main_layout);
@@ -30,25 +31,38 @@ MessageList::MessageList(QWidget *parent) : QWidget(parent)
     _main_layout->addWidget(_label);
     _main_layout->addWidget(_list);
 
+
     _messagewidget=new messagewidget(this,"Yume","你好","18:30");
+    _messagewidget->setFixedWidth(width-10);
     QListWidgetItem *item = new QListWidgetItem();
     item->setSizeHint(QSize(_messagewidget->sizeHint().width(),60) );
     _list->addItem(item);
     _list->setItemWidget(item, _messagewidget);
-    buttonGroup->addButton(_messagewidget, 0);
+    buttonGroup->addButton(_messagewidget, button_num++);
     for(int i=0;i<20;i++)
     {
-        auto test=new messagewidget(this,"Yume","你好","18:30");
+        auto test=new messagewidget(this,"Yume","你好aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawwwwwwwwwwwwwwwwwww","18:30");
+        test->setFixedWidth(width-10);
         QListWidgetItem *t_item = new QListWidgetItem();
         t_item->setSizeHint(QSize(test->sizeHint().width(),60) );
         _list->addItem(t_item);
         _list->setItemWidget(t_item, test);
-        buttonGroup->addButton(test, i+1);
+        buttonGroup->addButton(test, button_num++);
     }
 }
 
 MessageList::~MessageList()
 {
+}
+
+void MessageList::add_message_widget()
+{
+    auto test=new messagewidget(this,"Yume","你好","18:30");
+    QListWidgetItem *t_item = new QListWidgetItem();
+    t_item->setSizeHint(QSize(test->sizeHint().width(),60) );
+    _list->addItem(t_item);
+    _list->setItemWidget(t_item, test);
+    buttonGroup->addButton(test, button_num++);
 }
 
 

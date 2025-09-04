@@ -6,6 +6,7 @@
 #define YUMELABEL_H
 #include <QLabel>
 #include <QMouseEvent>
+#include <QPainter>
 #include <QWidget>
 
 
@@ -18,16 +19,29 @@ private:
 
 public:
     YumeLabel(QWidget *parent=nullptr);
+
+    void setElideMode(Qt::TextElideMode mode);
+
     void set_text(const QString& text);
     void set_font_size(int size);
     void set_icon(const QString& path);
     void set_font_color(const QColor& color);
-
 protected:
-
+    void paintEvent(QPaintEvent *event) override
+    {
+        if (m_elideMode != Qt::ElideNone) {
+            QPainter painter(this);
+            QFontMetrics metrics(font());
+            QString elidedText = metrics.elidedText(text(), m_elideMode, width());
+            painter.drawText(rect(), alignment(), elidedText);
+        } else {
+            QLabel::paintEvent(event);  // 默认绘制
+        }
+    };
 
 private:
     QPixmap _icon;
+    Qt::TextElideMode m_elideMode = Qt::ElideNone;
 protected:
 
     bool eventFilter(QObject *watched, QEvent *event) override;

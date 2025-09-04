@@ -13,6 +13,7 @@ class CircleAvatar:public QLabel
 public:
     explicit CircleAvatar(QWidget *parent = nullptr);
     void set_icon(const QString& path);
+    void set_icon(const QPixmap& avatar);
 protected:
     void paintEvent(QPaintEvent *event) override {
         Q_UNUSED(event);
@@ -37,8 +38,8 @@ protected:
         }
 
         // 可选：绘制边框
-        painter.setPen(QPen(Qt::lightGray, 1));
-        painter.drawEllipse(rect());
+       // painter.setPen(QPen(Qt::lightGray, 1));
+        //painter.drawEllipse(rect());
     }
 private:
     QPixmap _avatar;

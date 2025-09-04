@@ -9,6 +9,8 @@
 
 #include "src/ui/login/login_dialog.h"
 #include "ui/Custom/YumeBubble.h"
+#include "ui/Widgets/ChatArea.h"
+#include "ui/Widgets/MessageItem.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,9 +22,9 @@ int main(int argc, char *argv[])
     YumeWindow c;
     c.resize(1200,800);
     c.show();
+    c.setMinimumWidth(600);
 
-    YumeBubble bubble;
-    bubble.show();
-bubble.set_text("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa啊啊aaaa");
+
+
     return a.exec();
 }
