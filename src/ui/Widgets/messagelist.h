@@ -16,7 +16,7 @@
 class MessageList : public QWidget
 {
     Q_OBJECT
-
+    friend class MessagePage;
 public:
     explicit MessageList(QWidget *parent = nullptr);
 

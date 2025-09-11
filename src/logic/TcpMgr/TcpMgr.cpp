@@ -78,7 +78,7 @@ void TcpMgr::handleMsg(ReqId req_id, int len, QByteArray data)
 {
 }
 
-void TcpMgr::slot_tcp_connect(ServerInfo server_info)
+void TcpMgr::slot_tcp_connect(const ServerInfo& server_info)
 {
     /*
      * 将登录模块连接到此槽函数

@@ -108,6 +108,8 @@ set(PROJECT_SOURCES
         src/ui/Widgets/MessagePage.h
         src/ui/Custom/UnScrollTextEdit.cpp
         src/ui/Custom/UnScrollTextEdit.h
+        src/ui/Widgets/ChatInput.cpp
+        src/ui/Widgets/ChatInput.h
 )
 # 创建目标（确保包含资源）
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

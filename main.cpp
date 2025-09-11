@@ -10,6 +10,7 @@
 #include "src/ui/login/login_dialog.h"
 #include "ui/Custom/YumeBubble.h"
 #include "ui/Widgets/ChatArea.h"
+#include "ui/Widgets/ChatInput.h"
 #include "ui/Widgets/MessageItem.h"
 
 int main(int argc, char *argv[])
@@ -23,7 +24,6 @@ int main(int argc, char *argv[])
     c.resize(1200,800);
     c.show();
     c.setMinimumWidth(600);
-
 
 
     return a.exec();

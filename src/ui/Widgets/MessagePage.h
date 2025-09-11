@@ -10,6 +10,8 @@
 #include "messagelist.h"
 
 
+class ChatInput;
+
 class MessagePage:public QWidget
 {
     Q_OBJECT
@@ -19,7 +21,9 @@ public:
 private:
     MessageList* _list;
     ChatArea* _area;
+    ChatInput* _input;
     QHBoxLayout* _main_layout;
+    QVBoxLayout* _v_layout;
 };
 
 

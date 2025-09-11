@@ -50,7 +50,7 @@ void paintEvent(QPaintEvent *event) override
     );
 
     // 绘制圆角矩形背景
-    painter.drawRoundedRect(bgRect, 8, 8);
+    painter.drawRoundedRect(bgRect, 6, 6);
 }
 private:
 

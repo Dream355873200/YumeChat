@@ -16,6 +16,11 @@
 class YumeTitleBar:public QWidget
 {
 public:
+    [[nodiscard]] YumeLabel * x() const
+    {
+        return _x;
+    }
+
     [[nodiscard]] QHBoxLayout * main_layout() const
     {
         return _main_layout;

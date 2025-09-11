@@ -11,9 +11,7 @@
 YumeLabel::YumeLabel(QWidget *parent)
     :QLabel(parent)
 {
-    QPalette pale;
-    pale.setColor(QPalette::WindowText,QColor::fromString("#2d77e5"));
-    this->setPalette(pale);
+
     this->setCursor(Qt::PointingHandCursor);
     this->setScaledContents(true);
 

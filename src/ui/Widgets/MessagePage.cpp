@@ -4,18 +4,30 @@
 
 #include "MessagePage.h"
 
+#include "ChatInput.h"
+
 MessagePage::MessagePage(QWidget *parent)
     :QWidget(parent)
 {
     _main_layout=new QHBoxLayout;
     this->setLayout(_main_layout);
-
+    _main_layout->setContentsMargins(0,0,0,0);
+    _v_layout=new QVBoxLayout;
 
 
     _list=new MessageList(this);
     _area=new ChatArea(this);
+    _input=new ChatInput(this);
+
+    _v_layout->addWidget(_area,3);
+    _v_layout->addWidget(_input,1);
+    _v_layout->setSpacing(0);
+    _v_layout->setContentsMargins(0,0,0,0);
+
     _main_layout->addWidget(_list);
-    _main_layout->addWidget(_area);
+    _main_layout->addLayout(_v_layout);
+
+
     for(int i=0;i<20;i++)
     {
         auto *test=new MessageItem(this);

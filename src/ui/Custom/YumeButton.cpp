@@ -21,9 +21,8 @@ YumeButton::YumeButton(QWidget *parent)
     _main_layout->setContentsMargins(0, 0, 0, 0);
 
     QPalette pale;
-    pale.setColor(QPalette::WindowText, Qt::white);
+    pale.setColor(QPalette::WindowText, QColor(255, 255, 255));
     _label->setPalette(pale);
-
     effect = new QGraphicsColorizeEffect;
     this->setGraphicsEffect(effect);
 
@@ -35,6 +34,7 @@ YumeButton::YumeButton(QWidget *parent)
     _label->setFont(font);
 
     _main_layout->addWidget(_label, 0, Qt::AlignCenter);
+    _label->setAlignment(Qt::AlignCenter);
     this->setCursor(Qt::PointingHandCursor);
 
     this->installEventFilter(this);
@@ -82,7 +82,7 @@ void YumeButton::paintEvent(QPaintEvent *event)
         painter.setBrush(normalColor);
     }
 
-    painter.drawRoundedRect(this->rect(), 8, 8);
+    painter.drawRoundedRect(this->rect(), 6, 6);
 }
 
 bool YumeButton::eventFilter(QObject *watched, QEvent *event) {

@@ -30,7 +30,7 @@ private:
     QDataStream _stream;
     QMap<ReqId,std::function<void(ReqId req_id,int len,QByteArray data)>> _handlers;
 public slots:
-    void slot_tcp_connect(ServerInfo server_info);
+    void slot_tcp_connect(const ServerInfo& server_info);
     void slot_tcp_sendMsg(ReqId reqId, QString data);
     signals:
     void sig_con_success(bool success);

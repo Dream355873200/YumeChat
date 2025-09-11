@@ -42,7 +42,7 @@ protected:
     {
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
-        painter.setPen(QPen(QPen(QColor(128, 128, 128, 64), 1)));
+        painter.setPen(QPen(QColor(128, 128, 128, 64), 1));
         painter.drawLine(this->rect().topRight(), this->rect().bottomRight());
         // 获取需要重绘的区域
         QRegion region = event->region();
