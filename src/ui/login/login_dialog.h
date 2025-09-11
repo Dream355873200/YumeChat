@@ -4,7 +4,7 @@
 
 #ifndef LOGIN_DIALOG_H
 #define LOGIN_DIALOG_H
-
+#include"logic/Global/global.h"
 #include <QDialog>
 #include <QPainter>
 
@@ -30,7 +30,7 @@ public slots:
     void  slot_login_mod_finish(ReqId req_id,const QByteArray& res,ErrorCodes error_codes);
 signals:
    void SwitchReg();
-
+    void login_succeess();
 };
 
 

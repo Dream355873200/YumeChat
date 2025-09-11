@@ -53,5 +53,6 @@ enum LineEditMode
     VerifyCode,
 };
 extern qreal Global_ScaleDpi;
+extern QString Global_id;
 QPixmap setPixmapDpi(const QSize& size, const QPixmap& pixmap);
 #endif //GLOBAL_H

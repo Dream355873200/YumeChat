@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include <windows.h>
 
 #include "yumewindow.h"
 #include "ui/Custom/YumeButton.h"
@@ -21,9 +22,8 @@ int main(int argc, char *argv[])
     w.show();
 
     YumeWindow c;
-    c.resize(1200,800);
-    c.show();
-    c.setMinimumWidth(600);
+
+    QObject::connect(&w,&MainWindow::open_yumewindow,&c,&YumeWindow::SlotOpen);
 
 
     return a.exec();

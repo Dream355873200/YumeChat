@@ -8,6 +8,7 @@
 #include "src/ui/Register/registerdialog.h"
 #include <QStackedWidget>
 #include"framelessmainwindow.h"
+#include "yumewindow.h"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -44,9 +45,13 @@ private:
     LoginDialog *login_dialog;
     RegisterDialog *reg_dialog;
     QStackedWidget *stack_widget;
+    YumeWindow *_yume_window;
 public slots:
     void SlotSwitchReg();
     void SlotSwitchLogin();
     void SlotClose();
+    void SlotToYumeWindow();
+    signals:
+void open_yumewindow();
 };
 #endif // MAINWINDOW_H

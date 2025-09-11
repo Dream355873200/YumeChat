@@ -45,17 +45,16 @@ MainWindow::MainWindow(QWidget *parent)
     connect(login_dialog, &LoginDialog::SwitchReg, this, &MainWindow::SlotSwitchReg, Qt::QueuedConnection);
     connect(reg_dialog, &RegisterDialog::SwitchLogin, this, &MainWindow::SlotSwitchLogin, Qt::QueuedConnection);
     connect(title_bar->_x,&YumeLabel::clicked,this,&MainWindow::SlotClose);
+    connect(login_dialog,&LoginDialog::login_succeess,this,&MainWindow::SlotToYumeWindow,Qt::QueuedConnection);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 void MainWindow::SlotSwitchReg()
 {
     stack_widget->setCurrentIndex(1);
-
 }
 
 void MainWindow::SlotSwitchLogin()
@@ -66,4 +65,10 @@ void MainWindow::SlotSwitchLogin()
 void MainWindow::SlotClose()
 {
     this->close();
+}
+
+void MainWindow::SlotToYumeWindow()
+{
+    this->close();
+    emit open_yumewindow();
 }

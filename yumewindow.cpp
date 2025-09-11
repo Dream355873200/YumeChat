@@ -67,6 +67,9 @@ YumeWindow::YumeWindow(QWidget *parent)
     connect(_toolwidget->message(),&QAbstractButton::clicked,this,&YumeWindow::SlotMessage,Qt::QueuedConnection);
     connect(_toolwidget->friends(),&QAbstractButton::clicked,this,&YumeWindow::SlotFriends,Qt::QueuedConnection);
     connect(_titlebar->_x,&YumeLabel::clicked,this,&YumeWindow::SlotClose);
+
+    resize(1200,800);
+    setMinimumWidth(600);
 }
 
 YumeWindow::~YumeWindow()
@@ -88,4 +91,9 @@ void YumeWindow::SlotMessage()
 void YumeWindow::SlotFriends()
 {
     stacked_widget->hide();
+}
+
+void YumeWindow::SlotOpen()
+{
+    this->show();
 }

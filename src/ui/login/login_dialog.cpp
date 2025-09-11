@@ -29,7 +29,7 @@ void LoginDialog::login_pushbutton_click()
     QJsonObject json_object;
     json_object["account"]=account;
     json_object["password"]=password;
-    QString url="http://127.0.0.1:8080//user_Login";
+    QString url="http://127.0.0.1:8080/user_Login";
     httpMgr->PostHttpReq(url,json_object,ID_LOGIN_USER,LOGINMOD);
 }
 
@@ -57,12 +57,15 @@ void LoginDialog::slot_login_mod_finish(ReqId req_id, const QByteArray &res, Err
         return;
     }
     int error=jsonDoc["error"].toInt();
-    if(error=ErrorCodes::ERR_USER_UNEXSIT)
+    if(error==ErrorCodes::ERR_USER_UNEXSIT)
         return;
-    if(error=ErrorCodes::ERR_PASSWORD_FAILED)
+    if(error==ErrorCodes::ERR_PASSWORD_FAILED)
         return;
-    if(error=ErrorCodes::SUCCESS)
+    if(error==ErrorCodes::SUCCESS)
     {
+        qDebug()<<"登录成功";
+        Global_id=jsonDoc["account"].toString();
+        emit login_succeess();
         //跳转
     }
 }

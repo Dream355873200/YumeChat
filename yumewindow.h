@@ -52,10 +52,16 @@ private:
     ChatArea* _chat_area;
     MessagePage* _message_page;
 
+public slots:
+    void SlotOpen();
+
 private slots:
     void SlotClose();
     void SlotMessage();
     void SlotFriends();
+
+
+
 };
 
 
