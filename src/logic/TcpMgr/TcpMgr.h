@@ -9,6 +9,10 @@
 #include<functional>
 #include<QObject>
 #include "logic/Global/global.h"
+#include "../../../Message.pb.h"
+#include <QDateTime>
+#include <quuid.h>
+
 class TcpMgr :public QObject,public Singleton<TcpMgr>
 {
     Q_OBJECT
@@ -22,6 +26,7 @@ private:
     void handleMsg(ReqId req_id,int len,QByteArray data);
     QTcpSocket _socket;
     QString _host;
+    QString _token;
     uint16_t _port;
     QByteArray _buffer;
     bool _b_recv_pending;
@@ -31,7 +36,7 @@ private:
     QMap<ReqId,std::function<void(ReqId req_id,int len,QByteArray data)>> _handlers;
 public slots:
     void slot_tcp_connect(const ServerInfo& server_info);
-    void slot_tcp_sendMsg(ReqId reqId, QString data);
+    void slot_tcp_sendMsg(const ReqId& reqId,const message::MsgNode& node);
     signals:
     void sig_con_success(bool success);
     void sig_tcp_sendMsg();

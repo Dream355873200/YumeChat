@@ -37,10 +37,13 @@ inline constexpr MessageMeta::Impl_::Impl_(
         sender_id_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
+        timestamp_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
         client_id_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
-        timestamp_{::int64_t{0}},
+        unix_timestamp_{0},
         type_{static_cast< ::message::MessageType >(0)},
         sequence_{0},
         _cached_size_{0} {}
@@ -135,6 +138,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.conversation_id_),
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.sender_id_),
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.timestamp_),
+        PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.unix_timestamp_),
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.type_),
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.sequence_),
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.client_id_),
@@ -156,20 +160,21 @@ const char descriptor_table_protodef_Message_2eproto[] ABSL_ATTRIBUTE_SECTION_VA
     "\030\002 \001(\tH\000\022\017\n\005image\030\003 \001(\014H\000\022\017\n\005audio\030\004 \001(\014"
     "H\000\022\017\n\005video\030\005 \001(\014H\000\022\016\n\004file\030\006 \001(\014H\000\022\016\n\004r"
     "ich\030\007 \001(\tH\000\022\021\n\007command\030\010 \001(\rH\000B\t\n\007conten"
-    "t\"\251\001\n\013MessageMeta\022\022\n\nmessage_id\030\001 \001(\t\022\027\n"
+    "t\"\301\001\n\013MessageMeta\022\022\n\nmessage_id\030\001 \001(\t\022\027\n"
     "\017conversation_id\030\002 \001(\t\022\021\n\tsender_id\030\003 \001("
-    "\t\022\021\n\ttimestamp\030\004 \001(\003\022\"\n\004type\030\005 \001(\0162\024.mes"
-    "sage.MessageType\022\020\n\010sequence\030\006 \001(\005\022\021\n\tcl"
-    "ient_id\030\007 \001(\t*f\n\013MessageType\022\013\n\007UNKNOWN\020"
-    "\000\022\010\n\004TEXT\020\001\022\t\n\005IMAGE\020\002\022\t\n\005AUDIO\020\003\022\t\n\005VID"
-    "EO\020\004\022\010\n\004FILE\020\005\022\010\n\004RICH\020\006\022\013\n\007COMMAND\020\007b\006p"
-    "roto3"
+    "\t\022\021\n\ttimestamp\030\004 \001(\t\022\026\n\016unix_timestamp\030\005"
+    " \001(\005\022\"\n\004type\030\006 \001(\0162\024.message.MessageType"
+    "\022\020\n\010sequence\030\007 \001(\005\022\021\n\tclient_id\030\010 \001(\t*r\n"
+    "\013MessageType\022\013\n\007UNKNOWN\020\000\022\010\n\004TEXT\020\001\022\t\n\005I"
+    "MAGE\020\002\022\t\n\005AUDIO\020\003\022\t\n\005VIDEO\020\004\022\010\n\004FILE\020\005\022\010"
+    "\n\004RICH\020\006\022\013\n\007COMMAND\020\007\022\n\n\006Verify\020\010b\006proto"
+    "3"
 };
 static ::absl::once_flag descriptor_table_Message_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
     false,
     false,
-    485,
+    521,
     descriptor_table_protodef_Message_2eproto,
     "Message.proto",
     &descriptor_table_Message_2eproto_once,
@@ -188,9 +193,9 @@ const ::google::protobuf::EnumDescriptor* MessageType_descriptor() {
   return file_level_enum_descriptors_Message_2eproto[0];
 }
 PROTOBUF_CONSTINIT const uint32_t MessageType_internal_data_[] = {
-    524288u, 0u, };
+    589824u, 0u, };
 bool MessageType_IsValid(int value) {
-  return 0 <= value && value <= 7;
+  return 0 <= value && value <= 8;
 }
 // ===================================================================
 
@@ -717,6 +722,7 @@ inline PROTOBUF_NDEBUG_INLINE MessageMeta::Impl_::Impl_(
       : message_id_(arena, from.message_id_),
         conversation_id_(arena, from.conversation_id_),
         sender_id_(arena, from.sender_id_),
+        timestamp_(arena, from.timestamp_),
         client_id_(arena, from.client_id_),
         _cached_size_{0} {}
 
@@ -734,11 +740,11 @@ MessageMeta::MessageMeta(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
   ::memcpy(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, timestamp_),
+               offsetof(Impl_, unix_timestamp_),
            reinterpret_cast<const char *>(&from._impl_) +
-               offsetof(Impl_, timestamp_),
+               offsetof(Impl_, unix_timestamp_),
            offsetof(Impl_, sequence_) -
-               offsetof(Impl_, timestamp_) +
+               offsetof(Impl_, unix_timestamp_) +
                sizeof(Impl_::sequence_));
 
   // @@protoc_insertion_point(copy_constructor:message.MessageMeta)
@@ -749,16 +755,17 @@ inline PROTOBUF_NDEBUG_INLINE MessageMeta::Impl_::Impl_(
       : message_id_(arena),
         conversation_id_(arena),
         sender_id_(arena),
+        timestamp_(arena),
         client_id_(arena),
         _cached_size_{0} {}
 
 inline void MessageMeta::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
   ::memset(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, timestamp_),
+               offsetof(Impl_, unix_timestamp_),
            0,
            offsetof(Impl_, sequence_) -
-               offsetof(Impl_, timestamp_) +
+               offsetof(Impl_, unix_timestamp_) +
                sizeof(Impl_::sequence_));
 }
 MessageMeta::~MessageMeta() {
@@ -772,6 +779,7 @@ inline void MessageMeta::SharedDtor(MessageLite& self) {
   this_._impl_.message_id_.Destroy();
   this_._impl_.conversation_id_.Destroy();
   this_._impl_.sender_id_.Destroy();
+  this_._impl_.timestamp_.Destroy();
   this_._impl_.client_id_.Destroy();
   this_._impl_.~Impl_();
 }
@@ -812,15 +820,15 @@ const ::google::protobuf::internal::ClassData* MessageMeta::GetClassData() const
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 7, 0, 71, 2> MessageMeta::_table_ = {
+const ::_pbi::TcParseTable<3, 8, 0, 88, 2> MessageMeta::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    7, 56,  // max_field_number, fast_idx_mask
+    8, 56,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967168,  // skipmap
+    4294967040,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    7,  // num_field_entries
+    8,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
@@ -830,7 +838,9 @@ const ::_pbi::TcParseTable<3, 7, 0, 71, 2> MessageMeta::_table_ = {
     ::_pbi::TcParser::GetTable<::message::MessageMeta>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    {::_pbi::TcParser::MiniParse, {}},
+    // string client_id = 8;
+    {::_pbi::TcParser::FastUS1,
+     {66, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.client_id_)}},
     // string message_id = 1;
     {::_pbi::TcParser::FastUS1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.message_id_)}},
@@ -840,18 +850,18 @@ const ::_pbi::TcParseTable<3, 7, 0, 71, 2> MessageMeta::_table_ = {
     // string sender_id = 3;
     {::_pbi::TcParser::FastUS1,
      {26, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.sender_id_)}},
-    // int64 timestamp = 4;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(MessageMeta, _impl_.timestamp_), 63>(),
-     {32, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.timestamp_)}},
-    // .message.MessageType type = 5;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MessageMeta, _impl_.type_), 63>(),
-     {40, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.type_)}},
-    // int32 sequence = 6;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MessageMeta, _impl_.sequence_), 63>(),
-     {48, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.sequence_)}},
-    // string client_id = 7;
+    // string timestamp = 4;
     {::_pbi::TcParser::FastUS1,
-     {58, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.client_id_)}},
+     {34, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.timestamp_)}},
+    // int32 unix_timestamp = 5;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MessageMeta, _impl_.unix_timestamp_), 63>(),
+     {40, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.unix_timestamp_)}},
+    // .message.MessageType type = 6;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MessageMeta, _impl_.type_), 63>(),
+     {48, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.type_)}},
+    // int32 sequence = 7;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(MessageMeta, _impl_.sequence_), 63>(),
+     {56, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.sequence_)}},
   }}, {{
     65535, 65535
   }}, {{
@@ -864,26 +874,30 @@ const ::_pbi::TcParseTable<3, 7, 0, 71, 2> MessageMeta::_table_ = {
     // string sender_id = 3;
     {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.sender_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // int64 timestamp = 4;
+    // string timestamp = 4;
     {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.timestamp_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt64)},
-    // .message.MessageType type = 5;
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // int32 unix_timestamp = 5;
+    {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.unix_timestamp_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    // .message.MessageType type = 6;
     {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.type_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
-    // int32 sequence = 6;
+    // int32 sequence = 7;
     {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.sequence_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
-    // string client_id = 7;
+    // string client_id = 8;
     {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.client_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\23\12\17\11\0\0\0\11"
+    "\23\12\17\11\11\0\0\0\11\0\0\0\0\0\0\0"
     "message.MessageMeta"
     "message_id"
     "conversation_id"
     "sender_id"
+    "timestamp"
     "client_id"
   }},
 };
@@ -898,10 +912,11 @@ PROTOBUF_NOINLINE void MessageMeta::Clear() {
   _impl_.message_id_.ClearToEmpty();
   _impl_.conversation_id_.ClearToEmpty();
   _impl_.sender_id_.ClearToEmpty();
+  _impl_.timestamp_.ClearToEmpty();
   _impl_.client_id_.ClearToEmpty();
-  ::memset(&_impl_.timestamp_, 0, static_cast<::size_t>(
+  ::memset(&_impl_.unix_timestamp_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.sequence_) -
-      reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.sequence_));
+      reinterpret_cast<char*>(&_impl_.unix_timestamp_)) + sizeof(_impl_.sequence_));
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -944,33 +959,41 @@ PROTOBUF_NOINLINE void MessageMeta::Clear() {
             target = stream->WriteStringMaybeAliased(3, _s, target);
           }
 
-          // int64 timestamp = 4;
-          if (this_._internal_timestamp() != 0) {
-            target = ::google::protobuf::internal::WireFormatLite::
-                WriteInt64ToArrayWithField<4>(
-                    stream, this_._internal_timestamp(), target);
+          // string timestamp = 4;
+          if (!this_._internal_timestamp().empty()) {
+            const std::string& _s = this_._internal_timestamp();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "message.MessageMeta.timestamp");
+            target = stream->WriteStringMaybeAliased(4, _s, target);
           }
 
-          // .message.MessageType type = 5;
+          // int32 unix_timestamp = 5;
+          if (this_._internal_unix_timestamp() != 0) {
+            target = ::google::protobuf::internal::WireFormatLite::
+                WriteInt32ToArrayWithField<5>(
+                    stream, this_._internal_unix_timestamp(), target);
+          }
+
+          // .message.MessageType type = 6;
           if (this_._internal_type() != 0) {
             target = stream->EnsureSpace(target);
             target = ::_pbi::WireFormatLite::WriteEnumToArray(
-                5, this_._internal_type(), target);
+                6, this_._internal_type(), target);
           }
 
-          // int32 sequence = 6;
+          // int32 sequence = 7;
           if (this_._internal_sequence() != 0) {
             target = ::google::protobuf::internal::WireFormatLite::
-                WriteInt32ToArrayWithField<6>(
+                WriteInt32ToArrayWithField<7>(
                     stream, this_._internal_sequence(), target);
           }
 
-          // string client_id = 7;
+          // string client_id = 8;
           if (!this_._internal_client_id().empty()) {
             const std::string& _s = this_._internal_client_id();
             ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
                 _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "message.MessageMeta.client_id");
-            target = stream->WriteStringMaybeAliased(7, _s, target);
+            target = stream->WriteStringMaybeAliased(8, _s, target);
           }
 
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
@@ -1013,22 +1036,27 @@ PROTOBUF_NOINLINE void MessageMeta::Clear() {
               total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                               this_._internal_sender_id());
             }
-            // string client_id = 7;
+            // string timestamp = 4;
+            if (!this_._internal_timestamp().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_timestamp());
+            }
+            // string client_id = 8;
             if (!this_._internal_client_id().empty()) {
               total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                               this_._internal_client_id());
             }
-            // int64 timestamp = 4;
-            if (this_._internal_timestamp() != 0) {
-              total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
-                  this_._internal_timestamp());
+            // int32 unix_timestamp = 5;
+            if (this_._internal_unix_timestamp() != 0) {
+              total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+                  this_._internal_unix_timestamp());
             }
-            // .message.MessageType type = 5;
+            // .message.MessageType type = 6;
             if (this_._internal_type() != 0) {
               total_size += 1 +
                             ::_pbi::WireFormatLite::EnumSize(this_._internal_type());
             }
-            // int32 sequence = 6;
+            // int32 sequence = 7;
             if (this_._internal_sequence() != 0) {
               total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
                   this_._internal_sequence());
@@ -1055,11 +1083,14 @@ void MessageMeta::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::goo
   if (!from._internal_sender_id().empty()) {
     _this->_internal_set_sender_id(from._internal_sender_id());
   }
+  if (!from._internal_timestamp().empty()) {
+    _this->_internal_set_timestamp(from._internal_timestamp());
+  }
   if (!from._internal_client_id().empty()) {
     _this->_internal_set_client_id(from._internal_client_id());
   }
-  if (from._internal_timestamp() != 0) {
-    _this->_impl_.timestamp_ = from._impl_.timestamp_;
+  if (from._internal_unix_timestamp() != 0) {
+    _this->_impl_.unix_timestamp_ = from._impl_.unix_timestamp_;
   }
   if (from._internal_type() != 0) {
     _this->_impl_.type_ = from._impl_.type_;
@@ -1086,13 +1117,14 @@ void MessageMeta::InternalSwap(MessageMeta* PROTOBUF_RESTRICT other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.message_id_, &other->_impl_.message_id_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.conversation_id_, &other->_impl_.conversation_id_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.sender_id_, &other->_impl_.sender_id_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.timestamp_, &other->_impl_.timestamp_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.client_id_, &other->_impl_.client_id_, arena);
   ::google::protobuf::internal::memswap<
       PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.sequence_)
       + sizeof(MessageMeta::_impl_.sequence_)
-      - PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.timestamp_)>(
-          reinterpret_cast<char*>(&_impl_.timestamp_),
-          reinterpret_cast<char*>(&other->_impl_.timestamp_));
+      - PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.unix_timestamp_)>(
+          reinterpret_cast<char*>(&_impl_.unix_timestamp_),
+          reinterpret_cast<char*>(&other->_impl_.unix_timestamp_));
 }
 
 ::google::protobuf::Metadata MessageMeta::GetMetadata() const {

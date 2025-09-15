@@ -4,6 +4,9 @@
 
 #include "ChatInput.h"
 
+#include "logic/Global/global.h"
+#include "logic/TcpMgr/TcpMgr.h"
+
 ChatInput::ChatInput(QWidget *parent)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
@@ -36,10 +39,25 @@ ChatInput::ChatInput(QWidget *parent)
 
 
     connect(_send_button,&YumeButton::clicked,this,&ChatInput::send_button_clicked);
+    connect(this,&ChatInput::_message_send,TcpMgr::GetInstance().get(),&TcpMgr::slot_tcp_sendMsg);
 }
 
 void ChatInput::send_button_clicked()
 {
+    message::MessageMeta meta;
+    meta.set_message_id(QUuid::createUuid().toString(QUuid::WithoutBraces));
+    meta.set_sender_id(Global_id);
+    meta.set_conversation_id(conversation_id);
+    meta.set_timestamp(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz"));
+    meta.set_unix_timestamp(QDateTime::currentMSecsSinceEpoch());
+    meta.set_type(message::TEXT);
+
+    message::MsgNode node;
+    node.set_allocated_meta(&meta);
+
+    node.set_text(_message_input->toPlainText());
+
+
     _message_input->clear();
-    emit _message_send();
+    emit _message_send(ReqId::Null,node);
 }

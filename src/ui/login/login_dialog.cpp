@@ -7,6 +7,7 @@
 #include "login_dialog.h"
 #include "ui_login.h"
 #include "logic/HttpMgr/HttpMgr.h"
+#include "logic/TcpMgr/TcpMgr.h"
 
 
 LoginDialog::LoginDialog(QWidget *parent)
@@ -15,6 +16,8 @@ LoginDialog::LoginDialog(QWidget *parent)
     connect(ui->reg_pushButton,&YumeButton::clicked,this,&LoginDialog::SwitchReg);
     connect(HttpMgr::GetInstance().get(),&HttpMgr::sig_login_mod_finish,this,&LoginDialog::slot_login_mod_finish);
     connect(ui->login_pushButton,&YumeButton::clicked,this,&LoginDialog::login_pushbutton_click);
+
+    connect(this,&LoginDialog::login_succeess,TcpMgr::GetInstance().get(),&TcpMgr::slot_tcp_connect);
 }
 
 LoginDialog::~LoginDialog() {
@@ -65,7 +68,14 @@ void LoginDialog::slot_login_mod_finish(ReqId req_id, const QByteArray &res, Err
     {
         qDebug()<<"登录成功";
         Global_id=jsonDoc["account"].toString();
-        emit login_succeess();
+        Global_host=jsonDoc["host"].toString();
+        Global_port=jsonDoc["port"].toInt();
+        Global_token=jsonDoc["token"].toString();
+        ServerInfo server;
+        server.Host=Global_host;
+        server.Port=Global_port;
+        server.Token=Global_token;
+        emit login_succeess(server);
         //跳转
     }
 }

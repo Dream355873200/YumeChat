@@ -75,6 +75,7 @@ enum MessageType : int {
   FILE = 5,
   RICH = 6,
   COMMAND = 7,
+  Verify = 8,
   MessageType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   MessageType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -84,8 +85,8 @@ enum MessageType : int {
 bool MessageType_IsValid(int value);
 extern const uint32_t MessageType_internal_data_[];
 constexpr MessageType MessageType_MIN = static_cast<MessageType>(0);
-constexpr MessageType MessageType_MAX = static_cast<MessageType>(7);
-constexpr int MessageType_ARRAYSIZE = 7 + 1;
+constexpr MessageType MessageType_MAX = static_cast<MessageType>(8);
+constexpr int MessageType_ARRAYSIZE = 8 + 1;
 const ::google::protobuf::EnumDescriptor*
 MessageType_descriptor();
 template <typename T>
@@ -98,7 +99,7 @@ const std::string& MessageType_Name(T value) {
 template <>
 inline const std::string& MessageType_Name(MessageType value) {
   return ::google::protobuf::internal::NameOfDenseEnum<MessageType_descriptor,
-                                                 0, 7>(
+                                                 0, 8>(
       static_cast<int>(value));
 }
 inline bool MessageType_Parse(absl::string_view name, MessageType* value) {
@@ -260,10 +261,11 @@ class MessageMeta final : public ::google::protobuf::Message
     kMessageIdFieldNumber = 1,
     kConversationIdFieldNumber = 2,
     kSenderIdFieldNumber = 3,
-    kClientIdFieldNumber = 7,
     kTimestampFieldNumber = 4,
-    kTypeFieldNumber = 5,
-    kSequenceFieldNumber = 6,
+    kClientIdFieldNumber = 8,
+    kUnixTimestampFieldNumber = 5,
+    kTypeFieldNumber = 6,
+    kSequenceFieldNumber = 7,
   };
   // string message_id = 1;
   void clear_message_id() ;
@@ -313,7 +315,23 @@ class MessageMeta final : public ::google::protobuf::Message
   std::string* _internal_mutable_sender_id();
 
   public:
-  // string client_id = 7;
+  // string timestamp = 4;
+  void clear_timestamp() ;
+  const std::string& timestamp() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_timestamp(Arg_&& arg, Args_... args);
+  std::string* mutable_timestamp();
+  PROTOBUF_NODISCARD std::string* release_timestamp();
+  void set_allocated_timestamp(std::string* value);
+
+  private:
+  const std::string& _internal_timestamp() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_timestamp(
+      const std::string& value);
+  std::string* _internal_mutable_timestamp();
+
+  public:
+  // string client_id = 8;
   void clear_client_id() ;
   const std::string& client_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -329,17 +347,17 @@ class MessageMeta final : public ::google::protobuf::Message
   std::string* _internal_mutable_client_id();
 
   public:
-  // int64 timestamp = 4;
-  void clear_timestamp() ;
-  ::int64_t timestamp() const;
-  void set_timestamp(::int64_t value);
+  // int32 unix_timestamp = 5;
+  void clear_unix_timestamp() ;
+  ::int32_t unix_timestamp() const;
+  void set_unix_timestamp(::int32_t value);
 
   private:
-  ::int64_t _internal_timestamp() const;
-  void _internal_set_timestamp(::int64_t value);
+  ::int32_t _internal_unix_timestamp() const;
+  void _internal_set_unix_timestamp(::int32_t value);
 
   public:
-  // .message.MessageType type = 5;
+  // .message.MessageType type = 6;
   void clear_type() ;
   ::message::MessageType type() const;
   void set_type(::message::MessageType value);
@@ -349,7 +367,7 @@ class MessageMeta final : public ::google::protobuf::Message
   void _internal_set_type(::message::MessageType value);
 
   public:
-  // int32 sequence = 6;
+  // int32 sequence = 7;
   void clear_sequence() ;
   ::int32_t sequence() const;
   void set_sequence(::int32_t value);
@@ -364,8 +382,8 @@ class MessageMeta final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 7, 0,
-      71, 2>
+      3, 8, 0,
+      88, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -385,8 +403,9 @@ class MessageMeta final : public ::google::protobuf::Message
     ::google::protobuf::internal::ArenaStringPtr message_id_;
     ::google::protobuf::internal::ArenaStringPtr conversation_id_;
     ::google::protobuf::internal::ArenaStringPtr sender_id_;
+    ::google::protobuf::internal::ArenaStringPtr timestamp_;
     ::google::protobuf::internal::ArenaStringPtr client_id_;
-    ::int64_t timestamp_;
+    ::int32_t unix_timestamp_;
     int type_;
     ::int32_t sequence_;
     ::google::protobuf::internal::CachedSize _cached_size_;
@@ -1557,29 +1576,77 @@ inline void MessageMeta::set_allocated_sender_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:message.MessageMeta.sender_id)
 }
 
-// int64 timestamp = 4;
+// string timestamp = 4;
 inline void MessageMeta::clear_timestamp() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.timestamp_ = ::int64_t{0};
+  _impl_.timestamp_.ClearToEmpty();
 }
-inline ::int64_t MessageMeta::timestamp() const {
+inline const std::string& MessageMeta::timestamp() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:message.MessageMeta.timestamp)
   return _internal_timestamp();
 }
-inline void MessageMeta::set_timestamp(::int64_t value) {
-  _internal_set_timestamp(value);
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void MessageMeta::set_timestamp(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.timestamp_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:message.MessageMeta.timestamp)
 }
-inline ::int64_t MessageMeta::_internal_timestamp() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.timestamp_;
+inline std::string* MessageMeta::mutable_timestamp() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_timestamp();
+  // @@protoc_insertion_point(field_mutable:message.MessageMeta.timestamp)
+  return _s;
 }
-inline void MessageMeta::_internal_set_timestamp(::int64_t value) {
+inline const std::string& MessageMeta::_internal_timestamp() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.timestamp_.Get();
+}
+inline void MessageMeta::_internal_set_timestamp(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.timestamp_ = value;
+  _impl_.timestamp_.Set(value, GetArena());
+}
+inline std::string* MessageMeta::_internal_mutable_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.timestamp_.Mutable( GetArena());
+}
+inline std::string* MessageMeta::release_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:message.MessageMeta.timestamp)
+  return _impl_.timestamp_.Release();
+}
+inline void MessageMeta::set_allocated_timestamp(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.timestamp_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.timestamp_.IsDefault()) {
+    _impl_.timestamp_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:message.MessageMeta.timestamp)
 }
 
-// .message.MessageType type = 5;
+// int32 unix_timestamp = 5;
+inline void MessageMeta::clear_unix_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.unix_timestamp_ = 0;
+}
+inline ::int32_t MessageMeta::unix_timestamp() const {
+  // @@protoc_insertion_point(field_get:message.MessageMeta.unix_timestamp)
+  return _internal_unix_timestamp();
+}
+inline void MessageMeta::set_unix_timestamp(::int32_t value) {
+  _internal_set_unix_timestamp(value);
+  // @@protoc_insertion_point(field_set:message.MessageMeta.unix_timestamp)
+}
+inline ::int32_t MessageMeta::_internal_unix_timestamp() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.unix_timestamp_;
+}
+inline void MessageMeta::_internal_set_unix_timestamp(::int32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.unix_timestamp_ = value;
+}
+
+// .message.MessageType type = 6;
 inline void MessageMeta::clear_type() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.type_ = 0;
@@ -1601,7 +1668,7 @@ inline void MessageMeta::_internal_set_type(::message::MessageType value) {
   _impl_.type_ = value;
 }
 
-// int32 sequence = 6;
+// int32 sequence = 7;
 inline void MessageMeta::clear_sequence() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.sequence_ = 0;
@@ -1623,7 +1690,7 @@ inline void MessageMeta::_internal_set_sequence(::int32_t value) {
   _impl_.sequence_ = value;
 }
 
-// string client_id = 7;
+// string client_id = 8;
 inline void MessageMeta::clear_client_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.client_id_.ClearToEmpty();

@@ -15,6 +15,7 @@ extern std::function<void(QWidget*)> repolish;
 
 enum ReqId
 {
+    Null=0,
     ID_GET_VARIFY_CODE=1001,//获取验证码
     ID_REG_USER=1002,//注册用户
     ID_RESET_PWD=1003,//重置密码
@@ -43,7 +44,8 @@ enum ErrorCodes
 struct ServerInfo
 {
     uint16_t Port;
-    std::string Host;
+    QString Host;
+    QString Token;
 };
 enum LineEditMode
 {
@@ -54,5 +56,8 @@ enum LineEditMode
 };
 extern qreal Global_ScaleDpi;
 extern QString Global_id;
+extern QString  Global_host;
+extern uint16_t  Global_port;
+extern QString  Global_token;
 QPixmap setPixmapDpi(const QSize& size, const QPixmap& pixmap);
 #endif //GLOBAL_H

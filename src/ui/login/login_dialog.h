@@ -30,7 +30,7 @@ public slots:
     void  slot_login_mod_finish(ReqId req_id,const QByteArray& res,ErrorCodes error_codes);
 signals:
    void SwitchReg();
-    void login_succeess();
+    void login_succeess(const ServerInfo& server_info);
 };
 
 
