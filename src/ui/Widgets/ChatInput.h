@@ -31,7 +31,7 @@ protected:
 
 
 
-        painter.setPen(QPen(QColor(128, 128, 128, 64), 2));
+        painter.setPen(QPen(QColor(128, 128, 128, 32), 2));
         painter.setBrush(Qt::transparent);
 
         painter.drawLine(this->rect().topLeft(),this->rect().topRight());

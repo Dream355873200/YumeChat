@@ -12,7 +12,7 @@
 #include "../../../Message.pb.h"
 #include <QDateTime>
 #include <quuid.h>
-
+#include <google/protobuf/util/time_util.h>
 class TcpMgr :public QObject,public Singleton<TcpMgr>
 {
     Q_OBJECT
@@ -24,12 +24,16 @@ private:
     TcpMgr();
     void initHandlers();
     void handleMsg(ReqId req_id,int len,QByteArray data);
+    void pushMsg();
+
+
+
     QTcpSocket _socket;
     QString _host;
     QString _token;
     uint16_t _port;
     QByteArray _buffer;
-    bool _b_recv_pending;
+    bool _b_recv_pending;//准备接收消息体的标志
     quint16 _message_id;
     quint16 _message_len;
     QDataStream _stream;
@@ -40,7 +44,7 @@ public slots:
     signals:
     void sig_con_success(bool success);
     void sig_tcp_sendMsg();
-    void message_receive_success();
+    void message_receive_success(const std::shared_ptr<message::MsgNode>& message);
 
 
 

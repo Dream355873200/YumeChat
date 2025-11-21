@@ -12,7 +12,9 @@
 #include "ui/Custom/YumeBubble.h"
 #include "ui/Widgets/ChatArea.h"
 #include "ui/Widgets/ChatInput.h"
+#include "ui/Widgets/FriendWidget.h"
 #include "ui/Widgets/MessageItem.h"
+#include "ui/Widgets/SearchWidget.h"
 
 int main(int argc, char *argv[])
 {
@@ -22,8 +24,10 @@ int main(int argc, char *argv[])
     w.show();
 
     YumeWindow c;
-
+    c.show();
     QObject::connect(&w,&MainWindow::open_yumewindow,&c,&YumeWindow::SlotOpen);
+
+
 
 
     return a.exec();

@@ -12,31 +12,16 @@ MessagePage::MessagePage(QWidget *parent)
     _main_layout=new QHBoxLayout;
     this->setLayout(_main_layout);
     _main_layout->setContentsMargins(0,0,0,0);
-    _v_layout=new QVBoxLayout;
 
+
+    _con=new ConversationWidget(this);
 
     _list=new MessageList(this);
-    _area=new ChatArea(this);
-    _input=new ChatInput(this);
 
-    _v_layout->addWidget(_area,3);
-    _v_layout->addWidget(_input,1);
-    _v_layout->setSpacing(0);
-    _v_layout->setContentsMargins(0,0,0,0);
 
     _main_layout->addWidget(_list);
-    _main_layout->addLayout(_v_layout);
+    _main_layout->addWidget(_con);
 
 
-    for(int i=0;i<20;i++)
-    {
-        auto *test=new MessageItem(this);
-        QPixmap addd;
-        addd.load(":Resource/ico/yume.jpg");
-        test->set_avatar(addd);
-        test->set_text("aaaaaAAAAAaa啊啊aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa啊aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        test->set_name("Yume");
-        _area->add_bubble(test);
-    }
 
 }

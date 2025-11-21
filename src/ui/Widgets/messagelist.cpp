@@ -5,7 +5,11 @@
 // You may need to build the project (run Qt uic code generator) to get "ui_MessageList.h" resolved
 
 #include "messagelist.h"
+
+#include <QFontDatabase>
 #include<QScrollBar>
+
+#include "FriendWidget.h"
 
 MessageList::MessageList(QWidget *parent) : QWidget(parent)
 {
@@ -18,17 +22,14 @@ MessageList::MessageList(QWidget *parent) : QWidget(parent)
     _main_layout->setContentsMargins(0,0,0,0);
 
     _list=new SmoothListWidget(this);
-
     buttonGroup= new QButtonGroup(this);
     buttonGroup->setExclusive(true);
 
+    _search=new SearchWidget(this);
+    _search->set_text("Message");
 
-    _label=new YumeLabel(this);
-    _label->set_text("Message");
-    _label->setAlignment(Qt::AlignCenter);
-    _label->setAttribute(Qt::WA_TransparentForMouseEvents);
 
-    _main_layout->addWidget(_label);
+    _main_layout->addWidget(_search);
     _main_layout->addWidget(_list);
 
 
@@ -42,11 +43,19 @@ MessageList::MessageList(QWidget *parent) : QWidget(parent)
     for(int i=0;i<20;i++)
     {
         auto test=new messagewidget(this,"Yume","你好aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawwwwwwwwwwwwwwwwwww","18:30");
-        test->setFixedWidth(width-10);
+        test->setFixedWidth(width-20);
         QListWidgetItem *t_item = new QListWidgetItem();
-        t_item->setSizeHint(QSize(test->sizeHint().width(),60) );
+        QWidget* container = new QWidget(this);
+        container->setFixedWidth(width-10);
+        QHBoxLayout* containerLayout = new QHBoxLayout(container);
+        containerLayout->setAlignment(Qt::AlignCenter);
+        containerLayout->setContentsMargins(0, 0, 0, 0);
+        containerLayout->addWidget(test);
+
+        t_item->setSizeHint(QSize(test->sizeHint().width(), 60));
+
         _list->addItem(t_item);
-        _list->setItemWidget(t_item, test);
+        _list->setItemWidget(t_item, container);  // 将容器设置为item的widget
         buttonGroup->addButton(test, button_num++);
     }
 }
@@ -59,9 +68,20 @@ void MessageList::add_message_widget()
 {
     auto test=new messagewidget(this,"Yume","你好","18:30");
     QListWidgetItem *t_item = new QListWidgetItem();
-    t_item->setSizeHint(QSize(test->sizeHint().width(),60) );
+    QWidget* container = new QWidget(this);
+    container->setFixedWidth(width-10);
+    QHBoxLayout* containerLayout = new QHBoxLayout(container);
+    containerLayout->setAlignment(Qt::AlignCenter);
+    containerLayout->setContentsMargins(0, 0, 0, 0);
+    containerLayout->addWidget(test);
+
+    t_item->setSizeHint(QSize(test->sizeHint().width(), 60));
+
     _list->addItem(t_item);
-    _list->setItemWidget(t_item, test);
+    _list->setItemWidget(t_item, container);  // 将容器设置为item的widget
+
+
+
     buttonGroup->addButton(test, button_num++);
 }
 

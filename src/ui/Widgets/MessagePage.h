@@ -7,6 +7,8 @@
 #include <QWidget>
 
 #include "ChatArea.h"
+#include "ChatTop.h"
+#include "ConversationWidget.h"
 #include "messagelist.h"
 
 
@@ -20,10 +22,9 @@ public:
 
 private:
     MessageList* _list;
-    ChatArea* _area;
-    ChatInput* _input;
+    ConversationWidget* _con;
     QHBoxLayout* _main_layout;
-    QVBoxLayout* _v_layout;
+
 };
 
 

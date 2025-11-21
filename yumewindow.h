@@ -12,6 +12,7 @@
 #include "ui/Custom/YumeTitleBar.h"
 #include "ui/Widgets/ChatArea.h"
 #include "ui/Widgets/ChatInput.h"
+#include "ui/Widgets/FriendPage.h"
 #include "ui/Widgets/messagelist.h"
 #include "ui/Widgets/toolwidget.h"
 
@@ -26,6 +27,9 @@ public:
     explicit YumeWindow(QWidget *parent = nullptr);
 
     ~YumeWindow() override;
+
+    bool eventFilter(QObject *watched, QEvent *event);
+
 protected:
     void paintEvent(QPaintEvent *event) override
     {
@@ -51,11 +55,14 @@ private:
     QStackedWidget* stacked_widget;
     ChatArea* _chat_area;
     MessagePage* _message_page;
+    FriendPage* _friend_page;
 
 public slots:
     void SlotOpen();
 
 private slots:
+    bool isClickInBlankArea(const QPoint &pos);
+
     void SlotClose();
     void SlotMessage();
     void SlotFriends();

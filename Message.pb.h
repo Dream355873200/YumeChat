@@ -30,6 +30,7 @@
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
 #include "google/protobuf/generated_enum_reflection.h"
 #include "google/protobuf/unknown_field_set.h"
+#include "google/protobuf/timestamp.pb.h"
 // @@protoc_insertion_point(includes)
 
 // Must be included last.
@@ -53,12 +54,24 @@ struct TableStruct_Message_2eproto {
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_Message_2eproto;
 namespace message {
+class AddFriendMeta;
+struct AddFriendMetaDefaultTypeInternal;
+extern AddFriendMetaDefaultTypeInternal _AddFriendMeta_default_instance_;
+class LoginVerifyMeta;
+struct LoginVerifyMetaDefaultTypeInternal;
+extern LoginVerifyMetaDefaultTypeInternal _LoginVerifyMeta_default_instance_;
 class MessageMeta;
 struct MessageMetaDefaultTypeInternal;
 extern MessageMetaDefaultTypeInternal _MessageMeta_default_instance_;
 class MsgNode;
 struct MsgNodeDefaultTypeInternal;
 extern MsgNodeDefaultTypeInternal _MsgNode_default_instance_;
+class MsgPacket;
+struct MsgPacketDefaultTypeInternal;
+extern MsgPacketDefaultTypeInternal _MsgPacket_default_instance_;
+class PushMeta;
+struct PushMetaDefaultTypeInternal;
+extern PushMetaDefaultTypeInternal _PushMeta_default_instance_;
 }  // namespace message
 namespace google {
 namespace protobuf {
@@ -66,6 +79,72 @@ namespace protobuf {
 }  // namespace google
 
 namespace message {
+enum PacketType : int {
+  Push_Packet = 0,
+  Forward_Packet = 1,
+  PacketType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  PacketType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool PacketType_IsValid(int value);
+extern const uint32_t PacketType_internal_data_[];
+constexpr PacketType PacketType_MIN = static_cast<PacketType>(0);
+constexpr PacketType PacketType_MAX = static_cast<PacketType>(1);
+constexpr int PacketType_ARRAYSIZE = 1 + 1;
+const ::google::protobuf::EnumDescriptor*
+PacketType_descriptor();
+template <typename T>
+const std::string& PacketType_Name(T value) {
+  static_assert(std::is_same<T, PacketType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to PacketType_Name().");
+  return PacketType_Name(static_cast<PacketType>(value));
+}
+template <>
+inline const std::string& PacketType_Name(PacketType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<PacketType_descriptor,
+                                                 0, 1>(
+      static_cast<int>(value));
+}
+inline bool PacketType_Parse(absl::string_view name, PacketType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<PacketType>(
+      PacketType_descriptor(), name, value);
+}
+enum PushType : int {
+  Chat_Message = 0,
+  Friend_Request = 1,
+  PushType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  PushType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool PushType_IsValid(int value);
+extern const uint32_t PushType_internal_data_[];
+constexpr PushType PushType_MIN = static_cast<PushType>(0);
+constexpr PushType PushType_MAX = static_cast<PushType>(1);
+constexpr int PushType_ARRAYSIZE = 1 + 1;
+const ::google::protobuf::EnumDescriptor*
+PushType_descriptor();
+template <typename T>
+const std::string& PushType_Name(T value) {
+  static_assert(std::is_same<T, PushType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to PushType_Name().");
+  return PushType_Name(static_cast<PushType>(value));
+}
+template <>
+inline const std::string& PushType_Name(PushType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<PushType_descriptor,
+                                                 0, 1>(
+      static_cast<int>(value));
+}
+inline bool PushType_Parse(absl::string_view name, PushType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<PushType>(
+      PushType_descriptor(), name, value);
+}
 enum MessageType : int {
   UNKNOWN = 0,
   TEXT = 1,
@@ -75,7 +154,6 @@ enum MessageType : int {
   FILE = 5,
   RICH = 6,
   COMMAND = 7,
-  Verify = 8,
   MessageType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   MessageType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -85,8 +163,8 @@ enum MessageType : int {
 bool MessageType_IsValid(int value);
 extern const uint32_t MessageType_internal_data_[];
 constexpr MessageType MessageType_MIN = static_cast<MessageType>(0);
-constexpr MessageType MessageType_MAX = static_cast<MessageType>(8);
-constexpr int MessageType_ARRAYSIZE = 8 + 1;
+constexpr MessageType MessageType_MAX = static_cast<MessageType>(7);
+constexpr int MessageType_ARRAYSIZE = 7 + 1;
 const ::google::protobuf::EnumDescriptor*
 MessageType_descriptor();
 template <typename T>
@@ -99,12 +177,46 @@ const std::string& MessageType_Name(T value) {
 template <>
 inline const std::string& MessageType_Name(MessageType value) {
   return ::google::protobuf::internal::NameOfDenseEnum<MessageType_descriptor,
-                                                 0, 8>(
+                                                 0, 7>(
       static_cast<int>(value));
 }
 inline bool MessageType_Parse(absl::string_view name, MessageType* value) {
   return ::google::protobuf::internal::ParseNamedEnum<MessageType>(
       MessageType_descriptor(), name, value);
+}
+enum AddFriendType : int {
+  Pending = 0,
+  Accepted = 1,
+  Rejected = 2,
+  AddFriendType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  AddFriendType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool AddFriendType_IsValid(int value);
+extern const uint32_t AddFriendType_internal_data_[];
+constexpr AddFriendType AddFriendType_MIN = static_cast<AddFriendType>(0);
+constexpr AddFriendType AddFriendType_MAX = static_cast<AddFriendType>(2);
+constexpr int AddFriendType_ARRAYSIZE = 2 + 1;
+const ::google::protobuf::EnumDescriptor*
+AddFriendType_descriptor();
+template <typename T>
+const std::string& AddFriendType_Name(T value) {
+  static_assert(std::is_same<T, AddFriendType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to AddFriendType_Name().");
+  return AddFriendType_Name(static_cast<AddFriendType>(value));
+}
+template <>
+inline const std::string& AddFriendType_Name(AddFriendType value) {
+  return ::google::protobuf::internal::NameOfDenseEnum<AddFriendType_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool AddFriendType_Parse(absl::string_view name, AddFriendType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<AddFriendType>(
+      AddFriendType_descriptor(), name, value);
 }
 
 // ===================================================================
@@ -171,7 +283,7 @@ class MessageMeta final : public ::google::protobuf::Message
     return reinterpret_cast<const MessageMeta*>(
         &_MessageMeta_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 1;
+  static constexpr int kIndexInFileMessages = 3;
   friend void swap(MessageMeta& a, MessageMeta& b) { a.Swap(&b); }
   inline void Swap(MessageMeta* other) {
     if (other == this) return;
@@ -261,11 +373,10 @@ class MessageMeta final : public ::google::protobuf::Message
     kMessageIdFieldNumber = 1,
     kConversationIdFieldNumber = 2,
     kSenderIdFieldNumber = 3,
-    kTimestampFieldNumber = 4,
-    kClientIdFieldNumber = 8,
-    kUnixTimestampFieldNumber = 5,
-    kTypeFieldNumber = 6,
-    kSequenceFieldNumber = 7,
+    kClientIdFieldNumber = 7,
+    kUnixTimestampFieldNumber = 4,
+    kTypeFieldNumber = 5,
+    kSequenceFieldNumber = 6,
   };
   // string message_id = 1;
   void clear_message_id() ;
@@ -315,23 +426,7 @@ class MessageMeta final : public ::google::protobuf::Message
   std::string* _internal_mutable_sender_id();
 
   public:
-  // string timestamp = 4;
-  void clear_timestamp() ;
-  const std::string& timestamp() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_timestamp(Arg_&& arg, Args_... args);
-  std::string* mutable_timestamp();
-  PROTOBUF_NODISCARD std::string* release_timestamp();
-  void set_allocated_timestamp(std::string* value);
-
-  private:
-  const std::string& _internal_timestamp() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_timestamp(
-      const std::string& value);
-  std::string* _internal_mutable_timestamp();
-
-  public:
-  // string client_id = 8;
+  // string client_id = 7;
   void clear_client_id() ;
   const std::string& client_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -347,7 +442,7 @@ class MessageMeta final : public ::google::protobuf::Message
   std::string* _internal_mutable_client_id();
 
   public:
-  // int32 unix_timestamp = 5;
+  // int32 unix_timestamp = 4;
   void clear_unix_timestamp() ;
   ::int32_t unix_timestamp() const;
   void set_unix_timestamp(::int32_t value);
@@ -357,7 +452,7 @@ class MessageMeta final : public ::google::protobuf::Message
   void _internal_set_unix_timestamp(::int32_t value);
 
   public:
-  // .message.MessageType type = 6;
+  // .message.MessageType type = 5;
   void clear_type() ;
   ::message::MessageType type() const;
   void set_type(::message::MessageType value);
@@ -367,7 +462,7 @@ class MessageMeta final : public ::google::protobuf::Message
   void _internal_set_type(::message::MessageType value);
 
   public:
-  // int32 sequence = 7;
+  // int32 sequence = 6;
   void clear_sequence() ;
   ::int32_t sequence() const;
   void set_sequence(::int32_t value);
@@ -382,8 +477,8 @@ class MessageMeta final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 8, 0,
-      88, 2>
+      3, 7, 0,
+      71, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -403,12 +498,623 @@ class MessageMeta final : public ::google::protobuf::Message
     ::google::protobuf::internal::ArenaStringPtr message_id_;
     ::google::protobuf::internal::ArenaStringPtr conversation_id_;
     ::google::protobuf::internal::ArenaStringPtr sender_id_;
-    ::google::protobuf::internal::ArenaStringPtr timestamp_;
     ::google::protobuf::internal::ArenaStringPtr client_id_;
     ::int32_t unix_timestamp_;
     int type_;
     ::int32_t sequence_;
     ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class LoginVerifyMeta final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:message.LoginVerifyMeta) */ {
+ public:
+  inline LoginVerifyMeta() : LoginVerifyMeta(nullptr) {}
+  ~LoginVerifyMeta() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(LoginVerifyMeta* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(LoginVerifyMeta));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR LoginVerifyMeta(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline LoginVerifyMeta(const LoginVerifyMeta& from) : LoginVerifyMeta(nullptr, from) {}
+  inline LoginVerifyMeta(LoginVerifyMeta&& from) noexcept
+      : LoginVerifyMeta(nullptr, std::move(from)) {}
+  inline LoginVerifyMeta& operator=(const LoginVerifyMeta& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LoginVerifyMeta& operator=(LoginVerifyMeta&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const LoginVerifyMeta& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const LoginVerifyMeta* internal_default_instance() {
+    return reinterpret_cast<const LoginVerifyMeta*>(
+        &_LoginVerifyMeta_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 5;
+  friend void swap(LoginVerifyMeta& a, LoginVerifyMeta& b) { a.Swap(&b); }
+  inline void Swap(LoginVerifyMeta* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LoginVerifyMeta* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LoginVerifyMeta* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<LoginVerifyMeta>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const LoginVerifyMeta& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const LoginVerifyMeta& from) { LoginVerifyMeta::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(LoginVerifyMeta* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "message.LoginVerifyMeta"; }
+
+ protected:
+  explicit LoginVerifyMeta(::google::protobuf::Arena* arena);
+  LoginVerifyMeta(::google::protobuf::Arena* arena, const LoginVerifyMeta& from);
+  LoginVerifyMeta(::google::protobuf::Arena* arena, LoginVerifyMeta&& from) noexcept
+      : LoginVerifyMeta(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kTokenFieldNumber = 1,
+  };
+  // string token = 1;
+  void clear_token() ;
+  const std::string& token() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_token(Arg_&& arg, Args_... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* value);
+
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(
+      const std::string& value);
+  std::string* _internal_mutable_token();
+
+  public:
+  // @@protoc_insertion_point(class_scope:message.LoginVerifyMeta)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 0,
+      37, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const LoginVerifyMeta& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr token_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AddFriendMeta final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:message.AddFriendMeta) */ {
+ public:
+  inline AddFriendMeta() : AddFriendMeta(nullptr) {}
+  ~AddFriendMeta() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(AddFriendMeta* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(AddFriendMeta));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR AddFriendMeta(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline AddFriendMeta(const AddFriendMeta& from) : AddFriendMeta(nullptr, from) {}
+  inline AddFriendMeta(AddFriendMeta&& from) noexcept
+      : AddFriendMeta(nullptr, std::move(from)) {}
+  inline AddFriendMeta& operator=(const AddFriendMeta& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AddFriendMeta& operator=(AddFriendMeta&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const AddFriendMeta& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AddFriendMeta* internal_default_instance() {
+    return reinterpret_cast<const AddFriendMeta*>(
+        &_AddFriendMeta_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 4;
+  friend void swap(AddFriendMeta& a, AddFriendMeta& b) { a.Swap(&b); }
+  inline void Swap(AddFriendMeta* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AddFriendMeta* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AddFriendMeta* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<AddFriendMeta>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const AddFriendMeta& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const AddFriendMeta& from) { AddFriendMeta::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(AddFriendMeta* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "message.AddFriendMeta"; }
+
+ protected:
+  explicit AddFriendMeta(::google::protobuf::Arena* arena);
+  AddFriendMeta(::google::protobuf::Arena* arena, const AddFriendMeta& from);
+  AddFriendMeta(::google::protobuf::Arena* arena, AddFriendMeta&& from) noexcept
+      : AddFriendMeta(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kNoteFieldNumber = 1,
+    kTypeFieldNumber = 2,
+  };
+  // string note = 1;
+  void clear_note() ;
+  const std::string& note() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_note(Arg_&& arg, Args_... args);
+  std::string* mutable_note();
+  PROTOBUF_NODISCARD std::string* release_note();
+  void set_allocated_note(std::string* value);
+
+  private:
+  const std::string& _internal_note() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_note(
+      const std::string& value);
+  std::string* _internal_mutable_note();
+
+  public:
+  // .message.AddFriendType type = 2;
+  void clear_type() ;
+  ::message::AddFriendType type() const;
+  void set_type(::message::AddFriendType value);
+
+  private:
+  ::message::AddFriendType _internal_type() const;
+  void _internal_set_type(::message::AddFriendType value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:message.AddFriendMeta)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      34, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const AddFriendMeta& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr note_;
+    int type_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PushMeta final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:message.PushMeta) */ {
+ public:
+  inline PushMeta() : PushMeta(nullptr) {}
+  ~PushMeta() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(PushMeta* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(PushMeta));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR PushMeta(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline PushMeta(const PushMeta& from) : PushMeta(nullptr, from) {}
+  inline PushMeta(PushMeta&& from) noexcept
+      : PushMeta(nullptr, std::move(from)) {}
+  inline PushMeta& operator=(const PushMeta& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PushMeta& operator=(PushMeta&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PushMeta& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PushMeta* internal_default_instance() {
+    return reinterpret_cast<const PushMeta*>(
+        &_PushMeta_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(PushMeta& a, PushMeta& b) { a.Swap(&b); }
+  inline void Swap(PushMeta* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PushMeta* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PushMeta* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<PushMeta>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const PushMeta& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const PushMeta& from) { PushMeta::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(PushMeta* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "message.PushMeta"; }
+
+ protected:
+  explicit PushMeta(::google::protobuf::Arena* arena);
+  PushMeta(::google::protobuf::Arena* arena, const PushMeta& from);
+  PushMeta(::google::protobuf::Arena* arena, PushMeta&& from) noexcept
+      : PushMeta(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kPushTimestampFieldNumber = 10,
+    kPushTypeFieldNumber = 9,
+  };
+  // .google.protobuf.Timestamp push_timestamp = 10;
+  bool has_push_timestamp() const;
+  void clear_push_timestamp() ;
+  const ::google::protobuf::Timestamp& push_timestamp() const;
+  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_push_timestamp();
+  ::google::protobuf::Timestamp* mutable_push_timestamp();
+  void set_allocated_push_timestamp(::google::protobuf::Timestamp* value);
+  void unsafe_arena_set_allocated_push_timestamp(::google::protobuf::Timestamp* value);
+  ::google::protobuf::Timestamp* unsafe_arena_release_push_timestamp();
+
+  private:
+  const ::google::protobuf::Timestamp& _internal_push_timestamp() const;
+  ::google::protobuf::Timestamp* _internal_mutable_push_timestamp();
+
+  public:
+  // .message.PushType push_type = 9;
+  void clear_push_type() ;
+  ::message::PushType push_type() const;
+  void set_push_type(::message::PushType value);
+
+  private:
+  ::message::PushType _internal_push_type() const;
+  void _internal_set_push_type(::message::PushType value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:message.PushMeta)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 1,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const PushMeta& from_msg);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::Timestamp* push_timestamp_;
+    int push_type_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -479,13 +1185,16 @@ class MsgNode final : public ::google::protobuf::Message
     kFile = 6,
     kRich = 7,
     kCommand = 8,
+    kPushMeta = 9,
+    kAddFriendMeta = 10,
+    kLoginVerifyMeta = 11,
     CONTENT_NOT_SET = 0,
   };
   static inline const MsgNode* internal_default_instance() {
     return reinterpret_cast<const MsgNode*>(
         &_MsgNode_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 0;
+  static constexpr int kIndexInFileMessages = 1;
   friend void swap(MsgNode& a, MsgNode& b) { a.Swap(&b); }
   inline void Swap(MsgNode* other) {
     if (other == this) return;
@@ -580,6 +1289,9 @@ class MsgNode final : public ::google::protobuf::Message
     kFileFieldNumber = 6,
     kRichFieldNumber = 7,
     kCommandFieldNumber = 8,
+    kPushMetaFieldNumber = 9,
+    kAddFriendMetaFieldNumber = 10,
+    kLoginVerifyMetaFieldNumber = 11,
   };
   // .message.MessageMeta meta = 1;
   bool has_meta() const;
@@ -709,6 +1421,63 @@ class MsgNode final : public ::google::protobuf::Message
   void _internal_set_command(::uint32_t value);
 
   public:
+  // .message.PushMeta push_meta = 9;
+  bool has_push_meta() const;
+  private:
+  bool _internal_has_push_meta() const;
+
+  public:
+  void clear_push_meta() ;
+  const ::message::PushMeta& push_meta() const;
+  PROTOBUF_NODISCARD ::message::PushMeta* release_push_meta();
+  ::message::PushMeta* mutable_push_meta();
+  void set_allocated_push_meta(::message::PushMeta* value);
+  void unsafe_arena_set_allocated_push_meta(::message::PushMeta* value);
+  ::message::PushMeta* unsafe_arena_release_push_meta();
+
+  private:
+  const ::message::PushMeta& _internal_push_meta() const;
+  ::message::PushMeta* _internal_mutable_push_meta();
+
+  public:
+  // .message.AddFriendMeta add_friend_meta = 10;
+  bool has_add_friend_meta() const;
+  private:
+  bool _internal_has_add_friend_meta() const;
+
+  public:
+  void clear_add_friend_meta() ;
+  const ::message::AddFriendMeta& add_friend_meta() const;
+  PROTOBUF_NODISCARD ::message::AddFriendMeta* release_add_friend_meta();
+  ::message::AddFriendMeta* mutable_add_friend_meta();
+  void set_allocated_add_friend_meta(::message::AddFriendMeta* value);
+  void unsafe_arena_set_allocated_add_friend_meta(::message::AddFriendMeta* value);
+  ::message::AddFriendMeta* unsafe_arena_release_add_friend_meta();
+
+  private:
+  const ::message::AddFriendMeta& _internal_add_friend_meta() const;
+  ::message::AddFriendMeta* _internal_mutable_add_friend_meta();
+
+  public:
+  // .message.LoginVerifyMeta login_verify_meta = 11;
+  bool has_login_verify_meta() const;
+  private:
+  bool _internal_has_login_verify_meta() const;
+
+  public:
+  void clear_login_verify_meta() ;
+  const ::message::LoginVerifyMeta& login_verify_meta() const;
+  PROTOBUF_NODISCARD ::message::LoginVerifyMeta* release_login_verify_meta();
+  ::message::LoginVerifyMeta* mutable_login_verify_meta();
+  void set_allocated_login_verify_meta(::message::LoginVerifyMeta* value);
+  void unsafe_arena_set_allocated_login_verify_meta(::message::LoginVerifyMeta* value);
+  ::message::LoginVerifyMeta* unsafe_arena_release_login_verify_meta();
+
+  private:
+  const ::message::LoginVerifyMeta& _internal_login_verify_meta() const;
+  ::message::LoginVerifyMeta* _internal_mutable_login_verify_meta();
+
+  public:
   void clear_content();
   ContentCase content_case() const;
   // @@protoc_insertion_point(class_scope:message.MsgNode)
@@ -721,11 +1490,14 @@ class MsgNode final : public ::google::protobuf::Message
   void set_has_file();
   void set_has_rich();
   void set_has_command();
+  void set_has_push_meta();
+  void set_has_add_friend_meta();
+  void set_has_login_verify_meta();
   inline bool has_content() const;
   inline void clear_has_content();
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 8, 1,
+      0, 11, 4,
       40, 2>
       _table_;
 
@@ -756,8 +1528,220 @@ class MsgNode final : public ::google::protobuf::Message
       ::google::protobuf::internal::ArenaStringPtr file_;
       ::google::protobuf::internal::ArenaStringPtr rich_;
       ::uint32_t command_;
+      ::message::PushMeta* push_meta_;
+      ::message::AddFriendMeta* add_friend_meta_;
+      ::message::LoginVerifyMeta* login_verify_meta_;
     } content_;
     ::uint32_t _oneof_case_[1];
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2eproto;
+};
+// -------------------------------------------------------------------
+
+class MsgPacket final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:message.MsgPacket) */ {
+ public:
+  inline MsgPacket() : MsgPacket(nullptr) {}
+  ~MsgPacket() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(MsgPacket* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(MsgPacket));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR MsgPacket(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline MsgPacket(const MsgPacket& from) : MsgPacket(nullptr, from) {}
+  inline MsgPacket(MsgPacket&& from) noexcept
+      : MsgPacket(nullptr, std::move(from)) {}
+  inline MsgPacket& operator=(const MsgPacket& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MsgPacket& operator=(MsgPacket&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const MsgPacket& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const MsgPacket* internal_default_instance() {
+    return reinterpret_cast<const MsgPacket*>(
+        &_MsgPacket_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 0;
+  friend void swap(MsgPacket& a, MsgPacket& b) { a.Swap(&b); }
+  inline void Swap(MsgPacket* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(MsgPacket* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  MsgPacket* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<MsgPacket>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const MsgPacket& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const MsgPacket& from) { MsgPacket::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(MsgPacket* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "message.MsgPacket"; }
+
+ protected:
+  explicit MsgPacket(::google::protobuf::Arena* arena);
+  MsgPacket(::google::protobuf::Arena* arena, const MsgPacket& from);
+  MsgPacket(::google::protobuf::Arena* arena, MsgPacket&& from) noexcept
+      : MsgPacket(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kMessagesFieldNumber = 1,
+    kPacketTypeFieldNumber = 2,
+  };
+  // repeated .message.MsgNode messages = 1;
+  int messages_size() const;
+  private:
+  int _internal_messages_size() const;
+
+  public:
+  void clear_messages() ;
+  ::message::MsgNode* mutable_messages(int index);
+  ::google::protobuf::RepeatedPtrField<::message::MsgNode>* mutable_messages();
+
+  private:
+  const ::google::protobuf::RepeatedPtrField<::message::MsgNode>& _internal_messages() const;
+  ::google::protobuf::RepeatedPtrField<::message::MsgNode>* _internal_mutable_messages();
+  public:
+  const ::message::MsgNode& messages(int index) const;
+  ::message::MsgNode* add_messages();
+  const ::google::protobuf::RepeatedPtrField<::message::MsgNode>& messages() const;
+  // .message.PacketType packet_type = 2;
+  void clear_packet_type() ;
+  ::message::PacketType packet_type() const;
+  void set_packet_type(::message::PacketType value);
+
+  private:
+  ::message::PacketType _internal_packet_type() const;
+  void _internal_set_packet_type(::message::PacketType value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:message.MsgPacket)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 1,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const MsgPacket& from_msg);
+    ::google::protobuf::RepeatedPtrField< ::message::MsgNode > messages_;
+    int packet_type_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -776,6 +1760,81 @@ class MsgNode final : public ::google::protobuf::Message
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// MsgPacket
+
+// repeated .message.MsgNode messages = 1;
+inline int MsgPacket::_internal_messages_size() const {
+  return _internal_messages().size();
+}
+inline int MsgPacket::messages_size() const {
+  return _internal_messages_size();
+}
+inline void MsgPacket::clear_messages() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.messages_.Clear();
+}
+inline ::message::MsgNode* MsgPacket::mutable_messages(int index)
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable:message.MsgPacket.messages)
+  return _internal_mutable_messages()->Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField<::message::MsgNode>* MsgPacket::mutable_messages()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:message.MsgPacket.messages)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _internal_mutable_messages();
+}
+inline const ::message::MsgNode& MsgPacket::messages(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:message.MsgPacket.messages)
+  return _internal_messages().Get(index);
+}
+inline ::message::MsgNode* MsgPacket::add_messages() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::message::MsgNode* _add = _internal_mutable_messages()->Add();
+  // @@protoc_insertion_point(field_add:message.MsgPacket.messages)
+  return _add;
+}
+inline const ::google::protobuf::RepeatedPtrField<::message::MsgNode>& MsgPacket::messages() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:message.MsgPacket.messages)
+  return _internal_messages();
+}
+inline const ::google::protobuf::RepeatedPtrField<::message::MsgNode>&
+MsgPacket::_internal_messages() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.messages_;
+}
+inline ::google::protobuf::RepeatedPtrField<::message::MsgNode>*
+MsgPacket::_internal_mutable_messages() {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return &_impl_.messages_;
+}
+
+// .message.PacketType packet_type = 2;
+inline void MsgPacket::clear_packet_type() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.packet_type_ = 0;
+}
+inline ::message::PacketType MsgPacket::packet_type() const {
+  // @@protoc_insertion_point(field_get:message.MsgPacket.packet_type)
+  return _internal_packet_type();
+}
+inline void MsgPacket::set_packet_type(::message::PacketType value) {
+  _internal_set_packet_type(value);
+  // @@protoc_insertion_point(field_set:message.MsgPacket.packet_type)
+}
+inline ::message::PacketType MsgPacket::_internal_packet_type() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return static_cast<::message::PacketType>(_impl_.packet_type_);
+}
+inline void MsgPacket::_internal_set_packet_type(::message::PacketType value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.packet_type_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // MsgNode
@@ -1419,6 +2478,243 @@ inline ::uint32_t MsgNode::_internal_command() const {
   return 0u;
 }
 
+// .message.PushMeta push_meta = 9;
+inline bool MsgNode::has_push_meta() const {
+  return content_case() == kPushMeta;
+}
+inline bool MsgNode::_internal_has_push_meta() const {
+  return content_case() == kPushMeta;
+}
+inline void MsgNode::set_has_push_meta() {
+  _impl_._oneof_case_[0] = kPushMeta;
+}
+inline void MsgNode::clear_push_meta() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (content_case() == kPushMeta) {
+    if (GetArena() == nullptr) {
+      delete _impl_.content_.push_meta_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.content_.push_meta_);
+    }
+    clear_has_content();
+  }
+}
+inline ::message::PushMeta* MsgNode::release_push_meta() {
+  // @@protoc_insertion_point(field_release:message.MsgNode.push_meta)
+  if (content_case() == kPushMeta) {
+    clear_has_content();
+    auto* temp = _impl_.content_.push_meta_;
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.content_.push_meta_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::message::PushMeta& MsgNode::_internal_push_meta() const {
+  return content_case() == kPushMeta ? *_impl_.content_.push_meta_ : reinterpret_cast<::message::PushMeta&>(::message::_PushMeta_default_instance_);
+}
+inline const ::message::PushMeta& MsgNode::push_meta() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:message.MsgNode.push_meta)
+  return _internal_push_meta();
+}
+inline ::message::PushMeta* MsgNode::unsafe_arena_release_push_meta() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:message.MsgNode.push_meta)
+  if (content_case() == kPushMeta) {
+    clear_has_content();
+    auto* temp = _impl_.content_.push_meta_;
+    _impl_.content_.push_meta_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void MsgNode::unsafe_arena_set_allocated_push_meta(::message::PushMeta* value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_content();
+  if (value) {
+    set_has_push_meta();
+    _impl_.content_.push_meta_ = value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:message.MsgNode.push_meta)
+}
+inline ::message::PushMeta* MsgNode::_internal_mutable_push_meta() {
+  if (content_case() != kPushMeta) {
+    clear_content();
+    set_has_push_meta();
+    _impl_.content_.push_meta_ =
+        ::google::protobuf::Message::DefaultConstruct<::message::PushMeta>(GetArena());
+  }
+  return _impl_.content_.push_meta_;
+}
+inline ::message::PushMeta* MsgNode::mutable_push_meta() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::message::PushMeta* _msg = _internal_mutable_push_meta();
+  // @@protoc_insertion_point(field_mutable:message.MsgNode.push_meta)
+  return _msg;
+}
+
+// .message.AddFriendMeta add_friend_meta = 10;
+inline bool MsgNode::has_add_friend_meta() const {
+  return content_case() == kAddFriendMeta;
+}
+inline bool MsgNode::_internal_has_add_friend_meta() const {
+  return content_case() == kAddFriendMeta;
+}
+inline void MsgNode::set_has_add_friend_meta() {
+  _impl_._oneof_case_[0] = kAddFriendMeta;
+}
+inline void MsgNode::clear_add_friend_meta() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (content_case() == kAddFriendMeta) {
+    if (GetArena() == nullptr) {
+      delete _impl_.content_.add_friend_meta_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.content_.add_friend_meta_);
+    }
+    clear_has_content();
+  }
+}
+inline ::message::AddFriendMeta* MsgNode::release_add_friend_meta() {
+  // @@protoc_insertion_point(field_release:message.MsgNode.add_friend_meta)
+  if (content_case() == kAddFriendMeta) {
+    clear_has_content();
+    auto* temp = _impl_.content_.add_friend_meta_;
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.content_.add_friend_meta_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::message::AddFriendMeta& MsgNode::_internal_add_friend_meta() const {
+  return content_case() == kAddFriendMeta ? *_impl_.content_.add_friend_meta_ : reinterpret_cast<::message::AddFriendMeta&>(::message::_AddFriendMeta_default_instance_);
+}
+inline const ::message::AddFriendMeta& MsgNode::add_friend_meta() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:message.MsgNode.add_friend_meta)
+  return _internal_add_friend_meta();
+}
+inline ::message::AddFriendMeta* MsgNode::unsafe_arena_release_add_friend_meta() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:message.MsgNode.add_friend_meta)
+  if (content_case() == kAddFriendMeta) {
+    clear_has_content();
+    auto* temp = _impl_.content_.add_friend_meta_;
+    _impl_.content_.add_friend_meta_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void MsgNode::unsafe_arena_set_allocated_add_friend_meta(::message::AddFriendMeta* value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_content();
+  if (value) {
+    set_has_add_friend_meta();
+    _impl_.content_.add_friend_meta_ = value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:message.MsgNode.add_friend_meta)
+}
+inline ::message::AddFriendMeta* MsgNode::_internal_mutable_add_friend_meta() {
+  if (content_case() != kAddFriendMeta) {
+    clear_content();
+    set_has_add_friend_meta();
+    _impl_.content_.add_friend_meta_ =
+        ::google::protobuf::Message::DefaultConstruct<::message::AddFriendMeta>(GetArena());
+  }
+  return _impl_.content_.add_friend_meta_;
+}
+inline ::message::AddFriendMeta* MsgNode::mutable_add_friend_meta() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::message::AddFriendMeta* _msg = _internal_mutable_add_friend_meta();
+  // @@protoc_insertion_point(field_mutable:message.MsgNode.add_friend_meta)
+  return _msg;
+}
+
+// .message.LoginVerifyMeta login_verify_meta = 11;
+inline bool MsgNode::has_login_verify_meta() const {
+  return content_case() == kLoginVerifyMeta;
+}
+inline bool MsgNode::_internal_has_login_verify_meta() const {
+  return content_case() == kLoginVerifyMeta;
+}
+inline void MsgNode::set_has_login_verify_meta() {
+  _impl_._oneof_case_[0] = kLoginVerifyMeta;
+}
+inline void MsgNode::clear_login_verify_meta() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (content_case() == kLoginVerifyMeta) {
+    if (GetArena() == nullptr) {
+      delete _impl_.content_.login_verify_meta_;
+    } else if (::google::protobuf::internal::DebugHardenClearOneofMessageOnArena()) {
+      ::google::protobuf::internal::MaybePoisonAfterClear(_impl_.content_.login_verify_meta_);
+    }
+    clear_has_content();
+  }
+}
+inline ::message::LoginVerifyMeta* MsgNode::release_login_verify_meta() {
+  // @@protoc_insertion_point(field_release:message.MsgNode.login_verify_meta)
+  if (content_case() == kLoginVerifyMeta) {
+    clear_has_content();
+    auto* temp = _impl_.content_.login_verify_meta_;
+    if (GetArena() != nullptr) {
+      temp = ::google::protobuf::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.content_.login_verify_meta_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::message::LoginVerifyMeta& MsgNode::_internal_login_verify_meta() const {
+  return content_case() == kLoginVerifyMeta ? *_impl_.content_.login_verify_meta_ : reinterpret_cast<::message::LoginVerifyMeta&>(::message::_LoginVerifyMeta_default_instance_);
+}
+inline const ::message::LoginVerifyMeta& MsgNode::login_verify_meta() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:message.MsgNode.login_verify_meta)
+  return _internal_login_verify_meta();
+}
+inline ::message::LoginVerifyMeta* MsgNode::unsafe_arena_release_login_verify_meta() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:message.MsgNode.login_verify_meta)
+  if (content_case() == kLoginVerifyMeta) {
+    clear_has_content();
+    auto* temp = _impl_.content_.login_verify_meta_;
+    _impl_.content_.login_verify_meta_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void MsgNode::unsafe_arena_set_allocated_login_verify_meta(::message::LoginVerifyMeta* value) {
+  // We rely on the oneof clear method to free the earlier contents
+  // of this oneof. We can directly use the pointer we're given to
+  // set the new value.
+  clear_content();
+  if (value) {
+    set_has_login_verify_meta();
+    _impl_.content_.login_verify_meta_ = value;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:message.MsgNode.login_verify_meta)
+}
+inline ::message::LoginVerifyMeta* MsgNode::_internal_mutable_login_verify_meta() {
+  if (content_case() != kLoginVerifyMeta) {
+    clear_content();
+    set_has_login_verify_meta();
+    _impl_.content_.login_verify_meta_ =
+        ::google::protobuf::Message::DefaultConstruct<::message::LoginVerifyMeta>(GetArena());
+  }
+  return _impl_.content_.login_verify_meta_;
+}
+inline ::message::LoginVerifyMeta* MsgNode::mutable_login_verify_meta() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::message::LoginVerifyMeta* _msg = _internal_mutable_login_verify_meta();
+  // @@protoc_insertion_point(field_mutable:message.MsgNode.login_verify_meta)
+  return _msg;
+}
+
 inline bool MsgNode::has_content() const {
   return content_case() != CONTENT_NOT_SET;
 }
@@ -1428,6 +2724,123 @@ inline void MsgNode::clear_has_content() {
 inline MsgNode::ContentCase MsgNode::content_case() const {
   return MsgNode::ContentCase(_impl_._oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// PushMeta
+
+// .message.PushType push_type = 9;
+inline void PushMeta::clear_push_type() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.push_type_ = 0;
+}
+inline ::message::PushType PushMeta::push_type() const {
+  // @@protoc_insertion_point(field_get:message.PushMeta.push_type)
+  return _internal_push_type();
+}
+inline void PushMeta::set_push_type(::message::PushType value) {
+  _internal_set_push_type(value);
+  // @@protoc_insertion_point(field_set:message.PushMeta.push_type)
+}
+inline ::message::PushType PushMeta::_internal_push_type() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return static_cast<::message::PushType>(_impl_.push_type_);
+}
+inline void PushMeta::_internal_set_push_type(::message::PushType value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.push_type_ = value;
+}
+
+// .google.protobuf.Timestamp push_timestamp = 10;
+inline bool PushMeta::has_push_timestamp() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.push_timestamp_ != nullptr);
+  return value;
+}
+inline const ::google::protobuf::Timestamp& PushMeta::_internal_push_timestamp() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  const ::google::protobuf::Timestamp* p = _impl_.push_timestamp_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::protobuf::Timestamp&>(::google::protobuf::_Timestamp_default_instance_);
+}
+inline const ::google::protobuf::Timestamp& PushMeta::push_timestamp() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:message.PushMeta.push_timestamp)
+  return _internal_push_timestamp();
+}
+inline void PushMeta::unsafe_arena_set_allocated_push_timestamp(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.push_timestamp_);
+  }
+  _impl_.push_timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:message.PushMeta.push_timestamp)
+}
+inline ::google::protobuf::Timestamp* PushMeta::release_push_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* released = _impl_.push_timestamp_;
+  _impl_.push_timestamp_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::google::protobuf::Timestamp* PushMeta::unsafe_arena_release_push_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:message.PushMeta.push_timestamp)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* temp = _impl_.push_timestamp_;
+  _impl_.push_timestamp_ = nullptr;
+  return temp;
+}
+inline ::google::protobuf::Timestamp* PushMeta::_internal_mutable_push_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.push_timestamp_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::google::protobuf::Timestamp>(GetArena());
+    _impl_.push_timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
+  }
+  return _impl_.push_timestamp_;
+}
+inline ::google::protobuf::Timestamp* PushMeta::mutable_push_timestamp() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  ::google::protobuf::Timestamp* _msg = _internal_mutable_push_timestamp();
+  // @@protoc_insertion_point(field_mutable:message.PushMeta.push_timestamp)
+  return _msg;
+}
+inline void PushMeta::set_allocated_push_timestamp(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.push_timestamp_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.push_timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  // @@protoc_insertion_point(field_set_allocated:message.PushMeta.push_timestamp)
+}
+
 // -------------------------------------------------------------------
 
 // MessageMeta
@@ -1576,55 +2989,7 @@ inline void MessageMeta::set_allocated_sender_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:message.MessageMeta.sender_id)
 }
 
-// string timestamp = 4;
-inline void MessageMeta::clear_timestamp() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.timestamp_.ClearToEmpty();
-}
-inline const std::string& MessageMeta::timestamp() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:message.MessageMeta.timestamp)
-  return _internal_timestamp();
-}
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void MessageMeta::set_timestamp(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.timestamp_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:message.MessageMeta.timestamp)
-}
-inline std::string* MessageMeta::mutable_timestamp() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_timestamp();
-  // @@protoc_insertion_point(field_mutable:message.MessageMeta.timestamp)
-  return _s;
-}
-inline const std::string& MessageMeta::_internal_timestamp() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.timestamp_.Get();
-}
-inline void MessageMeta::_internal_set_timestamp(const std::string& value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.timestamp_.Set(value, GetArena());
-}
-inline std::string* MessageMeta::_internal_mutable_timestamp() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.timestamp_.Mutable( GetArena());
-}
-inline std::string* MessageMeta::release_timestamp() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:message.MessageMeta.timestamp)
-  return _impl_.timestamp_.Release();
-}
-inline void MessageMeta::set_allocated_timestamp(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.timestamp_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.timestamp_.IsDefault()) {
-    _impl_.timestamp_.Set("", GetArena());
-  }
-  // @@protoc_insertion_point(field_set_allocated:message.MessageMeta.timestamp)
-}
-
-// int32 unix_timestamp = 5;
+// int32 unix_timestamp = 4;
 inline void MessageMeta::clear_unix_timestamp() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.unix_timestamp_ = 0;
@@ -1646,7 +3011,7 @@ inline void MessageMeta::_internal_set_unix_timestamp(::int32_t value) {
   _impl_.unix_timestamp_ = value;
 }
 
-// .message.MessageType type = 6;
+// .message.MessageType type = 5;
 inline void MessageMeta::clear_type() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.type_ = 0;
@@ -1668,7 +3033,7 @@ inline void MessageMeta::_internal_set_type(::message::MessageType value) {
   _impl_.type_ = value;
 }
 
-// int32 sequence = 7;
+// int32 sequence = 6;
 inline void MessageMeta::clear_sequence() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.sequence_ = 0;
@@ -1690,7 +3055,7 @@ inline void MessageMeta::_internal_set_sequence(::int32_t value) {
   _impl_.sequence_ = value;
 }
 
-// string client_id = 8;
+// string client_id = 7;
 inline void MessageMeta::clear_client_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.client_id_.ClearToEmpty();
@@ -1738,6 +3103,132 @@ inline void MessageMeta::set_allocated_client_id(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:message.MessageMeta.client_id)
 }
 
+// -------------------------------------------------------------------
+
+// AddFriendMeta
+
+// string note = 1;
+inline void AddFriendMeta::clear_note() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.note_.ClearToEmpty();
+}
+inline const std::string& AddFriendMeta::note() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:message.AddFriendMeta.note)
+  return _internal_note();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void AddFriendMeta::set_note(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.note_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:message.AddFriendMeta.note)
+}
+inline std::string* AddFriendMeta::mutable_note() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_note();
+  // @@protoc_insertion_point(field_mutable:message.AddFriendMeta.note)
+  return _s;
+}
+inline const std::string& AddFriendMeta::_internal_note() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.note_.Get();
+}
+inline void AddFriendMeta::_internal_set_note(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.note_.Set(value, GetArena());
+}
+inline std::string* AddFriendMeta::_internal_mutable_note() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.note_.Mutable( GetArena());
+}
+inline std::string* AddFriendMeta::release_note() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:message.AddFriendMeta.note)
+  return _impl_.note_.Release();
+}
+inline void AddFriendMeta::set_allocated_note(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.note_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.note_.IsDefault()) {
+    _impl_.note_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:message.AddFriendMeta.note)
+}
+
+// .message.AddFriendType type = 2;
+inline void AddFriendMeta::clear_type() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.type_ = 0;
+}
+inline ::message::AddFriendType AddFriendMeta::type() const {
+  // @@protoc_insertion_point(field_get:message.AddFriendMeta.type)
+  return _internal_type();
+}
+inline void AddFriendMeta::set_type(::message::AddFriendType value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:message.AddFriendMeta.type)
+}
+inline ::message::AddFriendType AddFriendMeta::_internal_type() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return static_cast<::message::AddFriendType>(_impl_.type_);
+}
+inline void AddFriendMeta::_internal_set_type(::message::AddFriendType value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.type_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// LoginVerifyMeta
+
+// string token = 1;
+inline void LoginVerifyMeta::clear_token() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.token_.ClearToEmpty();
+}
+inline const std::string& LoginVerifyMeta::token() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:message.LoginVerifyMeta.token)
+  return _internal_token();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void LoginVerifyMeta::set_token(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.token_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:message.LoginVerifyMeta.token)
+}
+inline std::string* LoginVerifyMeta::mutable_token() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:message.LoginVerifyMeta.token)
+  return _s;
+}
+inline const std::string& LoginVerifyMeta::_internal_token() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.token_.Get();
+}
+inline void LoginVerifyMeta::_internal_set_token(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.token_.Set(value, GetArena());
+}
+inline std::string* LoginVerifyMeta::_internal_mutable_token() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.token_.Mutable( GetArena());
+}
+inline std::string* LoginVerifyMeta::release_token() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:message.LoginVerifyMeta.token)
+  return _impl_.token_.Release();
+}
+inline void LoginVerifyMeta::set_allocated_token(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.token_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.token_.IsDefault()) {
+    _impl_.token_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:message.LoginVerifyMeta.token)
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -1750,10 +3241,28 @@ namespace google {
 namespace protobuf {
 
 template <>
+struct is_proto_enum<::message::PacketType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::message::PacketType>() {
+  return ::message::PacketType_descriptor();
+}
+template <>
+struct is_proto_enum<::message::PushType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::message::PushType>() {
+  return ::message::PushType_descriptor();
+}
+template <>
 struct is_proto_enum<::message::MessageType> : std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor<::message::MessageType>() {
   return ::message::MessageType_descriptor();
+}
+template <>
+struct is_proto_enum<::message::AddFriendType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::message::AddFriendType>() {
+  return ::message::AddFriendType_descriptor();
 }
 
 }  // namespace protobuf

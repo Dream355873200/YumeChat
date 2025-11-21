@@ -44,37 +44,31 @@ protected:
 
         painter.setRenderHint(QPainter::Antialiasing);
 
-        // --- 缓存所有计算 ---
-        // 静态变量缓存计算结果（假设_textRect在消息数变化时才需要更新）
-        static QRect cachedTextRect;
-        static QString lastText;
+        // --- 实时计算 ---
+        // 计算文本尺寸和位置（每次实时计算）
+        QFontMetrics fm(_message_num->font());
+        QString currentText = _message_num->text();
+        QSize textSize = fm.size(Qt::TextSingleLine, currentText);
 
-        if (_message_num->text() != lastText) {
-            lastText = _message_num->text();
-            // 计算文本尺寸和位置（仅在文本变化时执行）
-            QFontMetrics fm(_message_num->font());
-            QSize textSize = fm.size(Qt::TextSingleLine, lastText);
+        QPoint textTopLeft = _message_num->rect().center() -
+                            QPoint(textSize.width() / 2, textSize.height() / 2);
+        textTopLeft = _message_num->mapToParent(textTopLeft) - QPoint(-1, -1);
 
-            QPoint textTopLeft = _message_num->rect().center() -
-                                QPoint(textSize.width() / 2, textSize.height() / 2);
-            textTopLeft = _message_num->mapToParent(textTopLeft) - QPoint(-1, -1);
-
-            cachedTextRect = QRect(textTopLeft, textSize);
-            cachedTextRect.adjust(-5, -1, 5, 1);  // Padding
-        }
+        QRect textRect = QRect(textTopLeft, textSize);
+        textRect.adjust(-5, -1, 5, 1);  // Padding
 
         // --- 脏矩形检测 ---
         const QRegion dirtyRegion = event->region();
-        if (!dirtyRegion.intersects(cachedTextRect)) {
+        if (!dirtyRegion.intersects(textRect)) {
             return;  // 红点区域未被脏区域覆盖
         }
 
         // --- 最小化绘制区域 ---
-        painter.setClipRect(cachedTextRect);  // 关键优化：只绘制红点区域
+        painter.setClipRect(textRect);  // 关键优化：只绘制红点区域
 
         painter.setPen(Qt::NoPen);
         painter.setBrush(Qt::red);
-        painter.drawRoundedRect(cachedTextRect, 8, 8);
+        painter.drawRoundedRect(textRect, 8, 8);
     }
 private:
     QVBoxLayout* _v_layout1;
@@ -87,7 +81,7 @@ private:
     CircleAvatar *_avatar;
     int unread_num=1;
 
-private slots:
+public slots:
     void unread_num_add();
 };
 

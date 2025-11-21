@@ -31,7 +31,6 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
     this->main_layout()->setAlignment(Qt::AlignLeft);
     this->main_layout()->setContentsMargins(10, 5, 10, 5);
 
-    this->setText("aaa");
     _v_layout1 = new QVBoxLayout;
     _v_layout2 = new QVBoxLayout;
     _v_layout1->setContentsMargins(5, 0, 0, 0);
@@ -73,7 +72,7 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
 
     _name->set_text(name);
     _last_message->set_text(last_message);
-    _name->set_font_size(15);
+    _name->set_font_size(13);
     _name->set_font_color(QColor::fromString("#0C0C0E"));
     _name->setElideMode(Qt::ElideRight);
     _last_message->set_font_color(Qt::gray);
@@ -86,7 +85,7 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
     _time->set_font_color(Qt::gray);
     _message_num->setAlignment(Qt::AlignCenter);
     _message_num->set_font_size(10);
-    QFont font = _message_num->font();
+
     // 加载字体文件
     int fontId = QFontDatabase::addApplicationFont(":/Resource/font/Lato-Bold.ttf");
     if (fontId != -1) {

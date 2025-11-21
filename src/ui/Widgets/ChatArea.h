@@ -39,6 +39,7 @@ protected:
             verticalScrollBar()->setValue(scrollPos);
     }
 private:
+
 };
 
 

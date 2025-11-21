@@ -13,6 +13,8 @@
 #include "ui/Custom/YumeLabel.h"
 #include<QButtonGroup>
 
+#include "SearchWidget.h"
+
 class MessageList : public QWidget
 {
     Q_OBJECT
@@ -29,7 +31,7 @@ void paintEvent(QPaintEvent *event) override
 };
 private:
     QVBoxLayout* _main_layout;
-    YumeLabel* _label;
+    SearchWidget* _search;
     SmoothListWidget *_list;
     QButtonGroup *buttonGroup ;
     messagewidget* _messagewidget;

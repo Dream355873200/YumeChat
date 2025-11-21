@@ -38,6 +38,7 @@
         <file>Resource/font/flache.ttf</file>
         <file>Resource/ico/mp3.png</file>
         <file>Resource/ico/photo.png</file>
+        <file>Resource/ico/IconAdd.png</file>
         <file>Resource/ico/wait_trans_sel.png</file>
         <file>Resource/ico/wait_trans_unsel.png</file>
         <file>Resource/ico/save_image.png</file>

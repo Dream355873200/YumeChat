@@ -13,4 +13,4 @@ QPixmap setPixmapDpi(const QSize &size, const QPixmap &pixmap)
 QString Global_id;
 QString  Global_host;
 uint16_t  Global_port;
-QString  Global_token;
+QString Global_token;

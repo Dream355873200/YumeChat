@@ -31,6 +31,7 @@ TcpMgr::TcpMgr()
         _buffer.append(_socket.readAll());
         QDataStream _stream(&_buffer, QIODevice::ReadOnly);
         _stream.setVersion(QDataStream::Qt_5_0);
+        _stream.setByteOrder(QDataStream::BigEndian);//处理网络字节序
         forever
         {
             if (!_b_recv_pending)
@@ -53,11 +54,25 @@ TcpMgr::TcpMgr()
             }
             // 读取消息体
              QByteArray messageBody = _buffer.mid(0, _message_len);
+
+            auto message = std::make_shared<message::MsgNode>();
+            if (message->ParseFromArray(messageBody.constData(), messageBody.size())) {
+                // 反序列化成功
+                qDebug() << "反序列化成功，消息内容:" << message->DebugString().c_str();
+                // 处理消息内容// 例如：qDebug() << "字段值:" << message.some_field().c_str();
+            } else
+                {
+                // 反序列化失败
+                qDebug() << "反序列化失败！";
+                return;
+            }
+
+
             qDebug() << "Received message ID:" << _message_id << "Body:" << messageBody;
              _buffer.remove(0, _message_len);
                _b_recv_pending = false;
 
-            emit message_receive_success();
+            emit message_receive_success(message);
         }
     });
     //处理错误
@@ -81,6 +96,11 @@ void TcpMgr::handleMsg(ReqId req_id, int len, QByteArray data)
 {
 }
 
+void TcpMgr::pushMsg()
+{
+    //读取数据库各种类型消息，发push_meta的protobuffer给TCPServer
+}
+
 void TcpMgr::slot_tcp_connect(const ServerInfo& server_info)
 {
     /*
@@ -92,22 +112,32 @@ void TcpMgr::slot_tcp_connect(const ServerInfo& server_info)
     _host = server_info.Host;
     _port = server_info.Port;
     _socket.connectToHost(server_info.Host, _port);
-    _token=server_info.Token;
 
     message::MsgNode verify_node;
-    verify_node.set_text(_token);
 
-    ///发送验证信息
-    message::MessageMeta meta;
-    meta.set_message_id(QUuid::createUuid().toString(QUuid::WithoutBraces));
-    meta.set_sender_id(Global_id);
-    meta.set_conversation_id(Global_id);
-    meta.set_timestamp(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz"));
-    meta.set_unix_timestamp(QDateTime::currentMSecsSinceEpoch());
-    meta.set_type(message::Verify);
+    /// 发送验证信息
+    auto* meta = new message::MessageMeta();  // 堆对象
+    meta->set_message_id(QUuid::createUuid()
+        .toString(QUuid::WithoutBraces)
+        .toStdString()  // 关键修改：必须转换);  // 设置字段
+        );
 
-    verify_node.set_allocated_meta(&meta);
-    slot_tcp_sendMsg(ID_CHAT_LOGIN,verify_node);
+    meta->set_sender_id(Global_id.toStdString());  // 如果是QString需要转换
+    meta->set_conversation_id(Global_id.toStdString());
+    meta->set_type(message::UNKNOWN);
+    // 时间戳处理（优化方案）
+    const auto now = QDateTime::currentDateTime();
+    meta->set_unix_timestamp(now.toMSecsSinceEpoch());  // 更精确的时间戳
+
+    auto login_verify_meta=new message::LoginVerifyMeta;
+    login_verify_meta->set_token(server_info.Token.toStdString());
+
+    // 注意：set_allocated会转移指针所有权
+    verify_node.set_allocated_meta(meta);  // 这里meta会被verify_node接管
+    verify_node.set_allocated_login_verify_meta(login_verify_meta);
+
+    slot_tcp_sendMsg(ID_CHAT_LOGIN, verify_node);
+
 }
 
 void TcpMgr::slot_tcp_sendMsg(const ReqId& reqId,const message::MsgNode& node)

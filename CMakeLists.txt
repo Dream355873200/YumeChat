@@ -8,7 +8,6 @@ set(CMAKE_TOOLCHAIN_FILE "D:/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRIN
 
 project(YumeChat VERSION 0.1 LANGUAGES CXX)
 
-
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -24,9 +23,9 @@ if(NOT Boost_FOUND)
     message(FATAL_ERROR "Boost NOT found at ${BOOST_ROOT}. Check the path and library directory.")
 endif()
 
-# Qt 配置
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Network Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Network Widgets)
+# Qt 配置 - 添加Sql组件
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Network Widgets Sql)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Network Widgets Sql)
 
 # jsoncpp 配置
 find_package(jsoncpp CONFIG REQUIRED)
@@ -38,20 +37,18 @@ else()
     message(STATUS "jsoncpp targets: ${jsoncpp_TARGETS}")
 endif()
 
-if(NOT jsoncpp_FOUND)
-    message(FATAL_ERROR "jsoncpp NOT found. Ensure it's installed via vcpkg.")
-endif()
-
-# Protobuf 配置 - 添加这部分
+# Protobuf 配置
 find_package(Protobuf REQUIRED)
 if(NOT Protobuf_FOUND)
     message(FATAL_ERROR "Protobuf NOT found. Ensure it's installed via vcpkg.")
 endif()
+
 # 添加 Qt 资源系统支持
 qt_add_resources(YumeChat_RESOURCES
-        "Resource.qrc"  # 确保路径正确，如果不在根目录需调整
+        "Resource.qrc"
 )
-# 源文件列表
+
+# 源文件列表 - 添加SQLite相关的源文件
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp mainwindow.h
@@ -68,7 +65,6 @@ set(PROJECT_SOURCES
         src/ui/Custom/YumeLineEdit.h
         src/ui/Custom/YumeButton.cpp
         src/ui/Custom/YumeButton.h
-        src/ui/Custom/YumeButton.h
         src/ui/Custom/YumeLabel.cpp
         src/ui/Custom/YumeLabel.h
         src/logic/Global/global.cpp
@@ -79,11 +75,8 @@ set(PROJECT_SOURCES
         framelessmainwindow.cpp
         yumewindow.cpp
         yumewindow.h
-        yumewindow.cpp
         src/ui/Widgets/toolwidget.cpp
         src/ui/Widgets/toolwidget.h
-        src/ui/Widgets/toolwidget.h
-        src/ui/Widgets/messagewidget.h
         src/ui/Widgets/messagewidget.h
         src/ui/Widgets/messagewidget.cpp
         src/ui/Widgets/messagelist.cpp
@@ -93,9 +86,7 @@ set(PROJECT_SOURCES
         src/ui/Custom/SmoothScrollBar.cpp
         src/ui/Custom/SmoothScrollBar.h
         src/ui/Register/yume_ui_reg.h
-        src/ui/Register/yume_ui_reg.h
         src/ui/Custom/CircleAvatar.cpp
-        src/ui/Custom/CircleAvatar.h
         src/ui/Custom/CircleAvatar.h
         src/ui/Custom/YumeBubble.cpp
         src/ui/Custom/YumeBubble.h
@@ -105,15 +96,35 @@ set(PROJECT_SOURCES
         src/ui/Widgets/ChatArea.h
         src/ui/Widgets/MessagePage.cpp
         src/ui/Widgets/MessagePage.h
-        src/ui/Widgets/MessagePage.h
         src/ui/Custom/UnScrollTextEdit.cpp
         src/ui/Custom/UnScrollTextEdit.h
         src/ui/Widgets/ChatInput.cpp
         src/ui/Widgets/ChatInput.h
+        src/ui/Widgets/FriendWidget.cpp
+        src/ui/Widgets/FriendWidget.h
+        src/ui/Widgets/FriendPage.cpp
+        src/ui/Widgets/FriendPage.h
+        src/ui/Widgets/FriendList.cpp
+        src/ui/Widgets/FriendList.h
+        src/logic/DatabaseMgr/DatabaseMgr.cpp
+        src/logic/DatabaseMgr/DatabaseMgr.h
+        src/ui/Widgets/ChatTop.cpp
+        src/ui/Widgets/ChatTop.h
+        src/ui/Widgets/ChatTop.h
+        src/ui/Widgets/SearchWidget.cpp
+        src/ui/Widgets/SearchWidget.h
+        src/ui/Widgets/SearchWidget.h
+        src/logic/MessageMgr/MessageMgr.cpp
+        src/logic/MessageMgr/MessageMgr.h
+        src/logic/MessageMgr/MessageMgr.h
+        src/ui/Widgets/ConversationWidget.cpp
+        src/ui/Widgets/ConversationWidget.h
+
 )
-# 创建目标（确保包含资源）
+
+# 创建目标
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(YumeChat MANUAL_FINALIZATION ${PROJECT_SOURCES} ${YumeChat_RESOURCES} )
+    qt_add_executable(YumeChat MANUAL_FINALIZATION ${PROJECT_SOURCES} ${YumeChat_RESOURCES})
 else()
     add_executable(YumeChat ${PROJECT_SOURCES})
 endif()
@@ -126,15 +137,16 @@ target_include_directories(YumeChat PRIVATE
         ${Protobuf_INCLUDE_DIRS}
 )
 
-# 链接库
+# 链接库 - 添加Qt Sql模块
 target_link_libraries(YumeChat PRIVATE
         Qt${QT_VERSION_MAJOR}::Widgets
         Qt${QT_VERSION_MAJOR}::Network
+        Qt${QT_VERSION_MAJOR}::Sql  # 添加这一行
         ${Boost_LIBRARIES}
-        JsonCpp::JsonCpp  # 使用vcpkg提供的标准目标
+        JsonCpp::JsonCpp
 )
 
-# Protobuf 链接 - 修改后的逻辑
+# Protobuf 链接
 if(TARGET protobuf::libprotobuf)
     message(STATUS "Found protobuf::libprotobuf")
     target_link_libraries(YumeChat PRIVATE protobuf::libprotobuf)

@@ -22,6 +22,8 @@ enum ReqId
     ID_LOGIN_USER=1004,//用户登录
     ID_CHAT_LOGIN=1005,//登录聊天服务器
     ID_CHAT_LOGIN_RSP=1006,//登录聊天服务器回包
+    ID_ADD_FRIEND=1007,//添加好友
+    ID_CHAT=1008,//发送消息
 };
 enum Modules
 {
@@ -53,11 +55,12 @@ enum LineEditMode
     Password,
     Email,
     VerifyCode,
+    Search,
 };
 extern qreal Global_ScaleDpi;
 extern QString Global_id;
 extern QString  Global_host;
 extern uint16_t  Global_port;
-extern QString  Global_token;
+extern QString Global_token;
 QPixmap setPixmapDpi(const QSize& size, const QPixmap& pixmap);
 #endif //GLOBAL_H

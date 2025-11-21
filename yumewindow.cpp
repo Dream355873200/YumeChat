@@ -11,7 +11,7 @@ YumeWindow::YumeWindow(QWidget *parent)
     // 创建中心部件
     auto central_widget = new QWidget(this);
     setCentralWidget(central_widget);
-    
+
     // 创建主布局
     _mainlayout = new QVBoxLayout(central_widget);
     
@@ -49,11 +49,22 @@ YumeWindow::YumeWindow(QWidget *parent)
     _chat_area=new ChatArea(this);
 
 
+    this->setFocusPolicy(Qt::StrongFocus);
+    this->setAttribute(Qt::WA_InputMethodEnabled);
 
+    // 安装事件过滤器
+    this->installEventFilter(this);
+
+    // 确保中心部件可以接收事件
+    central_widget->setMouseTracking(true);
+    central_widget->installEventFilter(this);
 
     _message_page=new MessagePage(this);
+    _friend_page=new FriendPage(this);
+
     stacked_widget=new QStackedWidget(this);
     stacked_widget->addWidget(_message_page);
+    stacked_widget->addWidget(_friend_page);
     stacked_widget->setContentsMargins(0,0,0,0);
 
 
@@ -76,7 +87,34 @@ YumeWindow::~YumeWindow()
 {
 
 }
+bool YumeWindow::eventFilter(QObject *watched, QEvent *event)
+{
+    // 监控窗口点击事件
+    if ((watched == this || watched == centralWidget()) && event->type() == QEvent::MouseButtonPress)
+    {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        QPoint clickPos = mouseEvent->pos();
 
+        // 检查是否点击了真正的空白区域
+        if (isClickInBlankArea(clickPos))
+        {
+            qDebug() << "点击空白区域，设置焦点到窗口";
+            this->setFocus(); // 主动设置焦点
+            return true; // 事件已处理
+        }
+    }
+
+    return FramelessMainWindow::eventFilter(watched, event);
+}
+
+bool YumeWindow::isClickInBlankArea(const QPoint &pos)
+{
+    // 检查点击位置是否在所有子控件的外部
+    return !_titlebar->geometry().contains(pos) &&
+           !_toolwidget->geometry().contains(pos) &&
+           !stacked_widget->geometry().contains(pos) &&
+           !_chat_area->geometry().contains(pos);
+}
 void YumeWindow::SlotClose()
 {
     this->close();
@@ -84,13 +122,13 @@ void YumeWindow::SlotClose()
 
 void YumeWindow::SlotMessage()
 {
-    stacked_widget->show();
     stacked_widget->setCurrentIndex(0);
 }
 
 void YumeWindow::SlotFriends()
 {
-    stacked_widget->hide();
+    stacked_widget->setCurrentIndex(1);
+
 }
 
 void YumeWindow::SlotOpen()

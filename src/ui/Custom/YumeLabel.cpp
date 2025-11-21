@@ -4,6 +4,7 @@
 
 #include "YumeLabel.h"
 
+#include <QFontDatabase>
 #include <QMouseEvent>
 
 #include "logic/Global/global.h"
@@ -43,6 +44,19 @@ void YumeLabel::set_icon(const QString& path)
 void YumeLabel::set_font_color(const QColor &color)
 {
     this->setStyleSheet(QString("color: %1;").arg(color.name()));
+}
+
+void YumeLabel::set_font_type(const QString &source)
+{
+    int fontId = QFontDatabase::addApplicationFont(source);
+    if (fontId != -1) {
+        QString family = QFontDatabase::applicationFontFamilies(fontId).first();
+        // 获取当前字体设置，保持原有大小
+        QFont currentFont = this->font();
+        currentFont.setFamily(family);
+
+        this->setFont(currentFont);
+    }
 }
 
 

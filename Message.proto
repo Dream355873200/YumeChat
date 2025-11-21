@@ -2,6 +2,20 @@ syntax = "proto3";
 
 package message;
 
+import "google/protobuf/timestamp.proto";
+
+message MsgPacket
+{
+    repeated MsgNode messages = 1;
+    PacketType packet_type=2;
+}
+enum PacketType
+{
+    Push_Packet=0;
+    Forward_Packet=1;
+}
+
+
 // 消息节点基础结构
 message MsgNode
 {
@@ -17,22 +31,37 @@ message MsgNode
         bytes file = 6;
         string rich = 7;
         uint32 command = 8;
+        PushMeta push_meta = 9;
+        AddFriendMeta add_friend_meta = 10;
+        LoginVerifyMeta login_verify_meta = 11;
     }
+
 }
+message PushMeta
+{
+    PushType push_type = 9;
+    google.protobuf.Timestamp push_timestamp = 10;
+
+}
+enum PushType
+{
+    Chat_Message=0;
+    Friend_Request=1;
+};
 
 // 消息元数据
 message MessageMeta {
     string message_id = 1;        // 消息唯一ID
     string conversation_id = 2;    // 会话ID
     string sender_id = 3;          // 发送者ID
-    string timestamp = 4;           // 消息时间戳
-    int32 unix_timestamp=5;        //unix时间戳
-    MessageType type = 6;          // 消息类型
-    int32 sequence = 7;            // 消息序列号
-    string client_id = 8;          // 客户端生成ID (用于去重)
+    int32 unix_timestamp = 4;        //unix时间戳
+    MessageType type = 5;          // 消息类型
+    int32 sequence = 6;            // 消息序列号
+    string client_id = 7;          // 客户端生成ID (用于去重)
 }
 
 // 消息类型枚举
+//约定消息不是UNKNOWN是正常消息,其他为系统处理消息
 enum MessageType {
     UNKNOWN = 0;
     TEXT = 1;
@@ -42,5 +71,19 @@ enum MessageType {
     FILE = 5;
     RICH = 6;
     COMMAND = 7;
-    Verify=8;
+}
+message AddFriendMeta
+{
+    string note=1;
+    AddFriendType type = 2;
+}
+enum AddFriendType
+{
+    Pending=0;
+    Accepted=1;
+    Rejected=2;
+};
+message LoginVerifyMeta
+{
+    string token=1;
 }

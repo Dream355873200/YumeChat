@@ -15,6 +15,11 @@
 class YumeLineEdit:public QWidget
 {
 public:
+    [[nodiscard]] QLineEdit * edit() const
+    {
+        return _lineEdit;
+    }
+
     [[nodiscard]] QHBoxLayout * main_layout() const
     {
         return _main_layout;
@@ -24,6 +29,10 @@ public:
     {
         return _lineEdit;
     }
+    void setFocus() { _lineEdit->setFocus(); }
+    bool hasFocus() const { return _lineEdit->hasFocus(); }
+    QLineEdit* lineEdit() const { return _lineEdit; }
+
 
 private:
     Q_OBJECT
@@ -39,6 +48,9 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 private:
     QHBoxLayout *_main_layout=nullptr;
     QLineEdit *_lineEdit=nullptr;
@@ -46,6 +58,8 @@ private:
     QPixmap _image;
     QRegularExpression regx;
     QValidator *validator=nullptr;
+
+    QColor _background=QColor("#eff2f6");
 };
 
 

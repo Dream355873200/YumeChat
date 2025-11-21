@@ -24,6 +24,9 @@ YumeLineEdit::YumeLineEdit(QWidget *parent)
     _main_layout->addWidget(_ico);
     _main_layout->addWidget(_lineEdit);
 
+    // 设置焦点策略，让整个控件可以接收焦点
+    this->setFocusPolicy(Qt::ClickFocus);
+
     QFont font;
     font.setPixelSize(13);
     QStringList qsslist;
@@ -33,6 +36,25 @@ YumeLineEdit::YumeLineEdit(QWidget *parent)
     _lineEdit->setAlignment(Qt::AlignCenter);
     _lineEdit->setFont(font);
     _lineEdit->setStyleSheet(qsslist.join(""));
+}
+
+void YumeLineEdit::focusInEvent(QFocusEvent *event)
+{
+    QWidget::focusInEvent(event);
+    // 将焦点传递给内部的QLineEdit
+    _lineEdit->setFocus();
+}
+
+void YumeLineEdit::focusOutEvent(QFocusEvent *event)
+{
+    QWidget::focusOutEvent(event);
+}
+
+void YumeLineEdit::mousePressEvent(QMouseEvent *event)
+{
+    // 点击时获得焦点
+    setFocus();
+    QWidget::mousePressEvent(event);
 }
 
 YumeLineEdit::~YumeLineEdit()
@@ -57,7 +79,7 @@ void YumeLineEdit::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing); //抗锯齿
     painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor::fromString("#eff2f6"));
+    painter.setBrush(_background);
     painter.drawRoundedRect(this->rect(), 10, 10);
 }
 
@@ -96,6 +118,12 @@ void YumeLineEdit::setMode(LineEditMode mode)
             _lineEdit->setMaxLength(6);
             _lineEdit->setEchoMode(QLineEdit::Normal);
             break;
+        case LineEditMode::Search:
+            _lineEdit->setPlaceholderText("搜索");
+            _lineEdit->setEchoMode(QLineEdit::Normal);
+            this->_background= QColor(230, 230, 230);
+            loadPixmap(":/Resource/ico/RiSearchLine.png");
+        break;
         default:
             qDebug() << "LineEdit模式传入错误";
             break;
