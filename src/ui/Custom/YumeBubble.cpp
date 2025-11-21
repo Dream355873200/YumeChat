@@ -4,7 +4,6 @@
 
 #include "YumeBubble.h"
 
-#include <QVBoxLayout>
 
 class QVBoxLayout;
 
@@ -15,16 +14,17 @@ YumeBubble::YumeBubble(QWidget *parent)
 
 
     // 内容部件
-    QWidget *content = new QWidget(this);
-    content->setObjectName("bubbleContent");
+    _content = new QWidget(this);
+    _content->setObjectName("bubbleContent");
 
     // 主布局 - 直接设置到主部件
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(0, 0, 0, 0);
-    mainLayout->addWidget(content);
+   _mainLayout = new QVBoxLayout;
+    this->setLayout(_mainLayout);
+    _mainLayout->setContentsMargins(0, 0, 0, 0);
+    _mainLayout->addWidget(_content);
 
     // 文本标签 - 直接添加到内容部件
-    _text = new UnScrollTextEdit(content);
+    _text = new UnScrollTextEdit(_content);
     _text->setTextColor(Qt::white);
     _text->setReadOnly(true);
     _text->setWordWrapMode(QTextOption::WrapAnywhere);
@@ -35,12 +35,12 @@ YumeBubble::YumeBubble(QWidget *parent)
     _text->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     _text->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     // 内容布局 - 确保正确设置
-    QVBoxLayout *contentLayout = new QVBoxLayout(content);
-    contentLayout->setContentsMargins(10, 3, 100, 0);
-    contentLayout->addWidget(_text);
+    _contentLayout = new QVBoxLayout(_content);
+    _contentLayout->setContentsMargins(5, 3, 120, 0);
+    _contentLayout->addWidget(_text);
 
     // 确保内容部件可以扩展
-    content->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    _content->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     _text->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 }

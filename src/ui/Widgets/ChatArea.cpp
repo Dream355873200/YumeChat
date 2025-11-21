@@ -15,6 +15,7 @@ void ChatArea::add_bubble(MessageItem *bubble)
 
     int scrollPos = verticalScrollBar()->value();
     QListWidgetItem *item=new QListWidgetItem(this);
+
     item->setSizeHint(QSize(bubble->width(),bubble->height()));
     setItemWidget(item, bubble);
 

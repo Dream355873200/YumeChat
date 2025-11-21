@@ -12,7 +12,11 @@
 #include "ui/Custom/YumeBubble.h"
 #include "ui/Custom/YumeLabel.h"
 
-
+enum ItemMode
+{
+    Self,
+    Other
+};
 class MessageItem :public QWidget
 {
     Q_OBJECT
@@ -22,15 +26,18 @@ class MessageItem :public QWidget
    void  set_avatar(const QPixmap& avatar);
     void set_name(const QString & name);
     void set_text(const QString & text);
+    void set_mode(const ItemMode& mode);
     int height();
     int width();
 private:
     YumeBubble* _bubble;
     CircleAvatar* _avatar;
     YumeLabel* _name;
+    std::string _conversation_id;
     QHBoxLayout* _main_layout;
     QVBoxLayout* _v_layout;
 };
+
 
 
 

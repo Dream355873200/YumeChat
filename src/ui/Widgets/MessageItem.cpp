@@ -11,13 +11,15 @@ MessageItem::MessageItem(QWidget *parent)
     this->setAttribute(Qt::WA_TranslucentBackground);
     _main_layout=new QHBoxLayout;
     _main_layout->setAlignment(Qt::AlignTop);
-
     this->setLayout(_main_layout);
 
     _name=new YumeLabel(this);
     _name->setAttribute(Qt::WA_TransparentForMouseEvents);
+    _name->setAlignment(Qt::AlignRight);
 
     _bubble=new YumeBubble(this);
+
+
 
     _avatar=new CircleAvatar(this);
     _main_layout->addWidget(_avatar, 0, Qt::AlignTop);
@@ -27,6 +29,8 @@ MessageItem::MessageItem(QWidget *parent)
     _main_layout->addLayout(_v_layout);
     _v_layout->addWidget(_name);
     _v_layout->addWidget(_bubble);
+
+
 }
 
 MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &name,const QString& text)
@@ -71,6 +75,32 @@ void MessageItem::set_name(const QString &name)
 void MessageItem::set_text(const QString &text)
 {
     _bubble->set_text(text);
+}
+
+void MessageItem::set_mode(const ItemMode &mode)
+{
+    if(mode==ItemMode::Self)
+    {
+      auto item=_main_layout->itemAt(0);
+        if(item->widget())
+        {
+            _main_layout->removeItem(item);
+            _main_layout->addItem(item);
+            _name->setAlignment(Qt::AlignRight);
+            _bubble->content_layout()->setContentsMargins(120,3,0,0);
+        }
+    }
+    if(mode==ItemMode::Other)
+    {
+        auto item=_main_layout->itemAt(0);
+        if(item->layout())
+        {
+            _main_layout->removeItem(item);
+            _main_layout->addItem(item);
+            _name->setAlignment(Qt::AlignLeft);
+            _bubble->content_layout()->setContentsMargins(5,3,120,0);
+        }
+    }
 }
 
 int MessageItem::height()

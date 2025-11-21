@@ -11,10 +11,18 @@
 #include<QAbstractTextDocumentLayout>
 
 #include "UnScrollTextEdit.h"
-
+#include<QVBoxLayout>
 class YumeBubble :public QWidget
 {
+public:
+    [[nodiscard]] QVBoxLayout * content_layout() const
+    {
+        return _contentLayout;
+    }
+
+private:
     Q_OBJECT
+
 public:
     YumeBubble(QWidget* parent=nullptr);
     void set_text(const QString& text);
@@ -24,8 +32,6 @@ public:
         return QSize(idealWidth, idealHeight);
     }
 protected:
-
-
 void paintEvent(QPaintEvent *event) override
 {
     QPainter painter(this);
@@ -53,8 +59,10 @@ void paintEvent(QPaintEvent *event) override
     painter.drawRoundedRect(bgRect, 6, 6);
 }
 private:
-
+    QWidget *_content;
+    QVBoxLayout *_contentLayout;
     UnScrollTextEdit *_text;
+    QVBoxLayout *_mainLayout;
 };
 
 

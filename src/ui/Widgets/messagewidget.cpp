@@ -77,7 +77,7 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
     _name->setElideMode(Qt::ElideRight);
     _last_message->set_font_color(Qt::gray);
     _last_message->setElideMode(Qt::ElideRight);
-
+    _last_message->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
     _time->set_text(time);
     _message_num->set_text("99+");
@@ -100,7 +100,6 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
            if (unread_num > 0) {
                unread_num = 0;
                _message_num->set_text("");
-               _last_message->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
            }
         update();
        });

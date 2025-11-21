@@ -14,6 +14,7 @@
 #include<QButtonGroup>
 
 #include "SearchWidget.h"
+#include "../../../Message.pb.h"
 
 class MessageList : public QWidget
 {
@@ -24,11 +25,7 @@ public:
 
     ~MessageList() override;
     void add_message_widget();
-protected:
-void paintEvent(QPaintEvent *event) override
-{
 
-};
 private:
     QVBoxLayout* _main_layout;
     SearchWidget* _search;
@@ -37,6 +34,9 @@ private:
     messagewidget* _messagewidget;
     int button_num=0;
     int width=220;
+    QAbstractButton* getActiveButton();
+private slots:
+    void recv_chatMessage(const std::string& conversation_id,const std::shared_ptr<message::MsgNode>& message);
 };
 
 

@@ -18,6 +18,7 @@ ConversationWidget::ConversationWidget(QWidget* parent)
     _main_layout->addWidget(_top,1);
     _main_layout->addWidget(_area,3);
     _main_layout->addWidget(_input,1);
+    _main_layout->setSpacing(0);
     for(int i=0;i<20;i++)
     {
         auto *test=new MessageItem(this);
@@ -26,6 +27,8 @@ ConversationWidget::ConversationWidget(QWidget* parent)
         test->set_avatar(addd);
         test->set_text("aaaaaAAAAAaa啊啊aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa啊aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         test->set_name("Yume");
+        test->set_mode(ItemMode::Self);
+        test->set_mode(ItemMode::Other);
         _area->add_bubble(test);
     }
 }

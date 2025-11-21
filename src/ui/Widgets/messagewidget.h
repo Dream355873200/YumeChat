@@ -12,7 +12,14 @@
 
 
 class messagewidget : public YumeButton {
-Q_OBJECT
+public:
+    [[nodiscard]] std::string get_conversation_id() const
+    {
+        return conversation_id;
+    }
+
+private:
+    Q_OBJECT
 
 public:
     explicit messagewidget(QWidget *parent = nullptr);
