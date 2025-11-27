@@ -12,7 +12,7 @@ MessageItem::MessageItem(QWidget *parent)
     _main_layout=new QHBoxLayout;
     _main_layout->setAlignment(Qt::AlignTop);
     this->setLayout(_main_layout);
-
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     _name=new YumeLabel(this);
     _name->setAttribute(Qt::WA_TransparentForMouseEvents);
     _name->setAlignment(Qt::AlignRight);
@@ -33,11 +33,13 @@ MessageItem::MessageItem(QWidget *parent)
 
 }
 
-MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &name,const QString& text)
+
+
+MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &name, const QString &text)
     :QWidget(parent)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
-
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     _name=new YumeLabel(this);
     _name->setAttribute(Qt::WA_TransparentForMouseEvents);
     _name->set_text(name);
@@ -79,36 +81,39 @@ void MessageItem::set_text(const QString &text)
 
 void MessageItem::set_mode(const ItemMode &mode)
 {
-    if(mode==ItemMode::Self)
-    {
-      auto item=_main_layout->itemAt(0);
-        if(item->widget())
-        {
-            _main_layout->removeItem(item);
-            _main_layout->addItem(item);
-            _name->setAlignment(Qt::AlignRight);
-            _bubble->content_layout()->setContentsMargins(120,3,0,0);
+    // 先清空布局但保留控件
+    QLayoutItem* avatarItem = nullptr;
+    QLayoutItem* vLayoutItem = nullptr;
+
+    // 保存布局项
+    if (_main_layout->count() >= 1) {
+        avatarItem = _main_layout->takeAt(0);
+    }
+    if (_main_layout->count() >= 1) {
+        vLayoutItem = _main_layout->takeAt(0);
+    }
+
+    // 移除所有弹性空间
+    while (_main_layout->count() > 0) {
+        QLayoutItem* item = _main_layout->takeAt(0);
+        if (item->spacerItem()) {
+            delete item;
         }
     }
-    if(mode==ItemMode::Other)
-    {
-        auto item=_main_layout->itemAt(0);
-        if(item->layout())
-        {
-            _main_layout->removeItem(item);
-            _main_layout->addItem(item);
-            _name->setAlignment(Qt::AlignLeft);
-            _bubble->content_layout()->setContentsMargins(5,3,120,0);
-        }
+
+    if (mode == ItemMode::Self) {
+        // 自己模式：靠右显示 [stretch] + [内容] + [头像]
+        _main_layout->addStretch();
+        if (vLayoutItem) _main_layout->addItem(vLayoutItem);
+        if (avatarItem) _main_layout->addItem(avatarItem);
+        _name->setAlignment(Qt::AlignRight);
+    }
+    else if (mode == ItemMode::Other) {
+        // 他人模式：靠左显示 [头像] + [内容] + [stretch]
+        if (avatarItem) _main_layout->addItem(avatarItem);
+        if (vLayoutItem) _main_layout->addItem(vLayoutItem);
+        _main_layout->addStretch();
+        _name->setAlignment(Qt::AlignLeft);
     }
 }
 
-int MessageItem::height()
-{
-    return _bubble->sizeHint().height()+15+_name->sizeHint().height()+10;
-}
-
-int MessageItem::width()
-{
-    return  _bubble->sizeHint().width()+20;
-}

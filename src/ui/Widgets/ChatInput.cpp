@@ -8,6 +8,7 @@
 #include "logic/TcpMgr/TcpMgr.h"
 
 ChatInput::ChatInput(QWidget *parent)
+    :QWidget(parent),_parent(parent)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setWindowFlag(Qt::FramelessWindowHint);
@@ -57,7 +58,7 @@ void ChatInput::send_button_clicked()
     // 设置发送者ID（假设Global_id是QString）
     meta->set_sender_id(Global_id.toStdString());  // 关键修改点2
 
-    meta->set_conversation_id(std::string("123"));
+    meta->set_conversation_id(qobject_cast<ConversationWidget*>(_parent)->_conversation_id);
 
     // 设置Unix时间戳（毫秒）
     meta->set_unix_timestamp(QDateTime::currentMSecsSinceEpoch());
@@ -66,7 +67,7 @@ void ChatInput::send_button_clicked()
     meta->set_type(message::TEXT);
 
     // 创建消息节点
-    message::MsgNode node;
+     message::MsgNode node;
 
     // 转移meta所有权（注意：调用后不能再使用meta对象）
     node.set_allocated_meta(meta);  // 关键修改点4
@@ -76,7 +77,7 @@ void ChatInput::send_button_clicked()
         _message_input->toPlainText()
         .toStdString()  // 关键修改点5
     );
-
+    qobject_cast<ConversationWidget*>(_parent)->add_message_item(node.meta().sender_id(),node);
     // 清空输入框
     _message_input->clear();
     emit _message_send(ReqId::Null,node);

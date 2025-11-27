@@ -13,12 +13,14 @@
 #include<QDateTime>
 #include<QUuid>
 
+#include "ConversationWidget.h"
 #include "logic/Global/global.h"
 
 class ChatInput :public QWidget
 {
     Q_OBJECT
-    friend class MessagePage;
+
+
 public:
     ChatInput(QWidget *parent=nullptr);
 
@@ -29,15 +31,14 @@ protected:
 
         painter.setRenderHint(QPainter::Antialiasing);
 
-
-
         painter.setPen(QPen(QColor(128, 128, 128, 32), 2));
         painter.setBrush(Qt::transparent);
 
         painter.drawLine(this->rect().topLeft(),this->rect().topRight());
 
-    };
+    }
 private:
+    QWidget* _parent=nullptr;
     QVBoxLayout* _main_layout;
     QTextEdit* _message_input;
     YumeButton* _send_button;

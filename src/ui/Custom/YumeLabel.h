@@ -19,6 +19,7 @@ private:
 
 public:
     YumeLabel(QWidget *parent=nullptr);
+    YumeLabel(QWidget* parent,const QString& text);
 
     void setElideMode(Qt::TextElideMode mode);
 

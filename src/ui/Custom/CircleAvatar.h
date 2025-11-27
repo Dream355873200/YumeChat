@@ -21,6 +21,7 @@ public:
         _isOnline = is_online;
     }
 
+
     explicit CircleAvatar(QWidget *parent = nullptr);
     void set_icon(const QString& path);
     void set_icon(const QPixmap& avatar);
@@ -77,6 +78,7 @@ private:
     QPixmap _avatar;
     bool _showStatusDot = false; // 默认不显示圆点
     bool _isOnline = false;
+    std::string _conversation_id;
 };
 
 

@@ -13,6 +13,7 @@
 class ConversationWidget:public QWidget
 {
     Q_OBJECT
+    friend class ChatInput;
 public:
     ConversationWidget(QWidget* parent=nullptr);
     ~ConversationWidget();
@@ -21,7 +22,14 @@ private:
     ChatArea* _area;
     ChatInput* _input;
     ChatTop* _top;
-    std::string conversation_id;
+    QString _conversation_name;
+    QPixmap _conversation_avatar;
+    QString _self_name="Yume";
+    QPixmap _self_avatar;
+    std::string _conversation_id;
+
+public slots:
+    void add_message_item(const std::string& conversation_id,const message::MsgNode& message);
 };
 
 

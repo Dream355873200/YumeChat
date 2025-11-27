@@ -18,6 +18,16 @@ YumeLabel::YumeLabel(QWidget *parent)
 
     this->installEventFilter(this);
 }
+
+YumeLabel::YumeLabel(QWidget *parent, const QString &text)
+    :QLabel(parent)
+{
+    this->setCursor(Qt::PointingHandCursor);
+    this->setScaledContents(true);
+    this->set_text(text);
+    this->installEventFilter(this);
+}
+
 void YumeLabel::setElideMode(Qt::TextElideMode mode) {
     m_elideMode = mode;
     update();  // 触发重绘

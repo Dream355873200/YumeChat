@@ -27,8 +27,7 @@ class MessageItem :public QWidget
     void set_name(const QString & name);
     void set_text(const QString & text);
     void set_mode(const ItemMode& mode);
-    int height();
-    int width();
+
 private:
     YumeBubble* _bubble;
     CircleAvatar* _avatar;

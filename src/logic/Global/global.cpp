@@ -10,7 +10,7 @@ QPixmap setPixmapDpi(const QSize &size, const QPixmap &pixmap)
     return resultPixmap;
 }
 
-QString Global_id;
+QString Global_id="1696806296@qq.com";
 QString  Global_host;
 uint16_t  Global_port;
 QString Global_token;
