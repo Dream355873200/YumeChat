@@ -55,10 +55,10 @@ TcpMgr::TcpMgr()
             // 读取消息体
              QByteArray messageBody = _buffer.mid(0, _message_len);
 
-            auto message = std::make_shared<message::MsgNode>();
-            if (message->ParseFromArray(messageBody.constData(), messageBody.size())) {
+             message::MsgNode message;
+            if (message.ParseFromArray(messageBody.constData(), messageBody.size())) {
                 // 反序列化成功
-                qDebug() << "反序列化成功，消息内容:" << message->DebugString().c_str();
+                qDebug() << "反序列化成功，消息内容:" << message.DebugString().c_str();
                 // 处理消息内容// 例如：qDebug() << "字段值:" << message.some_field().c_str();
             } else
                 {
@@ -71,6 +71,12 @@ TcpMgr::TcpMgr()
             qDebug() << "Received message ID:" << _message_id << "Body:" << messageBody;
              _buffer.remove(0, _message_len);
                _b_recv_pending = false;
+            if(message.meta().type()!=Unknown)
+            {
+                ///存储sqlite
+            }
+
+            ///发送ACK包
 
             emit message_receive_success(message);
         }
@@ -173,6 +179,13 @@ void TcpMgr::slot_tcp_sendMsg(const ReqId& reqId,const message::MsgNode& node)
 
         // 4. 发送数据
         qint64 bytesWritten = _socket.write(block);
+
+
+        //启动协程准备接收ack包
+
+
+
+
         if (bytesWritten == -1) {
             qWarning() << "Failed to write to socket:" << _socket.errorString();
         } else if (!_socket.waitForBytesWritten()) {

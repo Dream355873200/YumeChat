@@ -103,7 +103,7 @@ QAbstractButton* MessageList::getActiveButton() {
     }
 }
 
-void MessageList::recv_chatMessage(const std::string &conversation_id, const std::shared_ptr<message::MsgNode> &message)
+void MessageList::recv_chatMessage(const std::string &conversation_id, const message::MsgNode& message)
 {
     for(int i=0;i<_list->count();i++)
     {

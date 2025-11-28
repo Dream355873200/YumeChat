@@ -44,7 +44,7 @@ public slots:
     signals:
     void sig_con_success(bool success);
     void sig_tcp_sendMsg();
-    void message_receive_success(const std::shared_ptr<message::MsgNode>& message);
+    void message_receive_success(const message::MsgNode& message);
 
 
 

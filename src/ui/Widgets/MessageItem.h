@@ -27,7 +27,20 @@ class MessageItem :public QWidget
     void set_name(const QString & name);
     void set_text(const QString & text);
     void set_mode(const ItemMode& mode);
+    // 实现
+    int calculateContentHeight() const
+    {
+        if (!_bubble) return -1;
 
+        // 获取气泡的理想高度
+        int bubbleHeight = _bubble->sizeHint().height();
+
+        // 加上名字标签的高度和间距
+        int nameHeight = _name->sizeHint().height();
+        int spacing = _v_layout->spacing() * 2; // 估算布局间距
+
+        return nameHeight + bubbleHeight + spacing + 20; // 额外边距
+    }
 private:
     YumeBubble* _bubble;
     CircleAvatar* _avatar;

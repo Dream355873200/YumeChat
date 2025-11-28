@@ -12,7 +12,7 @@ MessageItem::MessageItem(QWidget *parent)
     _main_layout=new QHBoxLayout;
     _main_layout->setAlignment(Qt::AlignTop);
     this->setLayout(_main_layout);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
     _name=new YumeLabel(this);
     _name->setAttribute(Qt::WA_TransparentForMouseEvents);
     _name->setAlignment(Qt::AlignRight);
@@ -39,7 +39,7 @@ MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &
     :QWidget(parent)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
-    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     _name=new YumeLabel(this);
     _name->setAttribute(Qt::WA_TransparentForMouseEvents);
     _name->set_text(name);
@@ -55,6 +55,10 @@ MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &
     _main_layout->setContentsMargins(5,15,0,5);
     this->setLayout(_main_layout);
     _main_layout->addWidget(_avatar, 0, Qt::AlignTop);
+
+
+
+
 
 
     _v_layout=new QVBoxLayout;

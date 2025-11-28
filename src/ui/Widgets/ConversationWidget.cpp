@@ -4,6 +4,8 @@
 
 #include "ConversationWidget.h"
 
+#include "logic/MessageMgr/MessageMgr.h"
+
 ConversationWidget::ConversationWidget(QWidget* parent)
     :QWidget(parent)
 {
@@ -19,20 +21,26 @@ ConversationWidget::ConversationWidget(QWidget* parent)
     _main_layout->addWidget(_area,3);
     _main_layout->addWidget(_input,1);
     _main_layout->setSpacing(0);
-    for(int i=0;i<20;i++)
+    QTimer::singleShot(0, this, [this]()
     {
-        auto *test=new MessageItem(this);
-        QPixmap addd;
-        addd.load(":Resource/ico/yume.jpg");
-        test->set_avatar(addd);
-        test->set_text("111");
-        test->set_name("Yume");
+        for(int i = 0; i < 20; i++)
+        {
+            auto test = new MessageItem(this);
+            QPixmap addd;
+            addd.load(":Resource/ico/yume.jpg");
+            test->set_avatar(addd);
+            test->set_text("111");
+            test->set_name("Yume");
+            test->set_mode(ItemMode::Other);
+            _area->add_bubble(test);
+        }
+    });
 
-        test->set_mode(ItemMode::Other);
-        _area->add_bubble(test);
-    }
 
     _self_avatar.load(":Resource/ico/yume.jpg");
+
+
+    connect(MessageMgr::GetInstance().get(),&MessageMgr::chat_message,this,&ConversationWidget::add_message_item);
 }
 
 ConversationWidget::~ConversationWidget()
@@ -55,7 +63,5 @@ void ConversationWidget::add_message_item(const std::string &conversation_id,
         item->set_mode(ItemMode::Self);
         _area->add_bubble(item);
     }
-
-
 
 }

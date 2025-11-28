@@ -36,7 +36,7 @@ private:
     int width=220;
     QAbstractButton* getActiveButton();
 private slots:
-    void recv_chatMessage(const std::string& conversation_id,const std::shared_ptr<message::MsgNode>& message);
+    void recv_chatMessage(const std::string& conversation_id,const message::MsgNode& message);
 };
 
 

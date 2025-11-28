@@ -22,10 +22,10 @@ private:
     MessageMgr();
 
 public slots:
-    void message_divided(const std::shared_ptr<message::MsgNode>& message);
+    void message_divided(const message::MsgNode& message);
 
     signals:
-    void chat_message(const std::string& conversation_id,const std::shared_ptr<message::MsgNode>& message);
+    void chat_message(const std::string& conversation_id,const message::MsgNode& message);
 };
 
 

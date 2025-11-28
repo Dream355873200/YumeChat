@@ -15,10 +15,6 @@
 class YumeBubble :public QWidget
 {
 public:
-    [[nodiscard]] QVBoxLayout * content_layout() const
-    {
-        return _contentLayout;
-    }
 
 private:
     Q_OBJECT
@@ -27,7 +23,11 @@ public:
     YumeBubble(QWidget* parent=nullptr);
     void set_text(const QString& text);
     QSize sizeHint() const {
-        int idealWidth = _text->document()->idealWidth() + 16;  // 加上边距
+        // 使用当前设置的maximumWidth作为宽度，或者计算理想宽度
+        int idealWidth = this->maximumWidth();
+        if (idealWidth == QWIDGETSIZE_MAX) { // 如果没有设置最大宽度
+            idealWidth = _text->document()->idealWidth() + 16;
+        }
         int idealHeight = _text->document()->size().height() + 6;
         return QSize(idealWidth, idealHeight);
     }
@@ -58,9 +58,8 @@ void paintEvent(QPaintEvent *event) override
     // 绘制圆角矩形背景
     painter.drawRoundedRect(bgRect, 6, 6);
 }
+
 private:
-    QWidget *_content;
-    QVBoxLayout *_contentLayout;
     UnScrollTextEdit *_text;
     QVBoxLayout *_mainLayout;
 };
