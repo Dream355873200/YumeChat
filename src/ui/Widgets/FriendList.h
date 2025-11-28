@@ -20,10 +20,6 @@ public:
     ~FriendList() override;
     void add_friend_widget();
 protected:
-    void paintEvent(QPaintEvent *event) override
-    {
-
-    };
 private:
     QVBoxLayout* _main_layout;
     SearchWidget* _search;

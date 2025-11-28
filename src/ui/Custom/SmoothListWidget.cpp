@@ -32,3 +32,17 @@ void SmoothListWidget::scrollbar_beauty()
 
 
 }
+
+bool SmoothListWidget::is_added(const QString &id)
+{
+
+    for(int i=0;i<this->count();i++)
+    {
+        QListWidgetItem* item=this->item(i);
+        if(item->data(Qt::UserRole).toString()==id)
+        {
+            return true;
+        }
+    }
+    return false;
+}

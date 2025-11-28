@@ -15,18 +15,18 @@ class ConversationWidget:public QWidget
     Q_OBJECT
     friend class ChatInput;
 public:
-    ConversationWidget(QWidget* parent=nullptr);
+    ConversationWidget(QWidget* parent,const std::string& conversation_id);
     ~ConversationWidget();
 private:
     QVBoxLayout* _main_layout;
     ChatArea* _area;
     ChatInput* _input;
     ChatTop* _top;
-    QString _conversation_name;
+    QString _conversation_name="Yume";
     QPixmap _conversation_avatar;
     QString _self_name="Yume";
     QPixmap _self_avatar;
-    std::string _conversation_id;
+    const std::string _conversation_id;
 
 public slots:
     void add_message_item(const std::string& conversation_id,const message::MsgNode& message);

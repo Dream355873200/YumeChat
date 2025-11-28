@@ -33,19 +33,27 @@ MessageList::MessageList(QWidget *parent) : QWidget(parent)
     _main_layout->addWidget(_search);
     _main_layout->addWidget(_list);
 
+    QString data="123456";
 
-    _messagewidget=new messagewidget(this,"Yume","你好","18:30");
+
+    _messagewidget=new messagewidget(this,data.toStdString());
     _messagewidget->setFixedWidth(width-10);
     QListWidgetItem *item = new QListWidgetItem();
+    item->setData(Qt::UserRole,data);
+
+
     item->setSizeHint(QSize(_messagewidget->sizeHint().width(),60) );
     _list->addItem(item);
     _list->setItemWidget(item, _messagewidget);
     buttonGroup->addButton(_messagewidget, button_num++);
     for(int i=0;i<20;i++)
     {
-        auto test=new messagewidget(this,"Yume","你好aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaawwwwwwwwwwwwwwwwwww","18:30");
+        auto test=new messagewidget(this,data.toStdString());
         test->setFixedWidth(width-20);
         QListWidgetItem *t_item = new QListWidgetItem();
+        t_item->setData(Qt::UserRole,data);
+
+
         QWidget* container = new QWidget(this);
         container->setFixedWidth(width-10);
         QHBoxLayout* containerLayout = new QHBoxLayout(container);
@@ -69,8 +77,13 @@ MessageList::~MessageList()
 
 void MessageList::add_message_widget()
 {
-    auto test=new messagewidget(this,"Yume","你好","18:30");
+    QString data="123456";
+
+    auto test=new messagewidget(this,data.toStdString());
     QListWidgetItem *t_item = new QListWidgetItem();
+    t_item->setData(Qt::UserRole,data);
+
+
     QWidget* container = new QWidget(this);
     container->setFixedWidth(width-10);
 

@@ -60,7 +60,7 @@ private:
 public slots:
     void SlotOpen();
 
-private slots:
+public slots:
     bool isClickInBlankArea(const QPoint &pos);
 
     void SlotClose();

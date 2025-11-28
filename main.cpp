@@ -28,15 +28,5 @@ int main(int argc, char *argv[])
     c.show();
     QObject::connect(&w,&MainWindow::open_yumewindow,&c,&YumeWindow::SlotOpen);
 
-
-    MessageItem aaaa;
-    aaaa.set_text("bbbbbbbbbbbbbbbbbbbbbbbbb \n123333333333333333333333333333333333333333333333\n12333333333333333333333333");
-    aaaa.set_mode(ItemMode::Self);
-    aaaa.show();
-
-    YumeBubble bubble;
-    bubble.set_text("bbbbbbbbbbbbbbbbbbbbbbbbb \n123333333333333333333333333333333333333333333333\n12333333333333333333333333");
-    bubble.show();
-
     return a.exec();
 }

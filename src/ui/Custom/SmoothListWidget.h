@@ -91,6 +91,7 @@ protected:
     float speed=0.8;
 private:
     void scrollbar_beauty();
+    bool is_added(const QString& id);
 
 };
 

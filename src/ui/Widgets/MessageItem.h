@@ -39,7 +39,7 @@ class MessageItem :public QWidget
         int nameHeight = _name->sizeHint().height();
         int spacing = _v_layout->spacing() * 2; // 估算布局间距
 
-        return nameHeight + bubbleHeight + spacing + 20; // 额外边距
+        return nameHeight + bubbleHeight + spacing + 30; // 额外边距
     }
 private:
     YumeBubble* _bubble;

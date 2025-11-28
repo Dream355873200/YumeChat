@@ -4,7 +4,7 @@
 
 #include "ChatTop.h"
 
-ChatTop::ChatTop(QWidget* parent)
+ChatTop::ChatTop(QWidget* parent,const QString& name)
     :QWidget(parent)
 {
     _main_layout=new QHBoxLayout;
@@ -15,7 +15,7 @@ ChatTop::ChatTop(QWidget* parent)
     _name=new YumeLabel(this);
     _name->setContentsMargins(10,0,40,5);
     _main_layout->addWidget(_name);
-    _name->set_text("残梦");
+    _name->set_text(name);
     _name->setAlignment(Qt::AlignCenter);
     _name->setAlignment(Qt::AlignLeft);
     _name->set_font_size(18);

@@ -14,7 +14,7 @@ MessagePage::MessagePage(QWidget *parent)
     _main_layout->setContentsMargins(0,0,0,0);
 
 
-    _con=new ConversationWidget(this);
+    _con=new ConversationWidget(this,"123456");
 
     _list=new MessageList(this);
 

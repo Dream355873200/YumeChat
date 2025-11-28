@@ -4,12 +4,15 @@
 
 #include "YumeButton.h"
 
+#include <QTimer>
+
 YumeButton::YumeButton(QWidget *parent)
     : QAbstractButton(parent), _label(new YumeLabel(this))
 {
 
     setCheckable(true); // 让按钮可以被选中
 
+    _timer=new QTimer(this);
     //避免事件过滤器冲突
     _label->setAttribute(Qt::WA_TransparentForMouseEvents);
 
@@ -38,6 +41,9 @@ YumeButton::YumeButton(QWidget *parent)
     this->setCursor(Qt::PointingHandCursor);
 
     this->installEventFilter(this);
+
+    connect(_timer,&QTimer::timeout,this,&YumeButton::double_clicked_timer);
+
 }
 
 YumeButton::~YumeButton()
@@ -89,6 +95,7 @@ bool YumeButton::eventFilter(QObject *watched, QEvent *event) {
     if (watched == this) {
         if (event->type() == QEvent::Enter) {
             isHovered = true;
+
             update();
             return true; // 悬停事件可拦截
         }
@@ -100,6 +107,20 @@ bool YumeButton::eventFilter(QObject *watched, QEvent *event) {
         if (event->type() == QEvent::MouseButtonPress) {
             QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
             if (mouseEvent->button() == Qt::LeftButton) {
+
+                _is_clicked++;
+                if(_is_clicked==1)
+                {
+                    _timer->setInterval(200);
+                    _timer->start();
+                }
+                if(_is_clicked==2)
+                {
+                    emit double_click();
+                    _timer->stop();
+                }
+                //实现双击
+
                 effect->setStrength(effect_rate);
                 update();
                 return false; // 关键：允许事件继续传递
@@ -115,4 +136,9 @@ bool YumeButton::eventFilter(QObject *watched, QEvent *event) {
         }
     }
     return QWidget::eventFilter(watched, event);
+}
+
+void YumeButton::double_clicked_timer()
+{
+    _is_clicked=0;
 }

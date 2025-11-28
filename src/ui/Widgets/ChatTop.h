@@ -14,7 +14,7 @@ class ChatTop:public QWidget
 {
     Q_OBJECT
 public:
-    ChatTop(QWidget* parent=nullptr);
+    ChatTop(QWidget* parent,const QString& name);
     ~ChatTop();
 protected:
     void paintEvent(QPaintEvent *event) override

@@ -23,7 +23,7 @@ private:
 
 public:
     explicit messagewidget(QWidget *parent = nullptr);
-    messagewidget(QWidget *parent,const QString&name,const QString&last_message,const QString& time);
+    messagewidget(QWidget *parent,const std::string& conversation_id);
     ~messagewidget() override;
 
 protected:
@@ -84,7 +84,7 @@ private:
     YumeLabel* _last_message=nullptr;
     YumeLabel* _time=nullptr;
     YumeLabel* _message_num=nullptr;
-    std::string conversation_id;
+    const std::string conversation_id;
     CircleAvatar *_avatar;
     int unread_num=1;
 

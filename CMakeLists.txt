@@ -110,15 +110,19 @@ set(PROJECT_SOURCES
         src/logic/DatabaseMgr/DatabaseMgr.h
         src/ui/Widgets/ChatTop.cpp
         src/ui/Widgets/ChatTop.h
-        src/ui/Widgets/ChatTop.h
+
         src/ui/Widgets/SearchWidget.cpp
         src/ui/Widgets/SearchWidget.h
-        src/ui/Widgets/SearchWidget.h
+
         src/logic/MessageMgr/MessageMgr.cpp
         src/logic/MessageMgr/MessageMgr.h
-        src/logic/MessageMgr/MessageMgr.h
+
         src/ui/Widgets/ConversationWidget.cpp
         src/ui/Widgets/ConversationWidget.h
+        src/logic/ListMgr/ListMgr.cpp
+        src/logic/ListMgr/ListMgr.h
+
+
 
 )
 

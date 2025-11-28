@@ -94,15 +94,20 @@ protected:
     float effect_rate=0.0;
     bool isHovered=false;
     bool isSelected=false;
+
+    QTimer* _timer;
+    unsigned int _is_clicked=0;
 private:
     QHBoxLayout* _main_layout=nullptr;
     YumeLabel* _label=nullptr;
     QGraphicsColorizeEffect *effect;
 
 
+private slots:
+    void double_clicked_timer();
 
-private:
-
+    signals:
+    void double_click();
 };
 
 

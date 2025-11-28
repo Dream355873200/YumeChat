@@ -12,12 +12,13 @@ class FriendWidget:public YumeButton
 {
     Q_OBJECT
 public:
-    FriendWidget(QWidget* parent,const unsigned int conversation_id);
-    FriendWidget(QWidget* parent,const QString& name,unsigned int conversation_id);
+    FriendWidget(QWidget* parent,const std::string& conversation_id);
+    FriendWidget(QWidget* parent,const QString& name,const std::string& conversation_id);
     ~FriendWidget();
 protected:
     void paintEvent(QPaintEvent *event) override
-    { QWidget::paintEvent(event);
+    {
+        QWidget::paintEvent(event);
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
 
@@ -36,10 +37,13 @@ protected:
 
     };
 private:
-    unsigned int _conversation_id;
+    const std::string _conversation_id;
     CircleAvatar* _avatar;
     QVBoxLayout* _v_layout;
     YumeLabel* _name;
+
+    signals:
+    void double_clicked_friendWidget(const std::string& conversation_id);
 
 };
 

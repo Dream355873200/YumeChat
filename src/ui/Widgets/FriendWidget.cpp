@@ -4,16 +4,25 @@
 
 #include "FriendWidget.h"
 
-FriendWidget::FriendWidget(QWidget *parent, const unsigned int conversation_id)
+#include "../../../yumewindow.h"
+
+FriendWidget::FriendWidget(QWidget *parent, const std::string& conversation_id)
     :_conversation_id(conversation_id)
 {
 
 }
 
 FriendWidget::FriendWidget(QWidget *parent, const QString &name,
-    unsigned int conversation_id)
+    const std::string& conversation_id)
         :_conversation_id(conversation_id)
 {
+
+
+
+    //根据conversation_id去数据库获取每一个项的名字等基本属性
+
+
+
 
     this->setNormalColor(Qt::transparent);
     this->setHoverColor(QColor::fromString("#F2F3FA"));
@@ -50,8 +59,14 @@ FriendWidget::FriendWidget(QWidget *parent, const QString &name,
     _name->setElideMode(Qt::ElideRight);
     _v_layout->addWidget(_name);
 
+    connect(this,&FriendWidget::double_click,[this]()
+    {
+        emit double_clicked_friendWidget(_conversation_id);
+    });
+
 }
 
 FriendWidget::~FriendWidget()
 {
 }
+

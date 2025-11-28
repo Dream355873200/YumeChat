@@ -20,7 +20,7 @@ messagewidget::messagewidget(QWidget *parent) : YumeButton(parent)
     _v_layout2->setAlignment(Qt::AlignRight);
 }
 
-messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&last_message,const QString& time)
+messagewidget::messagewidget(QWidget *parent,const std::string& conversation_id)
     : YumeButton(parent)
 {
     
@@ -70,8 +70,14 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
     _v_layout2->addWidget(_time);
     _v_layout2->addWidget(_message_num);
 
-    _name->set_text(name);
-    _last_message->set_text(last_message);
+
+    //从数据库查询name
+    _name->set_text("Yume");
+
+    //从数据库读取lastmessage
+    _last_message->set_text("你好");
+
+
     _name->set_font_size(13);
     _name->set_font_color(QColor::fromString("#0C0C0E"));
     _name->setElideMode(Qt::ElideRight);
@@ -79,7 +85,8 @@ messagewidget::messagewidget(QWidget *parent,const QString&name,const QString&la
     _last_message->setElideMode(Qt::ElideRight);
     _last_message->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
-    _time->set_text(time);
+    //从数据库查询time
+    _time->set_text("18:00");
     _message_num->set_text("99+");
     _time->set_font_size(10);
     _time->set_font_color(Qt::gray);

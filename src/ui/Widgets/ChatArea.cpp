@@ -86,7 +86,6 @@ void ChatArea::adjustAllBubbles()
             int newHeight = bubble->calculateContentHeight();
 
 
-            qDebug() << newHeight;
             // 确保最小高度
             newHeight = qMax(newHeight, 60);
 

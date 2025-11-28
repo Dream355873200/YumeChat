@@ -6,16 +6,20 @@
 
 #include "logic/MessageMgr/MessageMgr.h"
 
-ConversationWidget::ConversationWidget(QWidget* parent)
-    :QWidget(parent)
+ConversationWidget::ConversationWidget(QWidget* parent,const std::string& conversation_id)
+    :QWidget(parent),_conversation_id(conversation_id)
 {
     _main_layout=new QVBoxLayout;
     this->setLayout(_main_layout);
     _main_layout->setContentsMargins(0,0,0,0);
 
+  /*  _conversation_avatar;  从数据库获取头像和name
+    _conversation_name;
+*/
+
     _area=new ChatArea(this);
     _input=new ChatInput(this);
-    _top=new ChatTop(this);
+    _top=new ChatTop(this,_conversation_name);
 
     _main_layout->addWidget(_top,1);
     _main_layout->addWidget(_area,3);

@@ -79,6 +79,7 @@ YumeWindow::YumeWindow(QWidget *parent)
     connect(_toolwidget->friends(),&QAbstractButton::clicked,this,&YumeWindow::SlotFriends,Qt::QueuedConnection);
     connect(_titlebar->_x,&YumeLabel::clicked,this,&YumeWindow::SlotClose);
 
+
     resize(1200,800);
     setMinimumWidth(600);
 }
