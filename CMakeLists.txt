@@ -121,7 +121,9 @@ set(PROJECT_SOURCES
         src/ui/Widgets/ConversationWidget.h
         src/logic/ListMgr/ListMgr.cpp
         src/logic/ListMgr/ListMgr.h
-
+        src/ui/Add/SelectWindow.cpp
+        src/ui/Add/SelectWindow.h
+        src/ui/Add/SelectWindow.h
 
 
 )

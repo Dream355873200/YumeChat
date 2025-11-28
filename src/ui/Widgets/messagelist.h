@@ -15,6 +15,7 @@
 
 #include "SearchWidget.h"
 #include "../../../Message.pb.h"
+#include "ui/Add/SelectWindow.h"
 
 class MessageList : public QWidget
 {
@@ -34,6 +35,8 @@ private:
     messagewidget* _messagewidget;
     int button_num=0;
     int width=220;
+
+    std::unique_ptr<SelectWindow> _select_window;
     QAbstractButton* getActiveButton();
 private slots:
     void recv_chatMessage(const std::string& conversation_id,const message::MsgNode& message);

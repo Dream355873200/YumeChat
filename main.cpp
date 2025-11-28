@@ -4,17 +4,7 @@
 #include <windows.h>
 
 #include "yumewindow.h"
-#include "ui/Custom/YumeButton.h"
-#include "ui/Custom/YumeLabel.h"
-#include "ui/Custom/YumeLineEdit.h"
-
-#include "src/ui/login/login_dialog.h"
-#include "ui/Custom/YumeBubble.h"
-#include "ui/Widgets/ChatArea.h"
-#include "ui/Widgets/ChatInput.h"
-#include "ui/Widgets/FriendWidget.h"
-#include "ui/Widgets/MessageItem.h"
-#include "ui/Widgets/SearchWidget.h"
+#include "ui/Add/SelectWindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,6 +13,8 @@ int main(int argc, char *argv[])
     w.setFixedSize(320,445);
     w.show();
 
+    SelectWindow select_window;
+    select_window.show();
 
     YumeWindow c;
     c.show();

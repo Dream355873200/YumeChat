@@ -62,6 +62,7 @@ void ChatArea::add_bubble(MessageItem *bubble)
 void ChatArea::resizeEvent(QResizeEvent *event)
 {
     SmoothListWidget::resizeEvent(event);
+
     adjustAllBubbles();
 }
 
@@ -80,7 +81,7 @@ void ChatArea::adjustAllBubbles()
             bubble->setMaximumWidth(newBubbleWidth);
 
             // 关键修改：让气泡根据新宽度重新布局
-            bubble->adjustSize();
+           // bubble->adjustSize();
 
             // 重新计算理想高度
             int newHeight = bubble->calculateContentHeight();
@@ -107,6 +108,7 @@ int ChatArea::calculateBubbleWidth() const
     // 留出一些边距，确保内容不会被截断
     int margin = 10;
     int bubbleWidth = viewportWidth - scrollBarWidth - margin;
+
 
     // 限制最小宽度，避免过窄
     return qMax(bubbleWidth, 200);

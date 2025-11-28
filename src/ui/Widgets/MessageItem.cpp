@@ -11,6 +11,7 @@ MessageItem::MessageItem(QWidget *parent)
     this->setAttribute(Qt::WA_TranslucentBackground);
     _main_layout=new QHBoxLayout;
     _main_layout->setAlignment(Qt::AlignTop);
+    _main_layout->setContentsMargins(0,0,120,0);
     this->setLayout(_main_layout);
 
     _name=new YumeLabel(this);
@@ -111,6 +112,7 @@ void MessageItem::set_mode(const ItemMode &mode)
         if (vLayoutItem) _main_layout->addItem(vLayoutItem);
         if (avatarItem) _main_layout->addItem(avatarItem);
         _name->setAlignment(Qt::AlignRight);
+        _main_layout->setContentsMargins(120,0,0,0);
     }
     else if (mode == ItemMode::Other) {
         // 他人模式：靠左显示 [头像] + [内容] + [stretch]
@@ -118,6 +120,7 @@ void MessageItem::set_mode(const ItemMode &mode)
         if (vLayoutItem) _main_layout->addItem(vLayoutItem);
         _main_layout->addStretch();
         _name->setAlignment(Qt::AlignLeft);
+        _main_layout->setContentsMargins(0,0,120,0);
     }
 }
 

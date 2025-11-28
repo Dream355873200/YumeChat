@@ -10,7 +10,26 @@
 
 class SearchWidget : public QWidget
 {
+public:
+    void set_search_width(int search_width)
+    {
+        _search->setFixedWidth(search_width);
+        _search_width = search_width;
+    }
+
+    [[nodiscard]] YumeLineEdit * search() const
+    {
+        return _search;
+    }
+
+    [[nodiscard]] YumeButton * add_friend() const
+    {
+        return _add_friend;
+    }
+
+private:
     Q_OBJECT
+
 public:
     SearchWidget(QWidget* parent = nullptr);
     ~SearchWidget();
@@ -30,6 +49,8 @@ private:
     QHBoxLayout* _main_layout;
     YumeLineEdit* _search;
     YumeButton* _add_friend;
+
+    int _search_width=80;
     
     bool _isExpanded = false; // 记录当前状态
 };

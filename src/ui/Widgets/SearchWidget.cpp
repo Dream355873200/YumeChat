@@ -21,7 +21,7 @@ SearchWidget::SearchWidget(QWidget *parent)
     _search = new YumeLineEdit(this);
     _search->setMode(LineEditMode::Search);
     _search->setFixedHeight(25);
-    _search->setFixedWidth(80);
+    _search->setFixedWidth(_search_width);
 
     _add_friend = new YumeButton(this);
     _add_friend->setFixedSize(25, 25);
@@ -44,6 +44,9 @@ SearchWidget::SearchWidget(QWidget *parent)
 
     _label_animation = new QPropertyAnimation(_label, "windowOpacity");
     _label_animation->setDuration(300);
+
+
+
 }
 
 SearchWidget::~SearchWidget()
@@ -95,8 +98,8 @@ void SearchWidget::expandSearch()
     _label_animation->stop();
 
     // 展开搜索框
-    _search_animation->setStartValue(80);
-    _search_animation->setEndValue(170);
+    _search_animation->setStartValue(_search_width);
+    _search_animation->setEndValue(_search_width+90);
     _search_animation->start();
 
     // 隐藏标签
