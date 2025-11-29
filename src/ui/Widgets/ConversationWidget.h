@@ -24,7 +24,7 @@ private:
     ChatTop* _top;
     QString _conversation_name="Yume";
     QPixmap _conversation_avatar;
-    QString _self_name="Yume";
+    QString _self_name="Yumeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     QPixmap _self_avatar;
     const std::string _conversation_id;
 

@@ -35,7 +35,6 @@ ChatInput::ChatInput(QWidget *parent)
     _send_button->label()->set_font_color(Qt::white);
 
 
-
     _main_layout->addWidget(_send_button,0,Qt::AlignRight);
 
 
@@ -45,6 +44,10 @@ ChatInput::ChatInput(QWidget *parent)
 
 void ChatInput::send_button_clicked()
 {
+    if(_message_input->toPlainText().isEmpty())
+    {
+        return;
+    }
     // 创建消息元数据
     auto* meta = new message::MessageMeta();
 

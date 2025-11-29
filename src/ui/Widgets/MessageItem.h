@@ -48,6 +48,8 @@ private:
     std::string _conversation_id;
     QHBoxLayout* _main_layout;
     QVBoxLayout* _v_layout;
+    QHBoxLayout* _bubble_layout;
+
 };
 
 
