@@ -43,6 +43,7 @@ inline constexpr MessageMeta::Impl_::Impl_(
         unix_timestamp_{0},
         type_{static_cast< ::message::MessageType >(0)},
         sequence_{0},
+        forward_flag_{false},
         _cached_size_{0} {}
 
 template <typename>
@@ -273,6 +274,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.type_),
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.sequence_),
         PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.client_id_),
+        PROTOBUF_FIELD_OFFSET(::message::MessageMeta, _impl_.forward_flag_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::message::AddFriendMeta, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -300,8 +302,8 @@ static const ::_pbi::MigrationSchema
         {10, 30, -1, sizeof(::message::MsgNode)},
         {41, 51, -1, sizeof(::message::PushMeta)},
         {53, -1, -1, sizeof(::message::MessageMeta)},
-        {68, -1, -1, sizeof(::message::AddFriendMeta)},
-        {78, -1, -1, sizeof(::message::LoginVerifyMeta)},
+        {69, -1, -1, sizeof(::message::AddFriendMeta)},
+        {79, -1, -1, sizeof(::message::LoginVerifyMeta)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::message::_MsgPacket_default_instance_._instance,
@@ -327,21 +329,21 @@ const char descriptor_table_protodef_Message_2eproto[] ABSL_ATTRIBUTE_SECTION_VA
     "ge.LoginVerifyMetaH\000B\t\n\007content\"d\n\010PushM"
     "eta\022$\n\tpush_type\030\t \001(\0162\021.message.PushTyp"
     "e\0222\n\016push_timestamp\030\n \001(\0132\032.google.proto"
-    "buf.Timestamp\"\256\001\n\013MessageMeta\022\022\n\nmessage"
+    "buf.Timestamp\"\304\001\n\013MessageMeta\022\022\n\nmessage"
     "_id\030\001 \001(\t\022\027\n\017conversation_id\030\002 \001(\t\022\021\n\tse"
     "nder_id\030\003 \001(\t\022\026\n\016unix_timestamp\030\004 \001(\005\022\"\n"
     "\004type\030\005 \001(\0162\024.message.MessageType\022\020\n\010seq"
-    "uence\030\006 \001(\005\022\021\n\tclient_id\030\007 \001(\t\"C\n\rAddFri"
-    "endMeta\022\014\n\004note\030\001 \001(\t\022$\n\004type\030\002 \001(\0162\026.me"
-    "ssage.AddFriendType\" \n\017LoginVerifyMeta\022\r"
-    "\n\005token\030\001 \001(\t*1\n\nPacketType\022\017\n\013Push_Pack"
-    "et\020\000\022\022\n\016Forward_Packet\020\001*0\n\010PushType\022\020\n\014"
-    "Chat_Message\020\000\022\022\n\016Friend_Request\020\001*f\n\013Me"
-    "ssageType\022\013\n\007UNKNOWN\020\000\022\010\n\004TEXT\020\001\022\t\n\005IMAG"
-    "E\020\002\022\t\n\005AUDIO\020\003\022\t\n\005VIDEO\020\004\022\010\n\004FILE\020\005\022\010\n\004R"
-    "ICH\020\006\022\013\n\007COMMAND\020\007*8\n\rAddFriendType\022\013\n\007P"
-    "ending\020\000\022\014\n\010Accepted\020\001\022\014\n\010Rejected\020\002b\006pr"
-    "oto3"
+    "uence\030\006 \001(\005\022\021\n\tclient_id\030\007 \001(\t\022\024\n\014forwar"
+    "d_flag\030\010 \001(\010\"C\n\rAddFriendMeta\022\014\n\004note\030\001 "
+    "\001(\t\022$\n\004type\030\002 \001(\0162\026.message.AddFriendTyp"
+    "e\" \n\017LoginVerifyMeta\022\r\n\005token\030\001 \001(\t*1\n\nP"
+    "acketType\022\017\n\013Push_Packet\020\000\022\022\n\016Forward_Pa"
+    "cket\020\001*0\n\010PushType\022\020\n\014Chat_Message\020\000\022\022\n\016"
+    "Friend_Request\020\001*f\n\013MessageType\022\013\n\007UNKNO"
+    "WN\020\000\022\010\n\004TEXT\020\001\022\t\n\005IMAGE\020\002\022\t\n\005AUDIO\020\003\022\t\n\005"
+    "VIDEO\020\004\022\010\n\004FILE\020\005\022\010\n\004RICH\020\006\022\013\n\007COMMAND\020\007"
+    "*8\n\rAddFriendType\022\013\n\007Pending\020\000\022\014\n\010Accept"
+    "ed\020\001\022\014\n\010Rejected\020\002b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2eproto_deps[1] =
     {
@@ -351,7 +353,7 @@ static ::absl::once_flag descriptor_table_Message_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_Message_2eproto = {
     false,
     false,
-    1124,
+    1146,
     descriptor_table_protodef_Message_2eproto,
     "Message.proto",
     &descriptor_table_Message_2eproto_once,
@@ -1653,9 +1655,9 @@ MessageMeta::MessageMeta(
                offsetof(Impl_, unix_timestamp_),
            reinterpret_cast<const char *>(&from._impl_) +
                offsetof(Impl_, unix_timestamp_),
-           offsetof(Impl_, sequence_) -
+           offsetof(Impl_, forward_flag_) -
                offsetof(Impl_, unix_timestamp_) +
-               sizeof(Impl_::sequence_));
+               sizeof(Impl_::forward_flag_));
 
   // @@protoc_insertion_point(copy_constructor:message.MessageMeta)
 }
@@ -1673,9 +1675,9 @@ inline void MessageMeta::SharedCtor(::_pb::Arena* arena) {
   ::memset(reinterpret_cast<char *>(&_impl_) +
                offsetof(Impl_, unix_timestamp_),
            0,
-           offsetof(Impl_, sequence_) -
+           offsetof(Impl_, forward_flag_) -
                offsetof(Impl_, unix_timestamp_) +
-               sizeof(Impl_::sequence_));
+               sizeof(Impl_::forward_flag_));
 }
 MessageMeta::~MessageMeta() {
   // @@protoc_insertion_point(destructor:message.MessageMeta)
@@ -1728,15 +1730,15 @@ const ::google::protobuf::internal::ClassData* MessageMeta::GetClassData() const
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 7, 0, 71, 2> MessageMeta::_table_ = {
+const ::_pbi::TcParseTable<3, 8, 0, 79, 2> MessageMeta::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    7, 56,  // max_field_number, fast_idx_mask
+    8, 56,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967168,  // skipmap
+    4294967040,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    7,  // num_field_entries
+    8,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
@@ -1746,7 +1748,9 @@ const ::_pbi::TcParseTable<3, 7, 0, 71, 2> MessageMeta::_table_ = {
     ::_pbi::TcParser::GetTable<::message::MessageMeta>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    {::_pbi::TcParser::MiniParse, {}},
+    // bool forward_flag = 8;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(MessageMeta, _impl_.forward_flag_), 63>(),
+     {64, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.forward_flag_)}},
     // string message_id = 1;
     {::_pbi::TcParser::FastUS1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.message_id_)}},
@@ -1792,10 +1796,13 @@ const ::_pbi::TcParseTable<3, 7, 0, 71, 2> MessageMeta::_table_ = {
     // string client_id = 7;
     {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.client_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // bool forward_flag = 8;
+    {PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.forward_flag_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
   }},
   // no aux_entries
   {{
-    "\23\12\17\11\0\0\0\11"
+    "\23\12\17\11\0\0\0\11\0\0\0\0\0\0\0\0"
     "message.MessageMeta"
     "message_id"
     "conversation_id"
@@ -1816,8 +1823,8 @@ PROTOBUF_NOINLINE void MessageMeta::Clear() {
   _impl_.sender_id_.ClearToEmpty();
   _impl_.client_id_.ClearToEmpty();
   ::memset(&_impl_.unix_timestamp_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.sequence_) -
-      reinterpret_cast<char*>(&_impl_.unix_timestamp_)) + sizeof(_impl_.sequence_));
+      reinterpret_cast<char*>(&_impl_.forward_flag_) -
+      reinterpret_cast<char*>(&_impl_.unix_timestamp_)) + sizeof(_impl_.forward_flag_));
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -1889,6 +1896,13 @@ PROTOBUF_NOINLINE void MessageMeta::Clear() {
             target = stream->WriteStringMaybeAliased(7, _s, target);
           }
 
+          // bool forward_flag = 8;
+          if (this_._internal_forward_flag() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteBoolToArray(
+                8, this_._internal_forward_flag(), target);
+          }
+
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
             target =
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -1949,6 +1963,10 @@ PROTOBUF_NOINLINE void MessageMeta::Clear() {
               total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
                   this_._internal_sequence());
             }
+            // bool forward_flag = 8;
+            if (this_._internal_forward_flag() != 0) {
+              total_size += 2;
+            }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
                                                      &this_._impl_._cached_size_);
@@ -1983,6 +2001,9 @@ void MessageMeta::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::goo
   if (from._internal_sequence() != 0) {
     _this->_impl_.sequence_ = from._impl_.sequence_;
   }
+  if (from._internal_forward_flag() != 0) {
+    _this->_impl_.forward_flag_ = from._impl_.forward_flag_;
+  }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2004,8 +2025,8 @@ void MessageMeta::InternalSwap(MessageMeta* PROTOBUF_RESTRICT other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.sender_id_, &other->_impl_.sender_id_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.client_id_, &other->_impl_.client_id_, arena);
   ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.sequence_)
-      + sizeof(MessageMeta::_impl_.sequence_)
+      PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.forward_flag_)
+      + sizeof(MessageMeta::_impl_.forward_flag_)
       - PROTOBUF_FIELD_OFFSET(MessageMeta, _impl_.unix_timestamp_)>(
           reinterpret_cast<char*>(&_impl_.unix_timestamp_),
           reinterpret_cast<char*>(&other->_impl_.unix_timestamp_));

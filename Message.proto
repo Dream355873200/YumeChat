@@ -58,6 +58,7 @@ message MessageMeta {
     MessageType type = 5;          // 消息类型
     int32 sequence = 6;            // 消息序列号
     string client_id = 7;          // 客户端生成ID (用于去重)
+    bool forward_flag=8;
 }
 
 // 消息类型枚举

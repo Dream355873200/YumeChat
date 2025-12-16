@@ -29,7 +29,7 @@ MessageList::MessageList(QWidget *parent) : QWidget(parent)
     _search=new SearchWidget(this);
     _search->set_text("Message");
 
-    _select_window=std::make_unique<SelectWindow>();
+
 
     _main_layout->addWidget(_search);
     _main_layout->addWidget(_list);
@@ -71,13 +71,14 @@ MessageList::MessageList(QWidget *parent) : QWidget(parent)
 
     connect(_search->add_friend(),&YumeButton::clicked,[this]()
     {
-        _select_window->show();
+        _select_window.show();
     });
     connect(MessageMgr::GetInstance().get(),&MessageMgr::chat_message,this,&MessageList::recv_chatMessage);
 }
 
 MessageList::~MessageList()
 {
+
 }
 
 void MessageList::add_message_widget()

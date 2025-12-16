@@ -124,8 +124,13 @@ set(PROJECT_SOURCES
         src/ui/Add/SelectWindow.cpp
         src/ui/Add/SelectWindow.h
         src/ui/Add/SelectWindow.h
-
-
+        src/ui/Widgets/SearchFriendWidget.cpp
+        src/ui/Widgets/SearchFriendWidget.h
+        framelesswidget.h
+        framelesswidget.cpp
+        framelessdialog.h
+        framelessdialog.cpp
+        framelesswidget.h
 )
 
 # 创建目标

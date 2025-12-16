@@ -62,6 +62,11 @@ void HttpMgr::slot_http_finish(const ReqId &req_id, const QByteArray &res,const 
     {
         emit sig_login_mod_finish(req_id,res,error_codes);
     }
+    if(mod==Modules::SELECTMOD)
+    {
+
+        emit sig_select_mod_finish(req_id,res,error_codes);
+    }
 
 }
 

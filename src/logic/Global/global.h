@@ -24,12 +24,13 @@ enum ReqId
     ID_CHAT_LOGIN_RSP=1006,//登录聊天服务器回包
     ID_ADD_FRIEND=1007,//添加好友
     ID_CHAT=1008,//发送消息
+    SELECT_ADD_FRIEND=1009,//搜索添加user列表
 };
 enum Modules
 {
     REGISITERMOD=0,
-    RESETMOD=1,
-    LOGINMOD=2,
+    LOGINMOD=1,
+    SELECTMOD=2,
 };
 
 enum ErrorCodes
@@ -56,6 +57,11 @@ enum LineEditMode
     Email,
     VerifyCode,
     Search,
+};
+struct UserInfo {
+    QString name;
+     QString  email;
+     QString  avatar;  // 假设 avatar 是 Base64 字符串或 URL
 };
 extern qreal Global_ScaleDpi;
 extern QString Global_id;

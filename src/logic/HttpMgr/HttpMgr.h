@@ -35,6 +35,7 @@ signals:
     void sig_http_finish(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes, const Modules &mod);
     void sig_reg_mod_finish(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes);
     void sig_login_mod_finish(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes);
+    void sig_select_mod_finish(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes);
 };
 
 

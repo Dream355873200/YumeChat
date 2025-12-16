@@ -377,6 +377,7 @@ class MessageMeta final : public ::google::protobuf::Message
     kUnixTimestampFieldNumber = 4,
     kTypeFieldNumber = 5,
     kSequenceFieldNumber = 6,
+    kForwardFlagFieldNumber = 8,
   };
   // string message_id = 1;
   void clear_message_id() ;
@@ -472,13 +473,23 @@ class MessageMeta final : public ::google::protobuf::Message
   void _internal_set_sequence(::int32_t value);
 
   public:
+  // bool forward_flag = 8;
+  void clear_forward_flag() ;
+  bool forward_flag() const;
+  void set_forward_flag(bool value);
+
+  private:
+  bool _internal_forward_flag() const;
+  void _internal_set_forward_flag(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:message.MessageMeta)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 7, 0,
-      71, 2>
+      3, 8, 0,
+      79, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -502,6 +513,7 @@ class MessageMeta final : public ::google::protobuf::Message
     ::int32_t unix_timestamp_;
     int type_;
     ::int32_t sequence_;
+    bool forward_flag_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -3101,6 +3113,28 @@ inline void MessageMeta::set_allocated_client_id(std::string* value) {
     _impl_.client_id_.Set("", GetArena());
   }
   // @@protoc_insertion_point(field_set_allocated:message.MessageMeta.client_id)
+}
+
+// bool forward_flag = 8;
+inline void MessageMeta::clear_forward_flag() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.forward_flag_ = false;
+}
+inline bool MessageMeta::forward_flag() const {
+  // @@protoc_insertion_point(field_get:message.MessageMeta.forward_flag)
+  return _internal_forward_flag();
+}
+inline void MessageMeta::set_forward_flag(bool value) {
+  _internal_set_forward_flag(value);
+  // @@protoc_insertion_point(field_set:message.MessageMeta.forward_flag)
+}
+inline bool MessageMeta::_internal_forward_flag() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.forward_flag_;
+}
+inline void MessageMeta::_internal_set_forward_flag(bool value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.forward_flag_ = value;
 }
 
 // -------------------------------------------------------------------

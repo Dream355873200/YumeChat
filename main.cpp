@@ -13,11 +13,10 @@ int main(int argc, char *argv[])
     w.setFixedSize(320,445);
     w.show();
 
-    SelectWindow select_window;
-    select_window.show();
 
     YumeWindow c;
     c.show();
+
     QObject::connect(&w,&MainWindow::open_yumewindow,&c,&YumeWindow::SlotOpen);
 
     return a.exec();
