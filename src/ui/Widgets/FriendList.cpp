@@ -39,7 +39,6 @@ FriendList::FriendList(QWidget *parent)
     _search=new SearchWidget(this);
     _search->set_text("Friend");
     _search->add_friend()->hide();
-    _search->set_search_width(110);
 
 
     _main_layout->addWidget(_search);

@@ -4,8 +4,10 @@
 
 #include "SearchFriendWidget.h"
 
-SearchFriendWidget::SearchFriendWidget(QWidget *parent)
-    : QWidget(parent)
+#include "logic/HttpMgr/HttpMgr.h"
+
+SearchFriendWidget::SearchFriendWidget(QWidget* parent,const QString& conversation_id)
+    : QWidget(parent),_conversation_id(conversation_id)
 {
     _main_layout = new QHBoxLayout;
     _main_layout->setAlignment(Qt::AlignVCenter);
@@ -28,6 +30,8 @@ SearchFriendWidget::SearchFriendWidget(QWidget *parent)
 
     this->setFixedHeight(50);
     this->installEventFilter(this);
+    connect(HttpMgr::GetInstance().get(),&HttpMgr::sig_select_mod_finish,this,&SearchFriendWidget::process_json);
+    connect(_add_button,&YumeButton::clicked,this,&SearchFriendWidget::send_friend_request);
 }
 
 SearchFriendWidget::~SearchFriendWidget()
@@ -62,4 +66,33 @@ bool SearchFriendWidget::eventFilter(QObject *watched, QEvent *event)
     }
 
     return QWidget::eventFilter(watched, event);
+}
+
+void SearchFriendWidget::send_friend_request()
+{
+    auto httpMgr = HttpMgr::GetInstance();
+
+    QJsonObject json_object;
+    json_object["conversation_id"] = _conversation_id;
+    json_object["sender_id"]=Global_id;
+    json_object["type"] = FriendRequest::pending;
+    json_object["note"]=_note;
+    QString url = "http://127.0.0.1:8080/user_friend_request";
+
+    httpMgr->PostHttpReq(url, json_object, FRIEND_REQUEST, SELECTMOD);
+}
+
+void SearchFriendWidget::process_json(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes)
+{
+    if(req_id==FRIEND_REQUEST)
+    {
+        if(error_codes==SUCCESS)
+        {
+            //提示发送成功
+        }
+        else
+        {
+            //提示网络错误
+        }
+    }
 }

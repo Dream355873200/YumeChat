@@ -11,6 +11,11 @@
 class SearchWidget : public QWidget
 {
 public:
+    [[nodiscard]] YumeButton * notice_button() const
+    {
+        return _notice_button;
+    }
+
     void set_search_width(int search_width)
     {
         _search->setFixedWidth(search_width);
@@ -49,6 +54,7 @@ private:
     QHBoxLayout* _main_layout;
     YumeLineEdit* _search;
     YumeButton* _add_friend;
+    YumeButton* _notice_button;
 
     int _search_width=80;
     

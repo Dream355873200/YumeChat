@@ -28,6 +28,7 @@ MessageList::MessageList(QWidget *parent) : QWidget(parent)
 
     _search=new SearchWidget(this);
     _search->set_text("Message");
+    _search->notice_button()->hide();
 
 
 

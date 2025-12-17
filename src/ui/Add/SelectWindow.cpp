@@ -131,7 +131,7 @@ void SelectWindow::process_json(const ReqId &req_id, const QByteArray &res, cons
 
                     foreach(UserInfo user,Users)
                     {
-                        SearchFriendWidget* friend_widget=new SearchFriendWidget(this);
+                        SearchFriendWidget* friend_widget=new SearchFriendWidget(this,user.email);
 
 
                         QString binaryString = user.avatar;  // 你的图片数据

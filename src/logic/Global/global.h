@@ -25,6 +25,7 @@ enum ReqId
     ID_ADD_FRIEND=1007,//添加好友
     ID_CHAT=1008,//发送消息
     SELECT_ADD_FRIEND=1009,//搜索添加user列表
+    FRIEND_REQUEST=1010,//发送添加好友请求
 };
 enum Modules
 {
@@ -57,6 +58,12 @@ enum LineEditMode
     Email,
     VerifyCode,
     Search,
+};
+enum FriendRequest
+{
+    pending,
+    accepted,
+    rejected
 };
 struct UserInfo {
     QString name;
