@@ -5,6 +5,7 @@
 #ifndef FRIENDLIST_H
 #define FRIENDLIST_H
 #include "FriendWidget.h"
+#include "ui/Add/VerifyMessageWindow.h"
 #include "ui/Custom/SmoothListWidget.h"
 
 
@@ -26,6 +27,8 @@ private:
     SmoothListWidget *_list;
     QButtonGroup *buttonGroup ;
     FriendWidget* _friendwidget;
+
+    VerifyMessageWindow _verify_message_window;
     int button_num=0;
     int width=220;
 };

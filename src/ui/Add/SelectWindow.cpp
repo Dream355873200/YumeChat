@@ -58,10 +58,16 @@ SelectWindow::SelectWindow(QWidget* parent)
 
 void SelectWindow::select_button_clicked()
 {
+    while (_list->count() > 0) {
+        QListWidgetItem *item = _list->takeItem(0);
+        delete item;  // 避免内存泄漏
+    }
+
     auto httpMgr = HttpMgr::GetInstance();
     QString param = _search->line_edit()->text();
     QJsonObject json_object;
     json_object["param"] = param;
+    json_object["self_param"]=Global_id;
     json_object["type"] = SELECT_ADD_FRIEND;
     QString url = "http://127.0.0.1:8080/user_add_select";
 

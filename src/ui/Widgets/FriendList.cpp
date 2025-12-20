@@ -66,6 +66,13 @@ FriendList::FriendList(QWidget *parent)
         _list->setItemWidget(t_item, test);
         buttonGroup->addButton(test, button_num++);
     }
+
+
+    connect(_search->notice_button(),&YumeButton::clicked,[this]
+    {
+       _verify_message_window.show();
+    });
+
 }
 
 FriendList::~FriendList()

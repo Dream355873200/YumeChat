@@ -6,8 +6,8 @@
 
 #include "ui/Custom/YumeTitleBar.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : FramelessMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent,std::shared_ptr<YumeWindow> yume_window)
+    : FramelessMainWindow(parent),_yume_window(yume_window)
 {
 
     Global_ScaleDpi=window()->windowHandle()->devicePixelRatio();
@@ -69,6 +69,7 @@ void MainWindow::SlotClose()
 
 void MainWindow::SlotToYumeWindow()
 {
+    _yume_window=std::make_shared<YumeWindow>();
     this->close();
-    emit open_yumewindow();
+    _yume_window->show();
 }

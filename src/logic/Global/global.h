@@ -26,6 +26,7 @@ enum ReqId
     ID_CHAT=1008,//发送消息
     SELECT_ADD_FRIEND=1009,//搜索添加user列表
     FRIEND_REQUEST=1010,//发送添加好友请求
+    FRIEND_REQUEST_SELECT=1011,//查询相关的好友请求
 };
 enum Modules
 {
@@ -37,6 +38,7 @@ enum Modules
 enum ErrorCodes
 {
     SUCCESS=0,
+    Failed=1,
     ERR_NETWORK=2,//网络错误
     ERR_JSON=1001,//json解析失败
     ERR_USER_EXSIT=1002,//邮箱已存在

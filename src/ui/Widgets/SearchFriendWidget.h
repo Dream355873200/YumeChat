@@ -15,7 +15,7 @@ public:
     ~SearchFriendWidget();
     void set_name(const QString& name);
     void set_avatar(const QPixmap& avatar);
-
+    void set_button_text(const QString& text);
 protected:
     void paintEvent(QPaintEvent *event) override
     {
@@ -40,7 +40,7 @@ private:
 
 private slots:
     void send_friend_request();
-    void process_json(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes);
+    void process_friend_request_json(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes);
 };
 
 

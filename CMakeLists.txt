@@ -131,6 +131,8 @@ set(PROJECT_SOURCES
         framelessdialog.h
         framelessdialog.cpp
         framelesswidget.h
+        src/ui/Add/VerifyMessageWindow.cpp
+        src/ui/Add/VerifyMessageWindow.h
 )
 
 # 创建目标
