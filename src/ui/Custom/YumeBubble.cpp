@@ -19,9 +19,7 @@ YumeBubble::YumeBubble(QWidget *parent)
 
     // 文本标签 - 直接添加到内容部件
     _text = new UnScrollTextEdit();
-    QPalette pal = _text->palette();
-    pal.setColor(QPalette::Text, Qt::black);
-    _text->setPalette(pal);
+
 
     _text->setReadOnly(true);
     _text->setWordWrapMode(QTextOption::WrapAnywhere);
@@ -39,6 +37,7 @@ YumeBubble::YumeBubble(QWidget *parent)
 void YumeBubble::set_text(const QString &text)
 {
     _text->setText(text);
+
 
     // 获取字体度量
     QFontMetrics fm(_text->font());

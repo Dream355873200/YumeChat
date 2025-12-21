@@ -16,6 +16,7 @@ ChatArea::ChatArea(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     this->setUniformItemSizes(false);
+
 }
 
 void ChatArea::add_bubble(MessageItem *bubble)

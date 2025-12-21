@@ -62,30 +62,37 @@ void paintEvent(QPaintEvent *event) override
 
 private:
     QColor _self_color=QColor::fromString("#0099FF");
-    QColor _other_color=Qt::white;
+    QColor _other_color=QColor::fromString("#0099FF");
     QColor _current_color=QColor::fromString("#0099FF");
+    QColor _current_text_color=Qt::white;
 
 public:
     void set_text_color(const QColor& color)
     {
-        QPalette pal = _text->palette();
-        pal.setColor(QPalette::Text, color);
-        _text->setPalette(pal);//设置未来的颜色
+        _current_text_color=color;
+        if (_text->document()->characterCount() <= 1)
+            {
+            // 文档为空（characterCount 为 1 是因为包含一个隐藏的段落分隔符）
+            _text->setTextColor(color); // 仅设置未来的墨水颜色
+        }else
+        {
+            QTextCursor cursor = _text->textCursor();
+            cursor.select(QTextCursor::Document);
 
-        QTextCursor cursor = _text->textCursor();
-        cursor.select(QTextCursor::Document);
+            // 2. 应用颜色格式
+            QTextCharFormat fmt;
+            fmt.setForeground(color);
+            cursor.mergeCharFormat(fmt);
 
-        // 2. 应用颜色格式
-        QTextCharFormat fmt;
-        fmt.setForeground(color);
-        cursor.mergeCharFormat(fmt);
+            // 3. 【最关键】此时先不要清除选区，直接把这个带着“变色指令”的游标设置给控件
+            _text->setTextCursor(cursor);
 
-        // 3. 【最关键】此时先不要清除选区，直接把这个带着“变色指令”的游标设置给控件
-        _text->setTextCursor(cursor);
+            // 4. 【解决蓝色高亮】设置完后，再把游标清空并重新设置一次
+            cursor.clearSelection();//!!未知的bug，在setTextCursor(cursor)前清除选中会导致颜色不改变
 
-        // 4. 【解决蓝色高亮】设置完后，再把游标清空并重新设置一次
-        cursor.clearSelection();//!!未知的bug，在setTextCursor(cursor)前清除选中会导致颜色不改变
-        _text->setTextCursor(cursor);//替换现有的颜色
+            _text->setTextCursor(cursor);//替换现有的颜色
+        }
+
     }
     void set_current_color(const QColor &current_color)
     {
@@ -95,7 +102,7 @@ public:
     {
         _current_color = _other_color;
 
-        set_text_color(Qt::black);
+        set_text_color(Qt::white);
 
         this->update(); // 触发 paintEvent 重新绘制背景圆角矩形
     }
