@@ -18,6 +18,9 @@ int main(int argc, char *argv[])
     w.show();
 
 
+    YumeWindow e;
+    e.show();
+
 
 
     return a.exec();

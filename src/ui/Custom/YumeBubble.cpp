@@ -19,7 +19,10 @@ YumeBubble::YumeBubble(QWidget *parent)
 
     // 文本标签 - 直接添加到内容部件
     _text = new UnScrollTextEdit();
-    _text->setTextColor(Qt::white);
+    QPalette pal = _text->palette();
+    pal.setColor(QPalette::Text, Qt::black);
+    _text->setPalette(pal);
+
     _text->setReadOnly(true);
     _text->setWordWrapMode(QTextOption::WrapAnywhere);
     //去掉文字背景色
@@ -52,7 +55,7 @@ void YumeBubble::set_text(const QString &text)
         }
     }
 
-    // 加上边距
+    // 边距
     int textWidth = maxLineWidth + 16;
 
     // 设置最大宽度为最长行的宽度

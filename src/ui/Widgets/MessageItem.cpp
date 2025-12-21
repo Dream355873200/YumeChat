@@ -43,7 +43,7 @@ MessageItem::MessageItem(QWidget *parent)
 
 
 
-MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &name, const QString &text)
+MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &name, const QString &text,const ItemMode &mode)
     :QWidget(parent)
 {
     this->setAttribute(Qt::WA_TranslucentBackground);
@@ -79,6 +79,10 @@ MessageItem::MessageItem(QWidget *parent, const QPixmap &avatar, const QString &
     _v_layout->addWidget(_name);
     _v_layout->addLayout(_bubble_layout);
 
+    if(mode==ItemMode::Self)
+    {
+           set_mode(mode);
+    }//优化,默认布局就是Other模式的
 
 
 }
@@ -100,6 +104,7 @@ void MessageItem::set_text(const QString &text)
 
 void MessageItem::set_mode(const ItemMode &mode)
 {
+
     // 先清空布局但保留控件
     QLayoutItem* avatarItem = nullptr;
     QLayoutItem* vLayoutItem = nullptr;
@@ -145,6 +150,7 @@ void MessageItem::set_mode(const ItemMode &mode)
 
         _name->setAlignment(Qt::AlignRight);
         _main_layout->setContentsMargins(120,0,0,0);
+        _bubble->set_to_self_color();
     }
     else if (mode == ItemMode::Other) {
         // 他人模式：靠左显示 [头像] + [内容] + [stretch]
@@ -156,6 +162,7 @@ void MessageItem::set_mode(const ItemMode &mode)
         _bubble_layout->addStretch();
         _name->setAlignment(Qt::AlignLeft);
         _main_layout->setContentsMargins(0,0,120,0);
+        _bubble->set_to_other_color();
     }
 }
 

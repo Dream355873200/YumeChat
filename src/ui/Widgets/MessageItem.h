@@ -22,7 +22,7 @@ class MessageItem :public QWidget
     Q_OBJECT
     public:
     MessageItem(QWidget* parent=nullptr);
-    MessageItem(QWidget* parent,const QPixmap& avatar,const QString& name,const QString& text);
+    MessageItem(QWidget* parent,const QPixmap& avatar,const QString& name,const QString& text,const ItemMode &mode);
    void  set_avatar(const QPixmap& avatar);
     void set_name(const QString & name);
     void set_text(const QString & text);

@@ -33,9 +33,9 @@ ConversationWidget::ConversationWidget(QWidget* parent,const std::string& conver
             QPixmap addd;
             addd.load(":Resource/ico/yume.jpg");
             test->set_avatar(addd);
+            test->set_mode(ItemMode::Other);
             test->set_text("111");
             test->set_name("Yume");
-            test->set_mode(ItemMode::Other);
             _area->add_bubble(test);
         }
     });
@@ -57,14 +57,14 @@ void ConversationWidget::add_message_item(const std::string &conversation_id,
     MessageItem* item = nullptr;
     if(conversation_id == _conversation_id)
     {
-        item = new MessageItem(this, _conversation_avatar, _conversation_name, message.text().data());
+        item = new MessageItem(this, _conversation_avatar, _conversation_name, message.text().data(),ItemMode::Other);
+
         _area->add_bubble(item);
     }
      if(conversation_id == Global_id.toStdString())
     {
         qDebug() << message.meta().sender_id();
-        item = new MessageItem(this, _self_avatar, _self_name, message.text().data());
-        item->set_mode(ItemMode::Self);
+        item = new MessageItem(this, _self_avatar, _self_name, message.text().data(),ItemMode::Self);
         _area->add_bubble(item);
     }
 
