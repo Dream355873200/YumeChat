@@ -1,0 +1,45 @@
+//
+// Created by 残梦 on 2025/12/23.
+//
+
+#ifndef SPLITBUTTON_H
+#define SPLITBUTTON_H
+#include <QToolButton>
+#include <QMenu>
+#include <qgraphicseffect.h>
+#include <QEvent>
+#include <QMouseEvent>
+#include "YumeLabel.h"
+#include <QHBoxLayout>
+
+class SplitButton:public QAbstractButton
+{
+public:
+    SplitButton(QWidget* parent=nullptr);
+    ~SplitButton();
+    void setText(const QString& text);
+    void setHoverColor(const QColor& color);
+    void setNormalColor(const QColor& color);
+protected:
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    bool eventFilter(QObject *watched, QEvent *event) override;
+private:
+    void showMenu();
+
+    QColor hoverColor=QColor::fromString("#008DEB");
+    QColor normalColor=QColor::fromString("#0099FF");
+    float effect_rate=0.0;
+    bool isHovered=false;
+    bool isSelected=false;
+    QHBoxLayout* _main_layout=nullptr;
+    YumeLabel* _label=nullptr;
+    QGraphicsColorizeEffect *effect;
+
+    int _menuWidth = 30;
+    bool inMenu;
+};
+
+
+
+#endif //SPLITBUTTON_H

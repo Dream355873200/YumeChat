@@ -133,6 +133,10 @@ set(PROJECT_SOURCES
         framelesswidget.h
         src/ui/Add/VerifyMessageWindow.cpp
         src/ui/Add/VerifyMessageWindow.h
+        src/ui/Add/VerifyMessageWidget.cpp
+        src/ui/Add/VerifyMessageWidget.h
+        src/ui/Custom/SplitButton.cpp
+        src/ui/Custom/SplitButton.h
 )
 
 # 创建目标
