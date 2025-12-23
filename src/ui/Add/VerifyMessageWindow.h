@@ -22,7 +22,7 @@ protected:
         QPainter painter(this);
         painter.setRenderHint(QPainter::Antialiasing);
 
-        painter.setBrush(Qt::white);
+        painter.setBrush(QColor::fromString("#F2F2F2"));
         painter.setPen(Qt::NoPen);
 
         painter.drawRoundedRect(this->rect(),6,6);
@@ -31,8 +31,14 @@ protected:
 private:
     YumeTitleBar* _title_bar;
     QVBoxLayout* _main_layout;
+    QHBoxLayout* _h_layout;
+    YumeLabel* _title;
+    YumeLabel* _delete;
     SmoothListWidget* _list;
 
+private slots:
+    void process_delete_slots();
+    void process_json(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes);
 };
 
 
