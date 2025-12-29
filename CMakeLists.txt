@@ -137,6 +137,9 @@ set(PROJECT_SOURCES
         src/ui/Add/VerifyMessageWidget.h
         src/ui/Custom/SplitButton.cpp
         src/ui/Custom/SplitButton.h
+        src/ui/Custom/YumeMenu.cpp
+        src/ui/Custom/YumeMenu.h
+        src/ui/Custom/YumeMenu.h
 )
 
 # 创建目标

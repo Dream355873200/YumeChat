@@ -11,6 +11,9 @@
 #include <QMouseEvent>
 #include "YumeLabel.h"
 #include <QHBoxLayout>
+#include<QPainterPath>
+
+#include "YumeMenu.h"
 
 class SplitButton:public QAbstractButton
 {
@@ -23,21 +26,24 @@ public:
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
+
+    void drawArrow(QPainter *painter);
+
     bool eventFilter(QObject *watched, QEvent *event) override;
 private:
     void showMenu();
 
     QColor hoverColor=QColor::fromString("#008DEB");
     QColor normalColor=QColor::fromString("#0099FF");
-    float effect_rate=0.0;
     bool isHovered=false;
-    bool isSelected=false;
+    bool isPressed=false;
     QHBoxLayout* _main_layout=nullptr;
     YumeLabel* _label=nullptr;
-    QGraphicsColorizeEffect *effect;
+
 
     int _menuWidth = 30;
     bool inMenu;
+    YumeMenu* _menu;
 };
 
 
