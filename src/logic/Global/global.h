@@ -71,7 +71,16 @@ struct UserInfo {
     QString name;
      QString  email;
      QString  avatar;  // 假设 avatar 是 Base64 字符串或 URL
+    std::optional<std::string> note;
+    std::optional<std::tm> update_time;
 };
+#include <QDateTime>
+#include <iomanip>
+#include <sstream>
+
+// 将 QVariant/QString 转换为 std::tm
+std::optional<std::tm> toStdTm(const QJsonValue& val) ;
+
 extern qreal Global_ScaleDpi;
 extern QString Global_id;
 extern QString  Global_host;

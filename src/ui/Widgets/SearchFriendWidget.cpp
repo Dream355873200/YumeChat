@@ -5,6 +5,7 @@
 #include "SearchFriendWidget.h"
 
 #include "logic/HttpMgr/HttpMgr.h"
+#include "logic/TcpMgr/TcpMgr.h"
 
 SearchFriendWidget::SearchFriendWidget(QWidget* parent,const QString& conversation_id)
     : QWidget(parent),_conversation_id(conversation_id)
@@ -34,7 +35,7 @@ SearchFriendWidget::SearchFriendWidget(QWidget* parent,const QString& conversati
     this->setFixedHeight(50);
     this->installEventFilter(this);
     connect(HttpMgr::GetInstance().get(),&HttpMgr::sig_select_mod_finish,this,&SearchFriendWidget::process_friend_request_json);
-    connect(_add_button,&YumeButton::clicked,this,&SearchFriendWidget::send_friend_request);
+    connect(_add_button,&YumeButton::clicked,this,&SearchFriendWidget::send_friend_request_http);
 }
 
 SearchFriendWidget::~SearchFriendWidget()
@@ -76,7 +77,7 @@ bool SearchFriendWidget::eventFilter(QObject *watched, QEvent *event)
     return QWidget::eventFilter(watched, event);
 }
 
-void SearchFriendWidget::send_friend_request()
+void SearchFriendWidget::send_friend_request_http()
 {
     auto httpMgr = HttpMgr::GetInstance();
 
@@ -88,6 +89,36 @@ void SearchFriendWidget::send_friend_request()
     QString url = "http://127.0.0.1:8080/user_friend_request";
 
     httpMgr->PostHttpReq(url, json_object, FRIEND_REQUEST, SELECTMOD);
+}
+
+void SearchFriendWidget::send_friend_request_tcp()
+{
+    auto* meta = new message::MessageMeta();
+
+    meta->set_sender_id(Global_id.toStdString());  // 关键修改点2
+
+    meta->set_conversation_id(_conversation_id.toStdString());
+
+    meta->set_message_id(
+       QUuid::createUuid()
+       .toString(QUuid::WithoutBraces)
+       .toStdString()  // 关键修改点1
+   );
+    meta->set_unix_timestamp(QDateTime::currentMSecsSinceEpoch());
+
+    meta->set_type(message::UNKNOWN);
+
+    auto* add_friend_meta = new message::AddFriendMeta();
+
+    add_friend_meta->set_type(message::Pending);
+    add_friend_meta->set_note(_note.toStdString());
+
+    message::MsgNode message;
+    message.set_allocated_meta(meta);
+    message.set_allocated_add_friend_meta(add_friend_meta);
+
+    TcpMgr::GetInstance()->slot_tcp_sendMsg(ReqId::FRIEND_REQUEST,message);
+
 }
 
 void SearchFriendWidget::process_friend_request_json(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes)

@@ -10,7 +10,7 @@
 #include<QObject>
 #include "logic/Global/global.h"
 #include "../../../Message.pb.h"
-#include <QDateTime>
+
 #include <quuid.h>
 #include <google/protobuf/util/time_util.h>
 class TcpMgr :public QObject,public Singleton<TcpMgr>

@@ -8,7 +8,7 @@
 #include "logic/Global/global.h"
 #include "ui/Custom/SmoothListWidget.h"
 #include "ui/Custom/YumeTitleBar.h"
-
+#include<QJsonArray>
 
 class VerifyMessageWindow:public FramelessWidget
 {

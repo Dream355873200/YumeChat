@@ -12,18 +12,27 @@ class VerifyMessageWidget:public QWidget
 {
 
 public:
-    VerifyMessageWidget(QWidget* parent=nullptr);
+    VerifyMessageWidget(QWidget* parent,const QString& conversation_id);
     ~VerifyMessageWidget();
+    void set_name(const QString& name);
+    void set_avatar(const QPixmap& avatar);
 protected:
     void paintEvent(QPaintEvent *event) override
     {
-        QPainter painter;
+        QPainter painter(this);
+        painter.setRenderHint(QPainter::Antialiasing);
+
+        painter.setBrush(Qt::white);
+        painter.setPen(Qt::NoPen);
+
+        painter.drawRoundedRect(this->rect(),8,8);
     };
 private:
     QHBoxLayout* _main_layout;
     CircleAvatar* _avatar;
     YumeLabel* _name;
     SplitButton* _split_button;
+    QString _conversation_id="";
 
 };
 

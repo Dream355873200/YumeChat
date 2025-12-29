@@ -39,7 +39,8 @@ private:
     QString _note="";
 
 private slots:
-    void send_friend_request();
+    void send_friend_request_http();
+    void send_friend_request_tcp();
     void process_friend_request_json(const ReqId &req_id, const QByteArray &res, const ErrorCodes &error_codes);
 };
 

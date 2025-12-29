@@ -54,7 +54,7 @@ message MessageMeta {
     string message_id = 1;        // 消息唯一ID
     string conversation_id = 2;    // 会话ID
     string sender_id = 3;          // 发送者ID
-    int32 unix_timestamp = 4;        //unix时间戳
+    google.protobuf.Timestamp unix_timestamp = 4;        //unix时间戳
     MessageType type = 5;          // 消息类型
     int32 sequence = 6;            // 消息序列号
     string client_id = 7;          // 客户端生成ID (用于去重)

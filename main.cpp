@@ -26,8 +26,7 @@ int main(int argc, char *argv[])
     SplitButton sp;
     sp.show();
 
-    VerifyMessageWidget vw;
-    vw.show();
+
 
 
     return a.exec();
