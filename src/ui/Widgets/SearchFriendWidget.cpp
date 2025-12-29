@@ -23,6 +23,9 @@ SearchFriendWidget::SearchFriendWidget(QWidget* parent,const QString& conversati
     _add_button = new YumeButton(this);
     _add_button->setFixedSize(70,30);
     _add_button->setText("添加");
+    _add_button->setFontColor(Qt::white);
+
+
     _main_layout->addWidget(_avatar, 2, Qt::AlignLeft);
     _name_layout->addWidget(_name_label);
     _main_layout->addLayout(_name_layout, 6);

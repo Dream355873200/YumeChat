@@ -84,6 +84,7 @@ public:
     void setIcon(const QString& file);
     void setHoverColor(const QColor& color);
     void setNormalColor(const QColor& color);
+    void setFontColor(const QColor& color) const;
 protected:
     void paintEvent(QPaintEvent *event) override;
     bool eventFilter(QObject *watched, QEvent *event) override;
@@ -106,7 +107,9 @@ private:
 private slots:
     void double_clicked_timer();
 
-    signals:
+    void hideEvent(QHideEvent *event);
+
+signals:
     void double_click();
 };
 

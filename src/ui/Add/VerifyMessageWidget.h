@@ -4,6 +4,7 @@
 
 #ifndef VERIFYMESSAGEWIDGET_H
 #define VERIFYMESSAGEWIDGET_H
+#include "ui/Custom/SplitButton.h"
 #include "ui/Widgets/ConversationWidget.h"
 
 
@@ -22,7 +23,7 @@ private:
     QHBoxLayout* _main_layout;
     CircleAvatar* _avatar;
     YumeLabel* _name;
-    YumeButton* _button;
+    SplitButton* _split_button;
 
 };
 

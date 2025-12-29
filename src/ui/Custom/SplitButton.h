@@ -18,11 +18,17 @@
 class SplitButton:public QAbstractButton
 {
 public:
+    [[nodiscard]] YumeMenu * menu() const
+    {
+        return _menu;
+    }
+
     SplitButton(QWidget* parent=nullptr);
     ~SplitButton();
     void setText(const QString& text);
     void setHoverColor(const QColor& color);
     void setNormalColor(const QColor& color);
+    void addMenuButton(const QString& text,const std::function<void()>& function);
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
@@ -30,7 +36,9 @@ protected:
     void drawArrow(QPainter *painter);
 
     bool eventFilter(QObject *watched, QEvent *event) override;
+
 private:
+
     void showMenu();
 
     QColor hoverColor=QColor::fromString("#008DEB");

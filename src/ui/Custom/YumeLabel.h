@@ -22,7 +22,7 @@ public:
     YumeLabel(QWidget* parent,const QString& text);
 
     void setElideMode(Qt::TextElideMode mode);
-
+    void add_mouse_event();
     void set_text(const QString& text);
     void set_font_size(int size);
     void set_icon(const QString& path);

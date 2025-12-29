@@ -14,8 +14,8 @@
 SelectWindow::SelectWindow(QWidget* parent)
     :FramelessWidget(parent)
 {
-    this->setFixedSize(600, 700);
-
+    this->resize(600, 700);
+    this->setResizeEnable(false);
 
     _main_layout = new QVBoxLayout;
     _main_layout->setContentsMargins(0, 5, 0, 0);
@@ -36,6 +36,7 @@ SelectWindow::SelectWindow(QWidget* parent)
 
     _button = new YumeButton;
     _button->setText("搜索");
+    _button->setFontColor(Qt::white);
     _button->setFixedSize(100, 30);
     _search_layout->addWidget(_button);
 

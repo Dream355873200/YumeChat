@@ -16,11 +16,10 @@ SplitButton::SplitButton(QWidget *parent)
     setCheckable(true); // 让按钮可以被选中
     setMouseTracking(true);//鼠标追踪
 
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    this->setFixedHeight(35);
 
 
-    _label=new YumeLabel(this);
-    //避免事件过滤器冲突
-    _label->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     _main_layout = new QHBoxLayout(this);
     _main_layout->setAlignment(Qt::AlignCenter);
@@ -29,47 +28,45 @@ SplitButton::SplitButton(QWidget *parent)
 
     _main_layout->setContentsMargins(0, 0, 0, 0);
 
-    QPalette pale;
-    pale.setColor(QPalette::WindowText, QColor(255, 255, 255));
-    _label->setPalette(pale);
 
+    // 容器
+    QWidget* leftContainer = new QWidget(this);
+    QHBoxLayout* leftLayout = new QHBoxLayout(leftContainer);
+    leftLayout->setContentsMargins(0, 0, 0, 0);
+    leftLayout->setAlignment(Qt::AlignCenter); // Label居中
 
-   _label->set_font_size(12);
-
-    _main_layout->addWidget(_label, 0, Qt::AlignCenter);
+    _label = new YumeLabel(leftContainer);
+    _label->set_font_color(Qt::white);
+    _label->set_font_size(12);
     _label->setAlignment(Qt::AlignCenter);
 
+    leftLayout->addWidget(_label);
+
+    // 伸缩因子为 1（占据所有剩余空间）
+    _main_layout->addWidget(leftContainer, 1);
+
+    // 在右侧添加一个固定宽度的占位空间，宽度等于菜单宽度
+    _main_layout->addSpacing(_menuWidth);
+
+
+
     _menu=new YumeMenu();//析构函数会deletelater
+
+
+
+
 
     this->setCursor(Qt::PointingHandCursor);
     this->installEventFilter(this);
 
-    // 2. 添加菜单项 (这里可以用你之前的 YumeButton)
-    QStringList options = {"拒绝", "忽略"};
-    for (const QString &text : options) {
-        YumeButton *item = new YumeButton(_menu);
-        item->setText(text);
-        item->setNormalColor(Qt::white);
-        item->setHoverColor(QColor::fromRgb(192,192,192));
-        item->setFixedHeight(30);
 
-        // 点击菜单项后，关闭菜单
-        connect(item, &QPushButton::clicked, _menu, &QWidget::close);
-
-        // 处理具体的业务逻辑
-        connect(item, &QPushButton::clicked, [text](){
-            qDebug() << "点击了：" << text;
-        });
-
-        _menu->addWidget(item);
-    }
 
 }
 
 SplitButton::~SplitButton()
 {
     if (_menu) {
-        _menu->deleteLater(); // 优雅地请求销毁，而不是直接 delete
+        _menu->deleteLater(); // 优雅销毁
         _menu = nullptr;
     }
 }
@@ -111,6 +108,11 @@ void SplitButton::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
+
+    int radius = 6; // 圆角半径，你可以根据需要调整
+    QPainterPath fullPath;
+    fullPath.addRoundedRect(rect(), radius, radius);
+    painter.setClipPath(fullPath); // 关键：限制绘制区域为圆角矩形
 
     // 定义两个区域
     QRect leftRect(0, 0, width() - _menuWidth, height());
@@ -202,6 +204,29 @@ bool SplitButton::eventFilter(QObject *watched, QEvent *event)
         }
     }
     return QWidget::eventFilter(watched, event);
+}
+
+void SplitButton::addMenuButton(const QString& text,const std::function<void()>& function)
+{//仅测试
+
+        YumeButton *item = new YumeButton(_menu);
+        item->setText(text);
+        item->setNormalColor(Qt::white);
+        item->setHoverColor(QColor::fromRgb(192,192,192));
+        item->setFixedHeight(25);
+
+        // 点击菜单项后，关闭菜单
+        connect(item, &QPushButton::clicked, _menu, &QWidget::close);
+
+        // 添加按钮
+        connect(item, &QPushButton::clicked, this, [function, this]() {
+         if (function) {
+             function();
+         }
+     });
+
+        _menu->addWidget(item);
+
 }
 
 void SplitButton::showMenu()

@@ -74,6 +74,11 @@ void YumeButton::setNormalColor(const QColor &color)
     this->update();
 }
 
+void YumeButton::setFontColor(const QColor &color) const
+{
+    _label->set_font_color(color);
+}
+
 void YumeButton::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
@@ -141,4 +146,9 @@ bool YumeButton::eventFilter(QObject *watched, QEvent *event) {
 void YumeButton::double_clicked_timer()
 {
     _is_clicked=0;
+}
+void YumeButton::hideEvent(QHideEvent *event) {
+    this->set_is_hovered(false);
+    this->set_is_selected(false);
+    QAbstractButton::hideEvent(event);
 }

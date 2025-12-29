@@ -5,6 +5,7 @@
 
 #include "yumewindow.h"
 #include "ui/Add/SelectWindow.h"
+#include "ui/Add/VerifyMessageWidget.h"
 #include "ui/Custom/SplitButton.h"
 
 int main(int argc, char *argv[])
@@ -22,8 +23,11 @@ int main(int argc, char *argv[])
     YumeWindow e;
     e.show();
 
-    SplitButton button;
-    button.show();
+    SplitButton sp;
+    sp.show();
+
+    VerifyMessageWidget vw;
+    vw.show();
 
 
     return a.exec();

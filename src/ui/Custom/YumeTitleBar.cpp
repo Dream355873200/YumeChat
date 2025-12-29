@@ -19,6 +19,7 @@ YumeTitleBar::YumeTitleBar(QWidget *parent)
     effect->setColor(_effect_color);
     effect->setStrength(_normal_rate);
     _x->set_icon(":Resource/ico/IconamoonClose.png");
+    _x->add_mouse_event();
     _x->setFixedSize(23, 23);
     _x->setGraphicsEffect(effect);
     _x->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
